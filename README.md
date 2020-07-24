@@ -8,6 +8,7 @@
 <p><b>Bước 2 Chạy câu lênh bên trong thu mục : npm install </b></p> 
 <p><b>Bước 3 Chạy câu lênh bên trong thu mục : react-native link </b></p>
 <p><b>Bước 4 Chạy câu lênh bên trong thu mục : nêu chạy trên Android thì react-native run adnroid IOS  react-native run ios </b></p>
+<p><b> Máy Chạy HDD Thì Xác Định Dụt Lác Tung Máy Nếu Ai Dùng SDD Thì Rất Phê </b></p>
 <p><b>Chúc Bạn Thành Công </b></p>
 #---------------------- TEAM - IT DA LAT ---------------------
 <p><b>Auth : Đinh Văn Lành</b></p>                            
