@@ -23,9 +23,9 @@ import { AuthContext } from '../../components/context';
 import Users from '../../model/users';
 const AuthScreen = ({navigation}) => {
     const [data, setData] = React.useState({
-          companyID:'',
-          username:'',
-          password:'',
+          companyID:'1483',
+          username:'admin',
+          password:'123456',
           isValidCompanyID:true,
           isValidUsername:true,
           isValidPassword:true,
@@ -126,7 +126,7 @@ const AuthScreen = ({navigation}) => {
                     returnKeyType="next"
                     autoCorrect={false}
                     onChangeText={(val) => textInputChangeCompanyID(val)}
-                   
+                   value={data.companyID}
                    
                   />
                   { data.isValidCompanyID ? null : 
@@ -141,7 +141,7 @@ const AuthScreen = ({navigation}) => {
                     returnKeyType="next"
                     autoCorrect={false}
                     onChangeText={(val) => textInputChangeUsername(val)}
-                   
+                    value={data.username}
                    
                   />
                   { data.isValidUsername ? null : 
@@ -156,7 +156,7 @@ const AuthScreen = ({navigation}) => {
                     secureTextEntry={true}
                     autoCorrect={false}
                     onChangeText={(val) => textInputChangePassword(val)}
-                   
+                    value={data.password}
                    
                   />
                   { data.isValidPassword ? null : 
