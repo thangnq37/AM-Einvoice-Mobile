@@ -1,4 +1,0 @@
-#Fri Jul 24 16:07:15 ICT 2020
-base.0=D\:\\LapTrinh\\React Native\\react-navigation-v5-mix-master\\android\\app\\build\\intermediates\\dex\\debug\\out\\classes.dex
-renamed.0=classes.dex
-path.0=classes.dex
