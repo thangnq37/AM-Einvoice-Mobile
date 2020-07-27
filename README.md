@@ -1,6 +1,6 @@
 # APP-EINVOICE MOBILE IOS AND ANDROID
 <p><b>PHÁT TRIỂN ỨNG DỤNG MOBILE BĂNG REACT - NATIVE</b></p>
-<p><b>Phiên bạn : 0.61.5</b></p>
+<p><b>Phiên bạn : 0.63.2</b></p>
 <img src="https://ameinvoice.vn/wp-content/uploads/2020/04/logo-am-e-invoice-update.png"/>
 #---------------------- TEAM - IT DA LAT ---------------------
 <p><b> 073 : ĐINH VĂN LÀNH  </b></p> 
