@@ -37,7 +37,7 @@
 <p><b> 2. Cái nào liên quan đến màng hình hiện thị phải viết vào trong thư mục screens  </b></p> 
 <p><b> 3. Thư mực ScreenIncludes là chứa các nội dung cố định dùng chung chẳn hạng </b></p> 
 <p><b> 4. Thư mực assets là chưa các hình ảnh --logo là chưa logo công ty, images chứa hình ảnh bất kỳ  </b></p> 
-<p><b> 5. Đặt tên biến : bắt đầu chữ thường vidu : monthNumber nhớ mo tả dong code của mình lại nhé </b></p> 
+<p><b> 5. Đặt tên biến : bắt đầu chữ thường vidu : monthNumber cái nào mà khó hiểu thì nhớ mô tả code lại nhé  </b></p> 
 
 
 
