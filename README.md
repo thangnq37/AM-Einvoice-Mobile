@@ -6,6 +6,7 @@
 <p><b> 073 : ĐINH VĂN LÀNH  </b></p> 
 <p><b> 069 : NGUYỄN DƯƠNG QUỐC THÁI  </b></p> 
 <p><b> 080 : LƯƠNG SỸ ĐẰNG  </b></p> 
+<p><b> 078 : NGUYỄN HỮU SƠN  </b></p> 
 #-------------------------------------------------------------
 <p><b> Thực Hiện Theo Các Bước Sao Đây </b></p> 
 <p><b>Bước 1 :Cài đặt Android-Studio  </b></p> 
@@ -36,6 +37,7 @@
 <p><b> 2. Cái nào liên quan đến màng hình hiện thị phải viết vào trong thư mục screens  </b></p> 
 <p><b> 3. Thư mực ScreenIncludes là chứa các nội dung cố định dùng chung chẳn hạng </b></p> 
 <p><b> 4. Thư mực assets là chưa các hình ảnh --logo là chưa logo công ty, images chứa hình ảnh bất kỳ  </b></p> 
+<p><b> 5. Đặt tên biến : bắt đầu chữ thường vidu : monthNumber nhớ mo tả dong code của mình lại nhé </b></p> 
 
 
 
