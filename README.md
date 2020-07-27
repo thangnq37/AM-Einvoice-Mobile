@@ -31,5 +31,14 @@
 <p><b>PHÁT TRIỂN IOS CHẠY CÂU LỆNH</b></p>
 <p><b> react-native run-ios </b></p>
 <p><b> Chúc Bạn Thành Công </b></p>
+# ===================== Thành Viên Lập Trình Phải Tuân Thử Cấu Trúc Thư Mục ==============
+<p><b> 1. Chỉ code bên trong thư mực src  </b></p> 
+<p><b> 2. Cái nào liên quan đến màng hình hiện thị phải viết vào trong thư mục screens  </b></p> 
+<p><b> 3. Thư mực ScreenIncludes là chứa các nội dung cố định dùng chung chẳn hạng </b></p> 
+<p><b> 4. Thư mực assets là chưa các hình ảnh --logo là chưa logo công ty, images chứa hình ảnh bất kỳ  </b></p> 
+
+
+
+
                      
                   
