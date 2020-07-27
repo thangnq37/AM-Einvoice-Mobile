@@ -17,5 +17,5 @@
 <p><b>-----------------------------------------------</b></p> 
 <p><b>Auth : Nguyễn Dương Quốc Thái</b></p>                   
 <p><b>ID : 069</b></p>                                        
-<p><b>Email : 069@amnote.com.vn</b></p>                       
+<p><b>Email : 069@amnote.com.vn</b></p>                        
                   
