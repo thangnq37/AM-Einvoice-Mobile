@@ -3,14 +3,10 @@
 <p><b>Phiên bạn : 0.61.5</b></p>
 <img src="https://ameinvoice.vn/wp-content/uploads/2020/04/logo-am-e-invoice-update.png"/>
 #---------------------- TEAM - IT DA LAT ---------------------
-<p><b>Auth : Đinh Văn Lành</b></p>                            
-<p><b>ID : 073</b></p>                                        
-<p><b>Email : 073@amnote.com.vn</b></p>                       
-<p><b>-----------------------------------------------</b></p> 
-<p><b>Auth : Nguyễn Dương Quốc Thái</b></p>                   
-<p><b>ID : 069</b></p>                                        
-<p><b>Email : 069@amnote.com.vn</b></p>   
-<p><b> Hưởng dẫn chạy Project </b></p>  
+<p><b> 073 : ĐINH VĂN LÀNH  </b></p> 
+<p><b> 069 : NGUYỄN DƯƠNG QUỐC THÁI  </b></p> 
+<p><b> 080 : LƯƠNG SỸ ĐẰNG  </b></p> 
+#-------------------------------------------------------------
 <p><b> Thực Hiện Theo Các Bước Sao Đây </b></p> 
 <p><b>Bước 1 :Cài đặt Android-Studio  </b></p> 
 <p> Link tải : <a href="https://developer.android.com/studio/index.html"> Tải về </a>  </p>
