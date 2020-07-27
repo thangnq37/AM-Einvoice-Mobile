@@ -1,21 +1,35 @@
 # APP-EINVOICE MOBILE IOS AND ANDROID
 <p><b>PHÁT TRIỂN ỨNG DỤNG MOBILE BĂNG REACT - NATIVE</b></p>
-<p><b>Phiên bạn : 0.61.5</b></p>
+<p><b>Phiên bạn : 0.63.2</b></p>
 <img src="https://ameinvoice.vn/wp-content/uploads/2020/04/logo-am-e-invoice-update.png"/>
-<p><b>Hưởng dẫn chạy project</b></p>  
-<p><b> Máy Phải Cấu Hình Trước Môi Trường Để Chạy React Native  Nhé</b></p> 
-<p><b>Bước 1 Tải về hoặt clone về máy </b></p> 
-<p><b>Bước 2 Chạy câu lênh bên trong thu mục : npm install </b></p> 
-<p><b>Bước 3 Chạy câu lênh bên trong thu mục : react-native link </b></p>
-<p><b>Bước 4 Chạy câu lênh bên trong thu mục : nêu chạy trên Android thì react-native run adnroid IOS  react-native run ios </b></p>
-<p><b> Máy Chạy HDD Thì Xác Định Dụt Lác Tung Máy Nếu Ai Dùng SDD Thì Rất Phê </b></p>
-<p><b>Chúc Bạn Thành Công </b></p>
 #---------------------- TEAM - IT DA LAT ---------------------
-<p><b>Auth : Đinh Văn Lành</b></p>                            
-<p><b>ID : 073</b></p>                                        
-<p><b>Email : 073@amnote.com.vn</b></p>                       
-<p><b>-----------------------------------------------</b></p> 
-<p><b>Auth : Nguyễn Dương Quốc Thái</b></p>                   
-<p><b>ID : 069</b></p>                                        
-<p><b>Email : 069@amnote.com.vn</b></p>                        
+<p><b> 073 : ĐINH VĂN LÀNH  </b></p> 
+<p><b> 069 : NGUYỄN DƯƠNG QUỐC THÁI  </b></p> 
+<p><b> 080 : LƯƠNG SỸ ĐẰNG  </b></p> 
+#-------------------------------------------------------------
+<p><b> Thực Hiện Theo Các Bước Sao Đây </b></p> 
+<p><b>Bước 1 :Cài đặt Android-Studio  </b></p> 
+<p> Link tải : <a href="https://developer.android.com/studio/index.html"> Tải về </a>  </p>
+<p><b>Bước 2 : Cài Đặt java jdk-12.0.2 </b></p> 
+<p> Link tải : <a href="https://www.filehorse.com/download-java-development-kit-64/41881/"> Tải về </a></p>
+<p><b> Bước 3 : Cấu hình Android Studio </b></p> 
+<p>Khởi động android studio</p>
+<img src="https://github.com/thangnq37/AM-Einvoice-Mobile/blob/073_VAN_LANH/src/assets/doc/config_android.png"/>
+<img src="https://github.com/thangnq37/AM-Einvoice-Mobile/blob/073_VAN_LANH/src/assets/doc/config_android2.png"/>
+<img src="https://github.com/thangnq37/AM-Einvoice-Mobile/blob/073_VAN_LANH/src/assets/doc/config_android3.png"/>
+<p> RỒi chọn apply chờ tải về xong là oke </b></p>
+<p><b> Bước 4 : Cấu đường dẫn JAVA_HOME và ANDROID_HOME </b></p> 
+<img src="https://github.com/thangnq37/AM-Einvoice-Mobile/blob/073_VAN_LANH/src/assets/doc/config_android4.png"/>
+<img src="https://github.com/thangnq37/AM-Einvoice-Mobile/blob/073_VAN_LANH/src/assets/doc/config_android6.png"/>
+<img src="https://github.com/thangnq37/AM-Einvoice-Mobile/blob/073_VAN_LANH/src/assets/doc/config_android7.png"/>
+<img src="https://github.com/thangnq37/AM-Einvoice-Mobile/blob/073_VAN_LANH/src/assets/doc/config_android8.png"/>
+<p><b> Bước 5 : Clone project về </b></p> 
+<p><b> cd  vào thư mực project chạy câu lệnh npm install</b> </p>
+<p><b> chạy câu lệnh react-native link</b></p>
+<p><b>PHÁT TRIỂN ANDROID CHẠY CÂU LỆNH</b></p>
+<p><b> react-native run-adnroid </b></p>
+<p><b>PHÁT TRIỂN IOS CHẠY CÂU LỆNH</b></p>
+<p><b> react-native run-ios </b></p>
+<p><b> Chúc Bạn Thành Công </b></p>
+                     
                   
