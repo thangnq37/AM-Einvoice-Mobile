@@ -24,9 +24,9 @@
 <img src="https://github.com/thangnq37/AM-Einvoice-Mobile/blob/073_VAN_LANH/src/assets/doc/config_android7.png"/>
 <img src="https://github.com/thangnq37/AM-Einvoice-Mobile/blob/073_VAN_LANH/src/assets/doc/config_android8.png"/>
 <p><b> Bước 5 : Clone project về </b></p> 
-<p> cd  vào thư mực project chạy câu lệnh npm install </p>
-<p>  chạy câu lệnh react-native link</p>
-<p>  chạy câu lệnh react-native run-android </p>
+<p><b> cd  vào thư mực project chạy câu lệnh npm install</b> </p>
+<p><b> chạy câu lệnh react-native link</b></p>
+<p><b> chạy câu lệnh react-native run-android</b> </p>
 <p><b> Chúc Bạn Thành Công </b></p>
                      
                   
