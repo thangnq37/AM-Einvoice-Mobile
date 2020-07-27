@@ -22,9 +22,9 @@ import { useTheme } from 'react-native-paper';
 import Users from '../../model/users';
 const ScreenAuth = ({navigation}) => {
     const [data, setData] = React.useState({
-          companyID:'',
-          username:'',
-          password:'',
+          companyID:'073',
+          username:'admin',
+          password:'123456',
           isValidCompanyID:true,
           isValidUsername:true,
           isValidPassword:true,
@@ -125,7 +125,7 @@ const ScreenAuth = ({navigation}) => {
                     returnKeyType="next"
                     autoCorrect={false}
                     onChangeText={(val) => textInputChangeCompanyID(val)}
-                   
+                    value={data.companyID}
                    
                   />
                   { data.isValidCompanyID ? null : 
@@ -140,7 +140,7 @@ const ScreenAuth = ({navigation}) => {
                     returnKeyType="next"
                     autoCorrect={false}
                     onChangeText={(val) => textInputChangeUsername(val)}
-                   
+                    value={data.username}
                    
                   />
                   { data.isValidUsername ? null : 
@@ -155,7 +155,7 @@ const ScreenAuth = ({navigation}) => {
                     secureTextEntry={true}
                     autoCorrect={false}
                     onChangeText={(val) => textInputChangePassword(val)}
-                   
+                    value={data.password}
                    
                   />
                   { data.isValidPassword ? null : 
