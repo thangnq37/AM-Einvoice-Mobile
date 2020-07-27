@@ -26,7 +26,10 @@
 <p><b> Bước 5 : Clone project về </b></p> 
 <p><b> cd  vào thư mực project chạy câu lệnh npm install</b> </p>
 <p><b> chạy câu lệnh react-native link</b></p>
-<p><b> chạy câu lệnh react-native run-android</b> </p>
+<p><b>PHÁT TRIỂN ANDROID CHẠY CÂU LỆNH</b></p>
+<p><b> react-native run-adnroid </b></p>
+<p><b>PHÁT TRIỂN IOS CHẠY CÂU LỆNH</b></p>
+<p><b> react-native run-ios </b></p>
 <p><b> Chúc Bạn Thành Công </b></p>
                      
                   
