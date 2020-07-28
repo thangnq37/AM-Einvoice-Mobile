@@ -1,6 +1,6 @@
 import axios from "axios";
 import { userTypes } from "../types/loginType";
-
+import api from '../../api/api';
 export const loginStart = (companyID, userName, password) =>{
 	const config = {
 		headers: {
@@ -9,7 +9,7 @@ export const loginStart = (companyID, userName, password) =>{
 	};
 	const body= {username:"admin", password: "123456", companyID: "1483", Lag:"VIET"};
 	// const body= {username:userName, password: password, companyID: companyID, Lag:"VIET"};
-	axios.post("http://118.69.170.50/API/api/login", JSON.stringify(body), config).
+	axios.post(api.root+api.login, JSON.stringify(body), config).
 		then((response)=>{
 			console.log(response);
 			dispatch(loginSuccess(info));
@@ -17,12 +17,10 @@ export const loginStart = (companyID, userName, password) =>{
 			dispatch(loginFail(error));
 		});
 }
-
 export const loginSuccess = (info) => ({
 	type: userTypes.LOGIN_SUCCESS,
 	payload: info
 })
-
 export const loginFail = (error) => ({
 	type: userTypes.LOGIN_FAIL,
 	payload: error,
@@ -34,7 +32,6 @@ export const logoutStart = () => ({
 export const logoutSuccess = () => ({
 	type: userTypes.LOGOUT_SUCCESS,
 });
-
 export const logoutFailure = (error) => ({
 	type: userTypes.LOGOUT_FAIL,
 	payload: error,
