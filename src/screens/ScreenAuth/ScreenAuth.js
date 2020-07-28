@@ -14,6 +14,7 @@ import {
     StatusBar,
     Alert
 } from 'react-native';
+import {connect} from "react-redux";
 import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -48,7 +49,7 @@ const ScreenAuth = ({navigation}) => {
         if( val != '' ) {
             setData({
                 ...data,
-                username: val,
+                userName: val,
                 isValidUsername: true
             });
         } else {
@@ -57,8 +58,8 @@ const ScreenAuth = ({navigation}) => {
                 username: val,
             });
         }
-      }
-      const textInputChangePassword = (val) => {
+	}
+	const textInputChangePassword = (val) => {
         if( val != '' ) {
             setData({
                 ...data,
@@ -174,24 +175,24 @@ const ScreenAuth = ({navigation}) => {
        </SafeAreaView>
       )
 }
-export default ScreenAuth;
+export default connect()(ScreenAuth);
 const styles = StyleSheet.create({
-      Container:{
-          flexGrow:1,
-          justifyContent:"center",
-          alignItems:"center",
-          backgroundColor:'#ffffff'
-      },
-      ContainerLogo:{
+	Container:{
+		flexGrow:1,
+		justifyContent:"center",
+		alignItems:"center",
+		backgroundColor:'#ffffff'
+	},
+	ContainerLogo:{
         flexGrow:1,
         justifyContent:"flex-end",
         alignItems:"center",
-      },
-      Logo:{
-          width:380,
-          height:155,
-      },
-      inputBox:{
+	},
+	Logo:{
+		width:380,
+		height:155,
+	},
+	inputBox:{
         width:380,
         backgroundColor:'#dee2e6',
         borderRadius:5,
@@ -199,30 +200,30 @@ const styles = StyleSheet.create({
         fontSize:20,
         color:"#006666",
         marginVertical:10
-      },
-      button:{
+	},
+	button:{
         width:380,
         borderRadius:5,
         color:'#ffffff',
         backgroundColor:'#881921',
         marginVertical:10,
         paddingVertical:16
-      },
-      buttonText:{
+	},
+	buttonText:{
         fontSize:20,
         fontWeight:'500',
         color:'#ffffff',
         textAlign:"center", 
         fontWeight:'bold'
-      },
-      footer:{
-        flexGrow:1,
-      },
-      errorMsg: {
+	},
+	footer:{
+	flexGrow:1,
+	},
+	errorMsg: {
         marginTop:-5,
         marginBottom:-5,
         left:5,
         color: '#FF0000',
         fontSize: 11,
-      },
+	},
 });
