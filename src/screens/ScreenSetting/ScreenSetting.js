@@ -1,19 +1,19 @@
 import React from 'react';
 import { View, Text, Button, StyleSheet, StatusBar } from 'react-native';
 import { useTheme } from '@react-navigation/native';
-const ScreenHome = ({navigation}) => {
+const ScreenSetting = ({navigation}) => {
     return (
       <View style={styles.container}>
         <StatusBar barStyle="light-content"/>
-        <Text style={{color: "red"}}>Home Screen</Text>
+        <Text style={{color: "red"}}>Screen Setting </Text>
       <Button
-        title="HELLO HOME"
-        onPress={() => alert('HOME')}
+        title="Go to home screen"
+        onPress={() => navigation.navigate("ScreenHome")}
       />
       </View>
     );
 };
-export default ScreenHome;
+export default ScreenSetting;
 const styles = StyleSheet.create({
   container: {
     flex: 1, 
