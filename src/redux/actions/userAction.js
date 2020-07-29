@@ -28,7 +28,6 @@ export const loginFail = (error) => ({
 export const logoutStart = () => ({
 	type: userTypes.LOGOUT,
 });
-
 export const logoutSuccess = () => ({
 	type: userTypes.LOGOUT_SUCCESS,
 });

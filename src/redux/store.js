@@ -4,7 +4,7 @@ import logger from 'redux-logger';
 import {rootReducer} from './reducers/rootReducer';
 
 const middleWares = [logger, thunk];
-const configureStore = () => {
-    return createStore(rootReducer, applyMiddleware(...middleWares));
-}
-export default configureStore;
+const configStore = () => {
+    return createStore(rootReducer);
+};
+export default configStore;
