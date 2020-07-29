@@ -21,7 +21,7 @@ const ScreenMainTab = () => (
           tabBarLabel: 'Home',
           tabBarColor: '#009387',
           tabBarIcon: ({ color }) => (
-            <Icon name="ios-home" color={color} size={26} />
+            <Icon name="home-outline" color={color} size={26} />
           ),
         }}
       />
@@ -29,10 +29,10 @@ const ScreenMainTab = () => (
         name="Notifications"
         component={ProfileStackScreen}
         options={{
-          tabBarLabel: 'Updates',
+          tabBarLabel: 'Cài Đặt',
           tabBarColor: '#1f65ff',
           tabBarIcon: ({ color }) => (
-            <Icon name="ios-notifications" color={color} size={26} />
+            <Icon name="settings-outline" color={color} size={26} />
           ),
         }}
       />
