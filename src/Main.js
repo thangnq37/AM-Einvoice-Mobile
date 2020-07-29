@@ -7,14 +7,13 @@
 //  */
 import React, { useEffect } from 'react';
 import { View, ActivityIndicator } from 'react-native';
+import {connect} from "react-redux";
 import { 
   NavigationContainer, 
   DefaultTheme as NavigationDefaultTheme,
   DarkTheme as NavigationDarkTheme
 } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import configureStore from './redux/store';
-import {Provider} from "react-redux";
 import { 
 	DefaultTheme as PaperDefaultTheme,
 	DarkTheme as PaperDarkTheme 
@@ -22,29 +21,34 @@ import {
 import RootStackScreen from './screens/ScreenIncludes/ScreenRootStack';
 import ScreenMainTab from './screens/ScreenIncludes/ScreenMainTab';
 import { DrawerContent } from './screens/ScreenIncludes/DrawerContent';
-// Các Màng Hình
+
+// Các Màn Hình
 // import ScreenHome from './screens/ScreenHome/ScreenHome';
 import ScreenProfile from './screens/ScreenProfile/ScreenProfile';
-import ScreenSetting from './screens/ScreenSetting/ScreenSetting';
-import ScreenBillReleased from './screens/ScreenBillReleased/ScreenBillReleased';
+import ScreenSetting from './screens/ScreenSetting/ScreenSetting/';
+import { userTypes } from './redux/types/loginType';
 // END
 const Drawer = createDrawerNavigator();
-const store = configureStore();
-const Main = () => {
+const Main = (props) => {
 	return (
-		<Provider store={store}>
-			<NavigationContainer>
-				{/* Nếu Đã Đăng Nhập  */}
-				<Drawer.Navigator drawerContent={props => <DrawerContent {...props} />}>
-						<Drawer.Screen name="HomeDrawer" component={ScreenMainTab} />
-						<Drawer.Screen name="ScreenBillReleased" component={ScreenBillReleased} />
-						<Drawer.Screen name="ScreenSetting" component={ScreenSetting} />
-						<Drawer.Screen name="ScreenProfile" component={ScreenProfile} />
-				</Drawer.Navigator>
-				{/* Nếu Chưa Đăng Nhập  */}
-     			{/* <RootStackScreen/> */}
-    		</NavigationContainer>
-		</Provider>
+		<NavigationContainer>
+			{
+				props.currentUser?
+					(
+						<Drawer.Navigator drawerContent={props => <DrawerContent {...props} />}>
+							<Drawer.Screen name="HomeDrawer" component={ScreenMainTab} />
+							<Drawer.Screen name="ScreenSetting" component={ScreenSetting} />
+							<Drawer.Screen name="ScreenProfile" component={ScreenProfile} />
+						</Drawer.Navigator>
+					)
+				:(
+					<RootStackScreen/>
+				)
+			}
+		</NavigationContainer>
 	);
 }
-export default Main;
+const mapStateToProps = (state)=>({
+	currentUser: state.user.currentUser
+})
+export default connect(mapStateToProps)(Main);

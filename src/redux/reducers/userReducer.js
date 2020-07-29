@@ -1,5 +1,5 @@
 import { userTypes } from "../types/loginType";
-
+import AsyncStorage from '@react-native-community/async-storage';
 const INITIAL_STATE = {
     currentUser: null,
     token: null,

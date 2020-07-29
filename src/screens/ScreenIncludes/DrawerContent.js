@@ -52,62 +52,18 @@ export function DrawerContent(props) {
                         <DrawerItem 
                             icon={({color, size}) => (
                                 <Icon 
-                                name="home-outline" 
+                                name="account-outline" 
                                 color={color}
                                 size={size}
                                 />
                             )}
-                            label="Xem Tổng Quan"
+                            label="Trang Chủ"
                             onPress={() => {props.navigation.navigate('ScreenHome')}}
                         />
                         <DrawerItem 
                             icon={({color, size}) => (
                                 <Icon 
                                 name="account-outline" 
-                                color={color}
-                                size={size}
-                                />
-                            )}
-                            label="Phát Hành Hóa Đơn"
-                            onPress={() => {props.navigation.navigate('ScreenBillReleased')}}
-                        />
-                        <DrawerItem 
-                            icon={({color, size}) => (
-                                <Icon 
-                                name="account-outline" 
-                                color={color}
-                                size={size}
-                                />
-                            )}
-                            label="Quan Lý Hóa Đơn"
-                            onPress={() => {props.navigation.navigate('ScreenBillReleased')}}
-                        />
-                        <DrawerItem 
-                            icon={({color, size}) => (
-                                <Icon 
-                                name="account-outline" 
-                                color={color}
-                                size={size}
-                                />
-                            )}
-                            label="Danh Sách Hóa Đơn"
-                            onPress={() => {props.navigation.navigate('ScreenBillReleased')}}
-                        />
-                        <DrawerItem 
-                            icon={({color, size}) => (
-                                <Icon 
-                                name="account-outline" 
-                                color={color}
-                                size={size}
-                                />
-                            )}
-                            label="Mẫu Hóa Đơn"
-                            onPress={() => {props.navigation.navigate('ScreenBillReleased')}}
-                        />
-                        <DrawerItem 
-                            icon={({color, size}) => (
-                                <Icon 
-                                name="setting-outline" 
                                 color={color}
                                 size={size}
                                 />

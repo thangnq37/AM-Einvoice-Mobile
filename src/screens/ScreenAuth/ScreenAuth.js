@@ -20,32 +20,33 @@ import LinearGradient from 'react-native-linear-gradient';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import { useTheme } from 'react-native-paper';
+import {loginStart} from "../../redux//actions/userAction";
 import Users from '../../model/users';
 const ScreenAuth = ({navigation}) => {
     const [data, setData] = React.useState({
-          companyID:'073',
-          username:'admin',
-          password:'123456',
-          isValidCompanyID:true,
-          isValidUsername:true,
-          isValidPassword:true,
-          secureTextEntry:true,
-      });
-      const textInputChangeCompanyID = (val) => {
-          if( val != '' ) {
-              setData({
-                  ...data,
-                  companyID: val,
-                  isValidCompanyID: true
-              });
-          } else {
-              setData({
-                  ...data,
-                  companyID: val,
-              });
-          }
-      }
-      const textInputChangeUsername = (val) => {
+		companyID:'073',
+		username:'admin',
+		password:'123456',
+		isValidCompanyID:true,
+		isValidUsername:true,
+		isValidPassword:true,
+		secureTextEntry:true,
+	});
+	const textInputChangeCompanyID = (val) => {
+		if( val != '' ) {
+			setData({
+				...data,
+				companyID: val,
+				isValidCompanyID: true
+			});
+		} else {
+			setData({
+				...data,
+				companyID: val,
+			});
+		}
+	}
+	const textInputChangeUsername = (val) => {
         if( val != '' ) {
             setData({
                 ...data,
@@ -72,54 +73,56 @@ const ScreenAuth = ({navigation}) => {
                 password: val,
             });
         }
-      }
+	}
       // Function login 
-      const loginHandle = (companyID,username, password) => {
-        const foundUser = Users.filter( item => {
-            return companyID == item.companyID && username == item.username && password == item.password;
-        });
-        if (companyID.length == 0) {
-          setData({
-            ...data,
-            isValidCompanyID: false
-          });
-          return;
-        }
-        if ( username.length == 0) {
-          setData({
-            ...data,
-            isValidUsername: false
-          });
-          return;
-        }
-        if ( password.length == 0) {
-          setData({
-            ...data,
-            isValidPassword: false
-          });
-          return;
-        }
-        if ( foundUser.length == 0 ) {
-          Alert.alert('Thông báo', 'Thông tin đăng nhập không đúng !', [
-              {text: 'Đóng'}
-          ]);
-          return;
-        }
-        Alert.alert('Thông báo', 'Xin Chào Bạn', [
-          {text: 'Đóng'}
-        ]);
-      }
-      return (
+	const loginHandle = (companyID,username, password) => {
+	const foundUser = Users.filter( item => {
+		return companyID == item.companyID && username == item.username && password == item.password;
+	});
+	if (companyID.length == 0) {
+		setData({
+		...data,
+		isValidCompanyID: false
+		});
+		return;
+	}
+	if ( username.length == 0) {
+		setData({
+		...data,
+		isValidUsername: false
+		});
+		return;
+	}
+	if ( password.length == 0) {
+		setData({
+		...data,
+		isValidPassword: false
+		});
+		return;
+	}
+	if ( foundUser.length == 0 ) {
+		Alert.alert('Thông báo', 'Thông tin đăng nhập không đúng !', [
+			{text: 'Đóng'}
+		]);
+		return;
+	}
+	loginStart(companyID, username, password);
+	// Alert.alert('Thông báo', 'Xin Chào Bạn', [
+	// 	{text: 'Đóng'}
+	// ]);
+
+	}
+	return (
         <SafeAreaView style={styles.Container}>
-          <KeyboardAvoidingView style={styles.Container}>
+		<KeyboardAvoidingView style={styles.Container}>
             <TouchableWithoutFeedback style={styles.Container} onPress={Keyboard.dismiss}>
-              <View style={styles.Container}>
+			<View style={styles.Container}>
                 <StatusBar barStyle="light-content" />
                 <View style={styles.ContainerLogo}>
-                  <Image style={styles.Logo} source={require('../../assets/logo/NC9.png')}/>
+				<Image style={styles.Logo} source={require('../../assets/logo/NC9.png')}/>
                 </View>
                 <View >
-                  <TextInput style={styles.inputBox}
+				<TextInput style={styles.inputBox}
                     placeholder="CompanyID" 
                     placeholderTextColor="#999999"
                     keyboardType="numeric"
@@ -127,14 +130,13 @@ const ScreenAuth = ({navigation}) => {
                     autoCorrect={false}
                     onChangeText={(val) => textInputChangeCompanyID(val)}
                     value={data.companyID}
-                   
-                  />
-                  { data.isValidCompanyID ? null : 
-                   <Animatable.View animation="fadeInLeft" duration={500}>
+				/>
+				{ data.isValidCompanyID ? null : 
+				<Animatable.View animation="fadeInLeft" duration={500}>
                     <Text style={styles.errorMsg}>Mã công ty không được rỗng.</Text>
-                  </Animatable.View>
-                  }
-                  <TextInput style={styles.inputBox} 
+				</Animatable.View>
+				}
+				<TextInput style={styles.inputBox} 
                     placeholder="Username" 
                     placeholderTextColor="#999999"
                     keyboardType="email-address"
@@ -142,14 +144,14 @@ const ScreenAuth = ({navigation}) => {
                     autoCorrect={false}
                     onChangeText={(val) => textInputChangeUsername(val)}
                     value={data.username}
-                   
-                  />
-                  { data.isValidUsername ? null : 
+				
+				/>
+				{ data.isValidUsername ? null : 
                     <Animatable.View animation="fadeInLeft" duration={500}>
-                      <Text style={styles.errorMsg}>Tài khoản không được rổng.</Text>
+						<Text style={styles.errorMsg}>Tài khoản không được rổng.</Text>
                     </Animatable.View>
-                  }
-                  <TextInput style={styles.inputBox}
+				}
+				<TextInput style={styles.inputBox}
                     placeholder="Password" 
                     placeholderTextColor="#999999"
                     returnKeyType="go"
@@ -157,23 +159,22 @@ const ScreenAuth = ({navigation}) => {
                     autoCorrect={false}
                     onChangeText={(val) => textInputChangePassword(val)}
                     value={data.password}
-                   
-                  />
-                  { data.isValidPassword ? null : 
-                  <Animatable.View animation="fadeInLeft" duration={500}>
+				/>
+				{ data.isValidPassword ? null : 
+				<Animatable.View animation="fadeInLeft" duration={500}>
                     <Text style={styles.errorMsg}>Mật khẩu không được rỗng.</Text>
-                  </Animatable.View>
-                  }
-                  <TouchableOpacity style={styles.button} onPress={() => {loginHandle(data.companyID, data.username, data.password )}}>
-                      <Text style={styles.buttonText}>Login  </Text>
-                  </TouchableOpacity>
+				</Animatable.View>
+				}
+				<TouchableOpacity style={styles.button} onPress={() => {loginHandle(data.companyID, data.username, data.password )}}>
+					<Text style={styles.buttonText}>Login  </Text>
+				</TouchableOpacity>
                 </View>
                 <View style={styles.footer}></View>
-              </View>
+			</View>
             </TouchableWithoutFeedback>
-          </KeyboardAvoidingView>
-       </SafeAreaView>
-      )
+		</KeyboardAvoidingView>
+	</SafeAreaView>
+	)
 }
 export default connect()(ScreenAuth);
 const styles = StyleSheet.create({
