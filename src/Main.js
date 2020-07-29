@@ -22,11 +22,11 @@ import {
 import RootStackScreen from './screens/ScreenIncludes/ScreenRootStack';
 import ScreenMainTab from './screens/ScreenIncludes/ScreenMainTab';
 import { DrawerContent } from './screens/ScreenIncludes/DrawerContent';
-
 // Các Màng Hình
 // import ScreenHome from './screens/ScreenHome/ScreenHome';
 import ScreenProfile from './screens/ScreenProfile/ScreenProfile';
-import ScreenSetting from './screens/ScreenSetting/ScreenSetting/';
+import ScreenSetting from './screens/ScreenSetting/ScreenSetting';
+import ScreenBillReleased from './screens/ScreenBillReleased/ScreenBillReleased';
 // END
 const Drawer = createDrawerNavigator();
 const store = configureStore();
@@ -37,6 +37,7 @@ const Main = () => {
 				{/* Nếu Đã Đăng Nhập  */}
 				<Drawer.Navigator drawerContent={props => <DrawerContent {...props} />}>
 						<Drawer.Screen name="HomeDrawer" component={ScreenMainTab} />
+						<Drawer.Screen name="ScreenBillReleased" component={ScreenBillReleased} />
 						<Drawer.Screen name="ScreenSetting" component={ScreenSetting} />
 						<Drawer.Screen name="ScreenProfile" component={ScreenProfile} />
 				</Drawer.Navigator>
