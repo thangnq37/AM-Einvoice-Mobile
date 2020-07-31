@@ -26,7 +26,7 @@ import {DrawerContent} from './screens/ScreenIncludes/DrawerContent';
 // import ScreenHome from './screens/ScreenHome/ScreenHome';
 import ScreenProfile from './screens/ScreenProfile/ScreenProfile';
 import ScreenSetting from './screens/ScreenSetting/ScreenSetting/';
-import { userTypes } from './redux/types/loginType';
+import {userTypes} from './redux/types/loginType';
 // END
 const Drawer = createDrawerNavigator();
 const store = configureStore();
