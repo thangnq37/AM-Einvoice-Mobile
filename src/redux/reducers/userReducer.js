@@ -1,24 +1,27 @@
 import { userTypes } from "../types/loginType";
-
+import AsyncStorage from '@react-native-community/async-storage';
 const INITIAL_STATE = {
-    currentUser: null,
-    token: null,
+    number:0,
+    userInfo: null,
+    accessToken: null,
     info:null,
-	error: null,
 };
 const loginReducer = (state = INITIAL_STATE, action)=>{
     switch(action.type){
-        case userTypes.LOGIN_SUCCESS:
+        case userTypes.ADD:
             return {
                 ...state,
-                currentUser:action.payload,
-                token: action.payload.access_token,
-                error: null,
+                number: number+1,
             }
-        case userTypes.LOGIN_FAIL:
+        case userTypes.AUTHENTICATE:
             return {
                 ...state,
-                error: action.payload,
+                userInfo: action.userInfo,
+                accessToken: action.accessToken,
+            }
+        case userTypes.LOGOUT:
+            return {
+                INITIAL_STATE
             }
         default:
             return state;

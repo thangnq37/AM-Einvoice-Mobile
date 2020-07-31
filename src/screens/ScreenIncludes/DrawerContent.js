@@ -17,6 +17,8 @@ import {
 } from '@react-navigation/drawer';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+
+import {logout} from "../../redux/actions/userAction";
 export function DrawerContent(props) {
     return(
         <View style={{flex:1}}>
@@ -95,7 +97,7 @@ export function DrawerContent(props) {
                         />
                     )}
                     label="Đăng Xuất"
-                    onPress={() => {alert()}}
+                    onPress={() => {logout()}}
                 />
             </Drawer.Section>
         </View>
@@ -103,36 +105,36 @@ export function DrawerContent(props) {
 }
 const styles = StyleSheet.create({
     drawerContent: {
-      flex: 1,
+        flex: 1,
     },
     userInfoSection: {
-      paddingLeft: 20,
+        paddingLeft: 20,  
     },
     title: {
-      fontSize: 16,
-      marginTop: 3,
-      fontWeight: 'bold',
+        fontSize: 16,
+        marginTop: 3,
+        fontWeight: 'bold',
     },
     caption: {
-      fontSize: 14,
-      lineHeight: 14,
+        fontSize: 14,
+        lineHeight: 14,
     },
     row: {
-      marginTop: 20,
-      flexDirection: 'row',
-      alignItems: 'center',
+        marginTop: 20,
+        flexDirection: 'row',
+        alignItems: 'center',
     },
     section: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      marginRight: 15,
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginRight: 15,
     },
     paragraph: {
-      fontWeight: 'bold',
-      marginRight: 3,
+        fontWeight: 'bold',
+        marginRight: 3,
     },
     drawerSection: {
-      marginTop: 15,
+        marginTop: 15,
     },
     bottomDrawerSection: {
         marginBottom: 15,
@@ -140,9 +142,9 @@ const styles = StyleSheet.create({
         borderTopWidth: 1
     },
     preference: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      paddingVertical: 12,
-      paddingHorizontal: 16,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingVertical: 12,
+        paddingHorizontal: 16,
     },
-  });
+});

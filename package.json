@@ -2,7 +2,6 @@
   "name": "einvoice",
   "version": "0.0.1",
   "private": true,
-  "proxy": "http://118.69.170.50/API/",
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",
@@ -31,7 +30,7 @@
     "react-native-vector-icons": "^7.0.0",
     "react-redux": "^7.2.1",
     "redux": "^4.0.5",
-    "redux-logger": "^3.0.6",
+    "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
