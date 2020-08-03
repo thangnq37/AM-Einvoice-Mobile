@@ -25,7 +25,7 @@ import { DrawerContent } from './screens/ScreenIncludes/DrawerContent';
 // Các Màn Hình
 // import ScreenHome from './screens/ScreenHome/ScreenHome';
 import ScreenProfile from './screens/ScreenProfile/ScreenProfile';
-import ScreenSetting from './screens/ScreenSetting/ScreenSetting/';
+import ScreenSetting from './screens/ScreenSetting/ScreenSetting';
 import { userTypes } from './redux/types/loginType';
 // END
 const Drawer = createDrawerNavigator();
