@@ -1,37 +1,71 @@
 import axios from "axios";
-import { userTypes } from "../types/loginType";
+import AsyncStorage from '@react-native-community/async-storage';
+import { userTypes } from "../types/userType";
+
 import api from '../../api/api';
-export const loginStart = (companyID, userName, password) =>{
-	const config = {
-		headers: {
-			'Content-Type': 'application/json'
-		}
-	};
-	const body= {username:"admin", password: "123456", companyID: "1483", Lag:"VIET"};
-	// const body= {username:userName, password: password, companyID: companyID, Lag:"VIET"};
-	axios.post(api.root+api.login, JSON.stringify(body), config).
-		then((response)=>{
-			console.log(response);
-			dispatch(loginSuccess(info));
-		}).catch((error)=>{
-			dispatch(loginFail(error));
-		});
+
+let _timer;
+
+export const login = (username, password, companyID) => {
+    return async dispatch => {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        };
+        const body = { username, password, companyID, Lag: "VIET" };
+        try {
+            const result = await axios.post(api.root + api.login, JSON.stringify(body), config);
+            console.log(result);
+            dispatch(authenticate(result.data.companyInfo, result.data.access_token, result.data.expires_in));
+            dispatch(saveDataToStorage(result.data.companyInfo, result.data.access_token, result.data.expires_in));
+        } catch (error) {
+            throw new Error("An Error has occurred!");
+        }
+    }
 }
-export const loginSuccess = (info) => ({
-	type: userTypes.LOGIN_SUCCESS,
-	payload: info
-})
-export const loginFail = (error) => ({
-	type: userTypes.LOGIN_FAIL,
-	payload: error,
-});
-export const logoutStart = () => ({
-	type: userTypes.LOGOUT,
-});
-export const logoutSuccess = () => ({
-	type: userTypes.LOGOUT_SUCCESS,
-});
-export const logoutFailure = (error) => ({
-	type: userTypes.LOGOUT_FAIL,
-	payload: error,
-});
+export const authenticate = (userInfo, accessToken, expirationTime) => {
+    return async dispatch => {
+        console.log("authenticate");
+        dispatch(setLogoutTimer(expirationTime));
+        dispatch({ type: userTypes.AUTHENTICATE, userInfo: userInfo, accessToken: accessToken });
+    }
+};
+export const authenticateAction = (userInfo, accessToken) => {
+    return { type: userTypes.AUTHENTICATE, userInfo: userInfo, accessToken: accessToken };
+}
+export const logout = () => {
+    return async dispatch => {
+        console.log("logout");
+        clearLogoutTimer();
+        await AsyncStorage.removeItem('userData');
+        dispatch({ type: userTypes.LOGOUT });
+    }
+};
+
+export const clearLogoutTimer = () => {
+    if (_timer) {
+        clearTimeout(_timer);
+    }
+};
+
+const setLogoutTimer = expirationTime => {
+    return dispatch => {
+        console.log("setLogoutTimer");
+        expirationTime = expirationTime * 1000;
+        _timer = setTimeout(() => {
+            dispatch(logout());
+        }, expirationTime);
+    };
+};
+
+export const saveDataToStorage = async (companyInfo, accessToken, expirationDate) => {
+    try {
+        console.log("saveDataToStorage");
+        const jsonValue = JSON.stringify({ companyInfo: companyInfo, accessToken: accessToken });
+        await AsyncStorage.setItem('userData', jsonValue);
+    } catch (error) {
+        throw new Error("Something's wrong with AsyncStorage in action!");
+    }
+
+};
