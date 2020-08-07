@@ -23,20 +23,19 @@ import ScreenSetting from './screens/ScreenSetting/ScreenSetting';
 // END
 const Drawer = createDrawerNavigator();
 const Main = (props) => {
-    const [userInfo, setUserInfo] = useState(null);
-    useEffect(() => {
-        async function getData() {
-            const data = await AsyncStorage.getItem('userData');
-            console.log(data);
-            if (data) {
-                setUserInfo(data);
-            }
-        }
-        getData();
-    }, [])
+    // const [userInfo, setUserInfo] = useState(null);
+    // useEffect(() => {
+    //     async function getData() {
+    //         const data = await AsyncStorage.getItem('userData');
+    //         if (data) {
+    //             setUserInfo(data);
+    //         }
+    //     }
+    //     getData();
+    // }, [userInfo]);
     return (
         <NavigationContainer>
-            {userInfo ? (
+            {props.userToken ? (
                 <Drawer.Navigator
                     drawerContent={(props) => <DrawerContent {...props} />}>
                     <Drawer.Screen name="HomeDrawer" component={ScreenMainTab} />
@@ -54,4 +53,4 @@ function mapStateToProps(state) {
         userToken: state.user.accessToken
     }
 }
-export default connect(mapStateToProps)(Main);
+export default connect(mapStateToProps, null)(Main);

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
     SafeAreaView,
     KeyboardAvoidingView,
@@ -80,11 +80,11 @@ const ScreenAuth = (props, { navigation }) => {
             });
         }
     }
-    useEffect(() => {
-        if (error) {
-            Alert.alert("An error occurred!", error, [{ text: "OK" }]);
-        }
-    }, [error]);
+    // useEffect(() => {
+    //     if (error) {
+    //         // Alert.alert("An error occurred!", error, [{ text: "OK" }]);
+    //     }
+    // }, [error]);
     // Function login 
     const loginHandle = async (companyID, username, password) => {
         const foundUser = Users.filter(item => {
@@ -112,15 +112,14 @@ const ScreenAuth = (props, { navigation }) => {
             return;
         }
         if (foundUser.length == 0) {
-            Alert.alert('Thông báo', 'Thông tin đăng nhập không đúng !', [
-                { text: 'Đóng' }
-            ]);
+            // Alert.alert('Thông báo', 'Thông tin đăng nhập không đúng !', [
+            //     { text: 'Đóng' }
+            // ]);
             return;
         }
         setError(null);
         try {
-            const info = { username: username, password: password, companyID: companyID, Lag: "VIET" };
-            await props.loginAction(info);
+            await props.loginAction(username, password, companyID);
         } catch (error) {
             setError(error);
         }
@@ -192,7 +191,7 @@ const ScreenAuth = (props, { navigation }) => {
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-        loginAction: (info) => dispatch(login(info))
+        loginAction: (username, password, companyID) => dispatch(login(username, password, companyID))
     }
 }
 export default connect(null, mapDispatchToProps)(ScreenAuth);
