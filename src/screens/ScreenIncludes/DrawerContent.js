@@ -71,6 +71,17 @@ const DrawerContent = (props) => {
                                     size={size}
                                 />
                             )}
+                            label="Quản Lý Hóa Đơn"
+                            onPress={() => { props.navigation.navigate('ScreenBillManagement') }}
+                        />
+                        <DrawerItem
+                            icon={({ color, size }) => (
+                                <Icon
+                                    name="account-outline"
+                                    color={color}
+                                    size={size}
+                                />
+                            )}
                             label="Cài Đặt"
                             onPress={() => { props.navigation.navigate('ScreenSetting') }}
                         />

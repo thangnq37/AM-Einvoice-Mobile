@@ -20,6 +20,7 @@ import DrawerContent from './screens/ScreenIncludes/DrawerContent';
 // import ScreenHome from './screens/ScreenHome/ScreenHome';
 import ScreenProfile from './screens/ScreenProfile/ScreenProfile';
 import ScreenSetting from './screens/ScreenSetting/ScreenSetting';
+import ScreenBillManagement from './screens/ScreenBillManagement/ScreenBillManagement';
 // END
 const Drawer = createDrawerNavigator();
 const Main = (props) => {
@@ -39,6 +40,7 @@ const Main = (props) => {
                 <Drawer.Navigator
                     drawerContent={(props) => <DrawerContent {...props} />}>
                     <Drawer.Screen name="HomeDrawer" component={ScreenMainTab} />
+                    <Drawer.Screen name="ScreenBillManagement" component={ScreenBillManagement} />
                     <Drawer.Screen name="ScreenSetting" component={ScreenSetting} />
                     <Drawer.Screen name="ScreenProfile" component={ScreenProfile} />
                 </Drawer.Navigator>

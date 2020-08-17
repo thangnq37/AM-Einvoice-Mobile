@@ -56,15 +56,15 @@ const HomeStackScreen = ({ navigation }) => (
     </HomeStack.Navigator>
 );
 const ProfileStackScreen = ({ navigation }) => (
-    <ProfileStack.Navigator screenOptions={{
-        headerStyle: {
-            backgroundColor: '#1f65ff',
-        },
-        headerTintColor: '#fff',
-        headerTitleStyle: {
-            fontWeight: 'bold'
-        }
-    }}>
+        <ProfileStack.Navigator screenOptions={{
+            headerStyle: {
+                backgroundColor: '#1f65ff',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+                fontWeight: 'bold'
+            }
+        }}>
         <ProfileStack.Screen name="Profile" component={ScreenProfile} options={{
             headerLeft: () => (
                 <Icon.Button name="ios-menu" size={25} backgroundColor="#1f65ff" onPress={() => navigation.openDrawer()}></Icon.Button>
