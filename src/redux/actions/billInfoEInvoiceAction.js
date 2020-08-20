@@ -14,7 +14,7 @@ export const getAll = (dateBegin, dateEnd, DCWayCode) => {
         };
         const body = { dateBegin, dateEnd, DCWayCode, Lag: "VIET" };
         try {
-            const result = await axios.post(api.root + api.BillInfoEinvoice.getAll,config,JSON.stringify(body));
+            const result = await axios.put(api.root + api.BillInfoEinvoice.getAll,JSON.stringify(body),config);
             console.log(result);
             dispatch({ type: billInfoEInvoiceType.GET_ALL });
         } catch (error) {
@@ -31,12 +31,13 @@ export const getBillCount = () => {
             headers: {
                 'Authorization': `Bearer ${accessToken.accessToken}`,
                 'Content-Type': 'application/json'
+            },
+            params:{
+                Lag: "VIET"
             }
         };
-        const body = { Lag: "VIET" };
-       
         try {
-            const billCount = await axios.get(api.root + api.BillInfoEinvoice.getBillCount,config,JSON.stringify(body));
+            const billCount = await axios.get(api.root + api.BillInfoEinvoice.getBillCount,config);
             console.log(billCount);
             dispatch({ type: billInfoEInvoiceType.GET_BILL_COUNT , billCount:billCount.data.result.textBillCount});
         } catch (error) {
