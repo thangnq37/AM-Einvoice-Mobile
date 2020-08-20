@@ -5,13 +5,18 @@ import ModalSearch from './includes/ModalSearch';
 import Modal, { ModalContent ,SlideAnimation,ModalTitle} from 'react-native-modals';
 import styles from './styles/style';
 import { connect } from "react-redux";
+import {getBillCount} from './../../redux/actions/billInfoEInvoiceAction';
 // import { billInfoEInvoiceType } from '../../redux/types/billInfoEInvoiceType';
 const ScreenBillInfoEInvoice = (props,{ navigation }) => {
     const width = useWindowDimensions().width;
     const [modalShowCountBill,setModalShowCountBill] = useState(false);
-    _showCountBill=()=>{
+    // const [billCount,setBillCount]= useState(props.billCount);
+    _showBillCount=()=>{
         setModalShowCountBill(!modalShowCountBill);
     }
+    React.useEffect(()=>{
+        // props.getBillCount();
+    },[]);
     return (
         <Container>
             <Header>
@@ -38,8 +43,8 @@ const ScreenBillInfoEInvoice = (props,{ navigation }) => {
                     <Icon   name="arrow-back" />
                     <Text>Quay lại</Text>
                     </Button>
-                    <Button badge vertical   onPress={() =>_showCountBill()}>
-                    <Badge ><Text>51</Text></Badge>
+                    <Button badge vertical   onPress={() =>_showBillCount()}>
+                    <Badge ><Text>{props.billCount}</Text></Badge>
                     <Icon   name="navigate" />
                     <Text>Hóa đơn</Text>
                     </Button>
@@ -59,15 +64,15 @@ const ScreenBillInfoEInvoice = (props,{ navigation }) => {
                 width={width-30}
                 visible={modalShowCountBill}
                 modalAnimation={new SlideAnimation({
-                    slideFrom: 'bottom',
+                    slideFrom: 'bottom',   
                 })}
                 onTouchOutside={() => {
-                    _showCountBill();
+                    _showBillCount();
                 }}
                 modalTitle={<ModalTitle hasTitleBar={false}  title="Thông báo" />}
             >
             <ModalContent>
-                 <Text>Số lượng hóa đơn còn lại: 55 hóa đơn</Text>
+                 <Text>Số lượng hóa đơn còn lại: {props.billCount} hóa đơn</Text>
             </ModalContent>
             </Modal>
         </Container>
@@ -78,4 +83,10 @@ const mapDispatchToProps = (dispatch) => {
         getBillCount: ()=> dispatch(getBillCount()),
     }
 }
-export default connect(null, mapDispatchToProps)(ScreenBillInfoEInvoice);
+function mapStateToProps(state) {
+    console.log(state);
+    return {
+        billCount: state.billInfoEInvoiceReducer.billCount,
+    };
+  }
+export default connect(mapStateToProps, mapDispatchToProps)(ScreenBillInfoEInvoice);

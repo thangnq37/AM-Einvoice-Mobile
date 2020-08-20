@@ -8,13 +8,13 @@ export const getAll = (dateBegin, dateEnd, DCWayCode) => {
         const accessToken = JSON.parse(storageData);
         const config = {
             headers: {
-                Authorization: `Bearer ${accessToken.access_token}`,
+                Authorization: `Bearer ${accessToken.accessToken}`,
                 'Content-Type': 'application/json'
             }
         };
         const body = { dateBegin, dateEnd, DCWayCode, Lag: "VIET" };
         try {
-            const result = await axios.post(api.root + api.BillInfoEinvoice.getAll, JSON.stringify(body), config);
+            const result = await axios.post(api.root + api.BillInfoEinvoice.getAll,config,JSON.stringify(body));
             console.log(result);
             dispatch({ type: billInfoEInvoiceType.GET_ALL });
         } catch (error) {
@@ -26,17 +26,19 @@ export const getBillCount = () => {
     return async dispatch => {
         const storageData = await AsyncStorage.getItem("userData");
         const accessToken = JSON.parse(storageData);
+        console.log(accessToken.accessToken);
         const config = {
             headers: {
-                Authorization: `Bearer ${accessToken.access_token}`,
+                'Authorization': `Bearer ${accessToken.accessToken}`,
                 'Content-Type': 'application/json'
             }
         };
         const body = { Lag: "VIET" };
+       
         try {
-            const result = await axios.post(api.root + api.BillInfoEinvoice.getBillCount, JSON.stringify(body), config);
-            console.log(result);
-            dispatch({ type: billInfoEInvoiceType.GET_BILL_COUNT });
+            const billCount = await axios.get(api.root + api.BillInfoEinvoice.getBillCount,config,JSON.stringify(body));
+            console.log(billCount);
+            dispatch({ type: billInfoEInvoiceType.GET_BILL_COUNT , billCount:billCount.data.result.textBillCount});
         } catch (error) {
             throw new Error("An Error has occurred!");
         }
