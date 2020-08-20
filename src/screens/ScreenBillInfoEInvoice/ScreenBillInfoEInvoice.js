@@ -4,6 +4,7 @@ import { Container,Header,Body,Button,Icon,Title,Left,Right,Footer,FooterTab,Tex
 import ModalSearch from './includes/ModalSearch';
 import Modal, { ModalContent ,SlideAnimation,ModalTitle} from 'react-native-modals';
 import styles from './styles/style';
+import { connect } from "react-redux";
 // import { billInfoEInvoiceType } from '../../redux/types/billInfoEInvoiceType';
 const ScreenBillInfoEInvoice = (props,{ navigation }) => {
     const width = useWindowDimensions().width;
@@ -66,10 +67,15 @@ const ScreenBillInfoEInvoice = (props,{ navigation }) => {
                 modalTitle={<ModalTitle hasTitleBar={false}  title="Thông báo" />}
             >
             <ModalContent>
-                 <Text>Số lượng hóa đơn còn lại: 531 hóa đơn</Text>
+                 <Text>Số lượng hóa đơn còn lại: 55 hóa đơn</Text>
             </ModalContent>
             </Modal>
         </Container>
     );
 };
-export default ScreenBillInfoEInvoice;
+const mapDispatchToProps = (dispatch) => {
+    return {
+        getBillCount: ()=> dispatch(getBillCount()),
+    }
+}
+export default connect(null, mapDispatchToProps)(ScreenBillInfoEInvoice);
