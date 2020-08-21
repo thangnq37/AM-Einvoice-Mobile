@@ -1,8 +1,8 @@
 import React ,{useState} from 'react';
 import { StyleSheet, StatusBar,useWindowDimensions } from 'react-native';
-import { Container,Header,Body,Button,Title,Left,Right,Footer,FooterTab,Text,Content,Badge} from 'native-base';
+import { Icon,Container,Header,Body,Button,Title,Left,Right,Footer,FooterTab,Text,Content,Badge} from 'native-base';
 import { useNavigation } from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/FontAwesome5';
+
 import ModalSearch from './includes/ModalSearch';
 import Modal, { ModalContent ,SlideAnimation,ModalTitle} from 'react-native-modals';
 import styles from './styles/style';
@@ -21,46 +21,46 @@ const ScreenBillInfoEInvoice = (props) => {
     },[]);
     return (
         <Container>
-            <Header>
+            <Header style={styles.header}>
                 <Left>
                     <Button transparent>
-                        <Icon name='navicon' color="#ffffff" size={20} />
+                        <Icon type="FontAwesome"   name="file-text"   />
                     </Button>
                 </Left>
                 <Body>
                     <Title>QUAN LÝ HÓA ĐƠN</Title>
                 </Body>
                 <Right>
-                    <Button transparent>
-                        <Icon name='refresh' color="#ffffff" size={20} />
+                    <Button  transparent>
+                        <Icon style={styles.colorIconRefresh} type="FontAwesome" name='refresh'  />
                     </Button>
                     <Button transparent>
-                        <Icon name='ellipsis-v' color="#ffffff" size={20} />
+                        <Icon style={styles.colorIconEllipsis} type="FontAwesome" name='ellipsis-v'  />
                     </Button>
                 </Right>
             </Header>
             <Content >
            
             </Content>
-            <Footer>
-                <FooterTab>
+            <Footer >
+                <FooterTab style={styles.footer}>
                     <Button  onPress={() =>navigation.goBack()}  vertical>
-                    <Icon   name="arrow-back" />
-                    <Text>Quay lại</Text>
+                    <Icon style={styles.icon}  type="Ionicons" name="ios-arrow-back" />
+                    <Text style={styles.textIconFooter}>Quay lại</Text>
                     </Button>
                     <Button badge vertical   onPress={() =>_showBillCount()}>
                     <Badge ><Text>{props.billCount}</Text></Badge>
-                    <Icon color="#ffffff" size={20}  name="list-alt" />
-                    <Text>Hóa đơn</Text>
+                    <Icon style={styles.icon} type="FontAwesome"   name="file-text" />
+                    <Text style={styles.textIconFooter}>Hóa đơn</Text>
                     </Button>
                     <Button vertical>
-                    <Icon  name="add" />
-                    <Text>Thêm mới</Text>
+                    <Icon style={styles.icon} type="MaterialIcons" name="add-box" />
+                    <Text style={styles.textIconFooter}>Thêm mới</Text>
                     </Button>
                     <Button vertical
                     >
-                    <Icon color="#ffffff" size={20}  name="search" />
-                    <Text>Tìm kiếm</Text>
+                    <Icon style={styles.icon} type="FontAwesome"   name="search" />
+                    <Text style={styles.textIconFooter}>Tìm kiếm</Text>
                     </Button>
                     </FooterTab>
             </Footer>
