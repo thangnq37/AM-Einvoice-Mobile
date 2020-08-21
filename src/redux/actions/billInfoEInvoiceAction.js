@@ -13,11 +13,11 @@ export const getAll = (DateBegin, DateEnd, DCWayCode) => {
             },
             params:{ DateBegin, DateEnd, DCWayCode, Lag: "VIET" }
         };
+     
         try {
             const result = await axios.get(api.root + api.BillInfoEinvoice.getAll,config);
-            console.log(result);
             if(result.data.numberStatus==1){
-                dispatch({ type: billInfoEInvoiceType.GET_ALL ,getAll:data.result.result});
+                dispatch({ type: billInfoEInvoiceType.GET_ALL ,getAll:result.data.result});
             }else{
                 console.log(result);
             }

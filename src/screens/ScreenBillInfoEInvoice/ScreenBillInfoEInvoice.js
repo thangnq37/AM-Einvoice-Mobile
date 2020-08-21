@@ -1,6 +1,6 @@
 import React ,{useState,useRef} from 'react';
 import { StyleSheet, StatusBar,useWindowDimensions } from 'react-native';
-import { Icon,Container,Header,Body,Button,Title,Left,Right,Footer,FooterTab,Text,Content,Badge} from 'native-base';
+import { Icon,Container,Header,Body,Button,Title,Left,Right,Footer,FooterTab,Input,Item,Spinner,Text,Content,Badge} from 'native-base';
 import { useNavigation } from '@react-navigation/native';
 
 import ModalSearch from './includes/ModalSearch';
@@ -23,10 +23,13 @@ const ScreenBillInfoEInvoice = (props) => {
         }else{
             alert();
         }
-     }
+    }
+    _onRefresh = () =>{
+        props.getBillCount();
+    }
     React.useEffect(()=>{
         props.getBillCount();
-        props.getAll('20200101','20201231','Local');
+        props.getAll('20200101','20201231','ALL');
     },[]);
     return (
         <Container>
@@ -41,7 +44,7 @@ const ScreenBillInfoEInvoice = (props) => {
                 </Body>
                 <Right>
                     <Button  transparent>
-                        <Icon style={styles.colorIconRefresh} type="FontAwesome" name='refresh'  />
+                        <Icon style={styles.colorIconRefresh} onPress={()=>_onRefresh()} type="FontAwesome" name='refresh'  />
                     </Button>
                     <Button transparent>
                         <Icon style={styles.colorIconEllipsis} type="FontAwesome" name='ellipsis-v'  />
@@ -49,7 +52,11 @@ const ScreenBillInfoEInvoice = (props) => {
                 </Right>
             </Header>
             <Content >
-           
+            <Item>
+            
+                <Input placeholder="Tìm kiếm" />
+                <Icon  type="Ionicons"    name="search-outline" />
+            </Item>
             </Content>
             <Footer >
                 <FooterTab style={styles.footer}>
