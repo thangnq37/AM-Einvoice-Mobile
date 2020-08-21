@@ -1,4 +1,4 @@
-import React ,{useState} from 'react';
+import React ,{useState,useRef} from 'react';
 import { StyleSheet, StatusBar,useWindowDimensions } from 'react-native';
 import { Icon,Container,Header,Body,Button,Title,Left,Right,Footer,FooterTab,Text,Content,Badge} from 'native-base';
 import { useNavigation } from '@react-navigation/native';
@@ -12,9 +12,18 @@ const ScreenBillInfoEInvoice = (props) => {
     const navigation = useNavigation();
     const width = useWindowDimensions().width;
     const [modalShowCountBill,setModalShowCountBill] = useState(false);
+    const childRef = useRef();
     _showBillCount=()=>{
         setModalShowCountBill(!modalShowCountBill);
     }
+    _showModalSearch= () => {
+        if(childRef.current) {
+            alert();
+            childRef.current._toggleModal();
+        }else{
+            alert();
+        }
+     }
     React.useEffect(()=>{
         props.getBillCount();
         props.getAll('20200101','20201231','Local');
@@ -57,14 +66,14 @@ const ScreenBillInfoEInvoice = (props) => {
                     <Icon style={styles.icon} type="MaterialIcons" name="add-box" />
                     <Text style={styles.textIconFooter}>Thêm mới</Text>
                     </Button>
-                    <Button vertical
+                    <Button vertical  onPress={()=>_showModalSearch()}
                     >
                     <Icon style={styles.icon} type="FontAwesome"   name="search" />
                     <Text style={styles.textIconFooter}>Tìm kiếm</Text>
                     </Button>
                     </FooterTab>
             </Footer>
-            {/* <ModalSearch ></ModalSearch> */}
+            <ModalSearch ref={childRef} ></ModalSearch>
             <Modal
                 width={width-30}
                 visible={modalShowCountBill}
