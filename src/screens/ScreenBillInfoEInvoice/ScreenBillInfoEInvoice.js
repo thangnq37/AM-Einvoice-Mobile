@@ -12,6 +12,7 @@ const ScreenBillInfoEInvoice = (props) => {
     const navigation = useNavigation();
     const width = useWindowDimensions().width;
     const [modalShowCountBill,setModalShowCountBill] = useState(false);
+    const [showInputSeach,setShowInputSeach] = useState(false);
     const childRef = useRef();
     _showBillCount=()=>{
         setModalShowCountBill(!modalShowCountBill);
@@ -27,13 +28,17 @@ const ScreenBillInfoEInvoice = (props) => {
     _onRefresh = () =>{
         props.getBillCount();
     }
+    _showInputSearch = () =>{
+        setShowInputSeach(!showInputSeach);
+    }
     React.useEffect(()=>{
         props.getBillCount();
         props.getAll('20200101','20201231','ALL');
     },[]);
     return (
         <Container>
-            <Header style={styles.header}>
+            {showInputSeach ? (
+            <Header searchBar  style={styles.header}>
                 <Left>
                     <Button transparent>
                         <Icon type="FontAwesome"   name="file-text"   />
@@ -43,20 +48,30 @@ const ScreenBillInfoEInvoice = (props) => {
                     <Title>QUAN LÝ HÓA ĐƠN</Title>
                 </Body>
                 <Right>
-                    <Button  transparent>
-                        <Icon style={styles.colorIconRefresh} onPress={()=>_onRefresh()} type="FontAwesome" name='refresh'  />
+                    
+                    <Button transparent  onPress={()=>_showModalSearch()} >
+                        <Icon style={styles.iconSearch} type="FontAwesome"  onPress={()=>_showInputSearch()}  name="search" />
                     </Button>
                     <Button transparent>
                         <Icon style={styles.colorIconEllipsis} type="FontAwesome" name='ellipsis-v'  />
                     </Button>
                 </Right>
-            </Header>
+            </Header >
+            ):(
+                <Header style={styles.header} searchBar rounded>
+                    <Item>
+                        <Icon type="FontAwesome"   name="search" />
+                        <Input placeholder="Tìm kiếm" />
+                        <Icon style={styles.ionClose} type="FontAwesome" onPress={()=>_showInputSearch()}  name="close" />
+                    </Item>
+                </Header>
+            )}
             <Content >
-            <Item>
+            {/* <Item >
             
-                <Input placeholder="Nhập từ khóa tìm kiếm .... " />
+                <Input  placeholder="Nhập từ khóa tìm kiếm .... " />
                 <Icon  type="Ionicons"    name="search-outline" />
-            </Item>
+            </Item> */}
             </Content>
             <Footer >
                 <FooterTab style={styles.footer}>
@@ -73,10 +88,9 @@ const ScreenBillInfoEInvoice = (props) => {
                     <Icon style={styles.icon} type="MaterialIcons" name="add-box" />
                     <Text style={styles.textIconFooter}>Thêm mới</Text>
                     </Button>
-                    <Button vertical  onPress={()=>_showModalSearch()}
-                    >
-                    <Icon style={styles.icon} type="FontAwesome"   name="search" />
-                    <Text style={styles.textIconFooter}>Tìm kiếm</Text>
+                    <Button vertical>
+                    <Icon style={styles.colorIconRefresh} onPress={()=>_onRefresh()} type="FontAwesome" name="refresh" />
+                    <Text style={styles.textIconFooter}>Làm mới</Text>
                     </Button>
                     </FooterTab>
             </Footer>

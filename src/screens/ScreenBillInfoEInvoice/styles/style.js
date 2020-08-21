@@ -17,6 +17,12 @@ const styles = StyleSheet.create({
     },
     textIconFooter:{
         color:'#ffffff'
+    },
+    ionClose:{
+        color:'red'
+    },
+    iconSearch:{
+        color:'#dca008'
     }
 });
 export default styles;
