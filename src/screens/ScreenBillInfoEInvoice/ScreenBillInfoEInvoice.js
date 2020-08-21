@@ -54,7 +54,7 @@ const ScreenBillInfoEInvoice = (props) => {
             <Content >
             <Item>
             
-                <Input placeholder="Tìm kiếm" />
+                <Input placeholder="Nhập từ khóa tìm kiếm .... " />
                 <Icon  type="Ionicons"    name="search-outline" />
             </Item>
             </Content>
