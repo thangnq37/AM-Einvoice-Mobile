@@ -5,17 +5,19 @@ import ModalSearch from './includes/ModalSearch';
 import Modal, { ModalContent ,SlideAnimation,ModalTitle} from 'react-native-modals';
 import styles from './styles/style';
 import { connect } from "react-redux";
-import {getBillCount} from './../../redux/actions/billInfoEInvoiceAction';
+import {getBillCount,getAll} from './../../redux/actions/billInfoEInvoiceAction';
+import { useNavigation } from '@react-navigation/native';
 // import { billInfoEInvoiceType } from '../../redux/types/billInfoEInvoiceType';
-const ScreenBillInfoEInvoice = (props,{ navigation }) => {
+const ScreenBillInfoEInvoice = (props) => {
     const width = useWindowDimensions().width;
     const [modalShowCountBill,setModalShowCountBill] = useState(false);
-    // const [billCount,setBillCount]= useState(props.billCount);
+    const navigation = useNavigation();
     _showBillCount=()=>{
         setModalShowCountBill(!modalShowCountBill);
     }
     React.useEffect(()=>{
-        // props.getBillCount();
+        props.getBillCount();
+        props.getAll('20200101','20201231','Local');
     },[]);
     return (
         <Container>
@@ -39,7 +41,7 @@ const ScreenBillInfoEInvoice = (props,{ navigation }) => {
             </Content>
             <Footer>
                 <FooterTab>
-                    <Button  onPress={() => navigation.navigate("ScreenHome")}  vertical>
+                    <Button  onPress={() =>navigation.goBack()}  vertical>
                     <Icon   name="arrow-back" />
                     <Text>Quay lại</Text>
                     </Button>
@@ -81,12 +83,14 @@ const ScreenBillInfoEInvoice = (props,{ navigation }) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         getBillCount: ()=> dispatch(getBillCount()),
+        getAll:(dateBegin, dateEnd, DCWayCode)=>dispatch(getAll(dateBegin, dateEnd, DCWayCode)),
     }
 }
 function mapStateToProps(state) {
     console.log(state);
     return {
         billCount: state.billInfoEInvoiceReducer.billCount,
+        getAll: state.billInfoEInvoiceReducer.getAll,
     };
   }
 export default connect(mapStateToProps, mapDispatchToProps)(ScreenBillInfoEInvoice);
