@@ -49,11 +49,11 @@ const ScreenBillInfoEInvoice = (props) => {
                 </Body>
                 <Right>
                     
-                    <Button transparent  onPress={()=>_showModalSearch()} >
-                        <Icon style={styles.iconSearch} type="FontAwesome"  onPress={()=>_showInputSearch()}  name="search" />
+                    <Button transparent  onPress={()=>_showInputSearch()} >
+                        <Icon style={styles.iconSearch} type="FontAwesome"   name="search" />
                     </Button>
-                    <Button transparent>
-                        <Icon style={styles.colorIconEllipsis} type="FontAwesome" name='ellipsis-v'  />
+                    <Button transparent onPress={()=>_showModalSearch()}>
+                        <Icon style={styles.colorIconEllipsis}  type="FontAwesome" name='ellipsis-v'  />
                     </Button>
                 </Right>
             </Header >
@@ -67,11 +67,7 @@ const ScreenBillInfoEInvoice = (props) => {
                 </Header>
             )}
             <Content >
-            {/* <Item >
             
-                <Input  placeholder="Nhập từ khóa tìm kiếm .... " />
-                <Icon  type="Ionicons"    name="search-outline" />
-            </Item> */}
             </Content>
             <Footer >
                 <FooterTab style={styles.footer}>
