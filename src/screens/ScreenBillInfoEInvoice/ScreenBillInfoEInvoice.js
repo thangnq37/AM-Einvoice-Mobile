@@ -1,17 +1,17 @@
 import React ,{useState} from 'react';
 import { StyleSheet, StatusBar,useWindowDimensions } from 'react-native';
-import { Container,Header,Body,Button,Icon,Title,Left,Right,Footer,FooterTab,Text,Content,Badge} from 'native-base';
+import { Container,Header,Body,Button,Title,Left,Right,Footer,FooterTab,Text,Content,Badge} from 'native-base';
+import { useNavigation } from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 import ModalSearch from './includes/ModalSearch';
 import Modal, { ModalContent ,SlideAnimation,ModalTitle} from 'react-native-modals';
 import styles from './styles/style';
 import { connect } from "react-redux";
 import {getBillCount,getAll} from './../../redux/actions/billInfoEInvoiceAction';
-import { useNavigation } from '@react-navigation/native';
-// import { billInfoEInvoiceType } from '../../redux/types/billInfoEInvoiceType';
 const ScreenBillInfoEInvoice = (props) => {
+    const navigation = useNavigation();
     const width = useWindowDimensions().width;
     const [modalShowCountBill,setModalShowCountBill] = useState(false);
-    const navigation = useNavigation();
     _showBillCount=()=>{
         setModalShowCountBill(!modalShowCountBill);
     }
@@ -24,7 +24,7 @@ const ScreenBillInfoEInvoice = (props) => {
             <Header>
                 <Left>
                     <Button transparent>
-                        <Icon name='menu' />
+                        <Icon name='navicon' color="#ffffff" size={20} />
                     </Button>
                 </Left>
                 <Body>
@@ -32,12 +32,15 @@ const ScreenBillInfoEInvoice = (props) => {
                 </Body>
                 <Right>
                     <Button transparent>
-                        <Icon name='menu' />
+                        <Icon name='refresh' color="#ffffff" size={20} />
+                    </Button>
+                    <Button transparent>
+                        <Icon name='ellipsis-v' color="#ffffff" size={20} />
                     </Button>
                 </Right>
             </Header>
             <Content >
-
+           
             </Content>
             <Footer>
                 <FooterTab>
@@ -47,7 +50,7 @@ const ScreenBillInfoEInvoice = (props) => {
                     </Button>
                     <Button badge vertical   onPress={() =>_showBillCount()}>
                     <Badge ><Text>{props.billCount}</Text></Badge>
-                    <Icon   name="navigate" />
+                    <Icon color="#ffffff" size={20}  name="list-alt" />
                     <Text>Hóa đơn</Text>
                     </Button>
                     <Button vertical>
@@ -56,7 +59,7 @@ const ScreenBillInfoEInvoice = (props) => {
                     </Button>
                     <Button vertical
                     >
-                    <Icon   name="search" />
+                    <Icon color="#ffffff" size={20}  name="search" />
                     <Text>Tìm kiếm</Text>
                     </Button>
                     </FooterTab>

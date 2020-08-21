@@ -14,9 +14,9 @@ export const getAll = (DateBegin, DateEnd, DCWayCode) => {
             params:{ DateBegin, DateEnd, DCWayCode, Lag: "VIET" }
         };
         try {
-            console.log(config);
             const result = await axios.get(api.root + api.BillInfoEinvoice.getAll,config);
-            if(result.numberStatus==1){
+            console.log(result);
+            if(result.data.numberStatus==1){
                 dispatch({ type: billInfoEInvoiceType.GET_ALL ,getAll:data.result.result});
             }else{
                 console.log(result);
@@ -30,7 +30,6 @@ export const getBillCount = () => {
     return async dispatch => {
         const storageData = await AsyncStorage.getItem("userData");
         const accessToken = JSON.parse(storageData);
-        console.log(accessToken.accessToken);
         const config = {
             headers: {
                 'Authorization': `Bearer ${accessToken.accessToken}`,
@@ -42,7 +41,8 @@ export const getBillCount = () => {
         };
         try {
             const result = await axios.get(api.root + api.BillInfoEinvoice.getBillCount,config);
-            if(result.numberStatus==1){
+            console.log(result);
+            if(result.data.numberStatus==1){
                 dispatch({ type: billInfoEInvoiceType.GET_BILL_COUNT , billCount:result.data.result.textBillCount});
             }else{
                 console.log(result);
