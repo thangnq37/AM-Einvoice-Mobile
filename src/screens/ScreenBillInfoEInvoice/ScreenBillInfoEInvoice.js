@@ -3,13 +3,12 @@ import ContentLoader,  {Instagram,BulletList, Facebook } from 'react-content-loa
 import { StyleSheet, StatusBar,useWindowDimensions ,FlatList } from 'react-native';
 import { Icon,Container,Header,Body,Button,Title,Left,Right,Footer,FooterTab,Input,Item,Text,Content,Badge} from 'native-base';
 import { useNavigation } from '@react-navigation/native';
-
 import ModalSearch from './includes/ModalSearch';
 import ListBillItem from './includes/ListBillItem';
 import Modal, { ModalContent ,SlideAnimation,ModalTitle} from 'react-native-modals';
 import styles from './styles/style';
 import { connect } from "react-redux";
-import {getBillCount,getAll} from './../../redux/actions/billInfoEInvoiceAction';
+import {getBillCount,getAll,searchAll} from './../../redux/actions/billInfoEInvoiceAction';
 const ScreenBillInfoEInvoice = (props) => {
     const navigation = useNavigation();
     const width = useWindowDimensions().width;
@@ -30,17 +29,17 @@ const ScreenBillInfoEInvoice = (props) => {
     _onRefresh = () =>{
         props.getBillCount();
         props.getAll('20200101','20201231','ALL');
-        
     }
     _showInputSearch = () =>{
         setShowInputSeach(!showInputSeach);
     }
-    
+    _onChangeTextSearch = (keySearch) =>{
+        props.searchAll(props.getAllData,keySearch);
+    }
     React.useEffect(()=>{
         props.getBillCount();
         props.getAll('20200101','20201231','ALL');
     },[]);  
-    console.log(props.loading);
     return (
         <Container>
             {showInputSeach ? (
@@ -67,13 +66,13 @@ const ScreenBillInfoEInvoice = (props) => {
                 <Header style={styles.header} searchBar rounded>
                     <Item>
                         <Icon type="FontAwesome"   name="search" />
-                        <Input placeholder="Tìm kiếm" />
+                        <Input onChangeText={(keySearch) => {_onChangeTextSearch(keySearch) }}  placeholder="Tìm kiếm" />
                         <Icon style={styles.ionClose} type="FontAwesome" onPress={()=>_showInputSearch()}  name="close" />
                     </Item>
                 </Header>
             )}
             {props.loading?
-            <Content style={{padding:30}}>
+            <Content style={{padding:25}}>
                    <Facebook  />
                    <Facebook />
                    <Facebook />
@@ -146,6 +145,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         getBillCount: ()=> dispatch(getBillCount()),
         getAll:(dateBegin, dateEnd, DCWayCode)=>dispatch(getAll(dateBegin, dateEnd, DCWayCode)),
+        searchAll:(getAllData,keySearch)=>searchAll(getAllData,keySearch)
     }
 }
 function mapStateToProps(state) {

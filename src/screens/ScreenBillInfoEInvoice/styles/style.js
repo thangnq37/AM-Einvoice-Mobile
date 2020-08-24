@@ -12,6 +12,10 @@ const styles = StyleSheet.create({
     colorIconEllipsis:{
         color:'#ffffff'
     },
+    IconRefresh: {
+        transform: [{ rotate: '90deg'}],
+        color:'#dca008'
+    },
     icon:{
         color:'#ffffff'
     },
