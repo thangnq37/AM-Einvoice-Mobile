@@ -73,7 +73,17 @@ const DrawerContent = (props) => {
                             )}
                             label="Quản Lý Hóa Đơn"
                             onPress={() => { props.navigation.navigate('ScreenBillInfoEInvoice') }}
-                            label="[L-F]"
+
+                        />
+                        <DrawerItem
+                            icon={({ color, size }) => (
+                                <Icon
+                                    name="account-outline"
+                                    color={color}
+                                    size={size}
+                                />
+                            )}
+                            label="Mau Hoa Don"
                             onPress={() => { props.navigation.navigate('FormOfInvoicesScreen') }}
                         />
                         <DrawerItem
