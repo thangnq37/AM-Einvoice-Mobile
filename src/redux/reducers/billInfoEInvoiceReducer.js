@@ -1,14 +1,16 @@
 import { billInfoEInvoiceType } from "../types/billInfoEInvoiceType";
 const INITIAL_STATE = {
-    getAll: null,
+    getAllData: null,
     billCount: null,
+    loading:true
 };
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case billInfoEInvoiceType.GET_ALL:
             return {
                 ...state,
-                getAll: action.getAll,
+                getAllData: action.getAllData,
+                loading: action.loading,
                
             };
         case billInfoEInvoiceType.GET_BILL_COUNT:

@@ -4,6 +4,7 @@ import { billInfoEInvoiceType } from "../types/billInfoEInvoiceType";
 import api from '../../api/api';
 export const getAll = (DateBegin, DateEnd, DCWayCode) => {
     return async dispatch => {
+        dispatch({ type: billInfoEInvoiceType.GET_ALL,getAllData:null ,loading:true});
         const storageData = await AsyncStorage.getItem("userData");
         const accessToken = JSON.parse(storageData);
         const config = {
@@ -17,7 +18,7 @@ export const getAll = (DateBegin, DateEnd, DCWayCode) => {
         try {
             const result = await axios.get(api.root + api.BillInfoEinvoice.getAll,config);
             if(result.data.numberStatus==1){
-                dispatch({ type: billInfoEInvoiceType.GET_ALL ,getAll:result.data.result});
+                dispatch({ type: billInfoEInvoiceType.GET_ALL ,getAllData:result.data.result.BILL,loading:false});
             }else{
                 console.log(result);
             }

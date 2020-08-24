@@ -1,9 +1,10 @@
 import React ,{useState,useRef} from 'react';
-import { StyleSheet, StatusBar,useWindowDimensions } from 'react-native';
-import { Icon,Container,Header,Body,Button,Title,Left,Right,Footer,FooterTab,Input,Item,Spinner,Text,Content,Badge} from 'native-base';
+import { StyleSheet, StatusBar,useWindowDimensions ,FlatList } from 'react-native';
+import { Icon,Container,Header,Body,Button,Title,Left,Right,Footer,FooterTab,Input,Item,Text,Content,Badge} from 'native-base';
 import { useNavigation } from '@react-navigation/native';
 
 import ModalSearch from './includes/ModalSearch';
+import ListBillItem from './includes/ListBillItem';
 import Modal, { ModalContent ,SlideAnimation,ModalTitle} from 'react-native-modals';
 import styles from './styles/style';
 import { connect } from "react-redux";
@@ -12,7 +13,7 @@ const ScreenBillInfoEInvoice = (props) => {
     const navigation = useNavigation();
     const width = useWindowDimensions().width;
     const [modalShowCountBill,setModalShowCountBill] = useState(false);
-    const [showInputSeach,setShowInputSeach] = useState(false);
+    const [showInputSeach,setShowInputSeach] = useState(true);
     const childRef = useRef();
     _showBillCount=()=>{
         setModalShowCountBill(!modalShowCountBill);
@@ -34,14 +35,16 @@ const ScreenBillInfoEInvoice = (props) => {
     React.useEffect(()=>{
         props.getBillCount();
         props.getAll('20200101','20201231','ALL');
-    },[]);
+    },[]);  
+    console.log(props.getAllData);
     return (
+       
         <Container>
             {showInputSeach ? (
             <Header searchBar  style={styles.header}>
                 <Left>
                     <Button transparent>
-                        <Icon type="FontAwesome"   name="file-text"   />
+                        <Icon  type="FontAwesome"   name="file-text"   />
                     </Button>
                 </Left>
                 <Body>
@@ -66,8 +69,23 @@ const ScreenBillInfoEInvoice = (props) => {
                     </Item>
                 </Header>
             )}
-            <Content >
-            
+           <Content >
+                <FlatList
+                   keyExtractor={item => item.BILL_CD}
+                   data={props.getAllData}
+                   renderItem={({ item }) => (
+                    <ListBillItem 
+                        CUSTOMER_NM={item.CUSTOMER_NM}
+                        FORM_SYMBOL={item.FORM_SYMBOL}
+                        BILL_SYMBOL={item.BILL_SYMBOL}
+                        BILL_YMD={item.BILL_YMD}
+                        BILL_NO={item.BILL_NO}
+                        CURRENCY_TYPE={item.CURRENCY_TYPE}
+                        COMPANY_TAX_CD={item.COMPANY_TAX_CD}
+                        PAYMENT_AMOUNT_AND_FC={item.PAYMENT_AMOUNT_AND_FC}                    
+                    />  
+                   )}
+                />
             </Content>
             <Footer >
                 <FooterTab style={styles.footer}>
@@ -116,10 +134,10 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 function mapStateToProps(state) {
-    console.log(state);
     return {
+        getAllData: state.billInfoEInvoiceReducer.getAllData,
         billCount: state.billInfoEInvoiceReducer.billCount,
-        getAll: state.billInfoEInvoiceReducer.getAll,
+        loading: state.billInfoEInvoiceReducer.loading,
     };
   }
 export default connect(mapStateToProps, mapDispatchToProps)(ScreenBillInfoEInvoice);

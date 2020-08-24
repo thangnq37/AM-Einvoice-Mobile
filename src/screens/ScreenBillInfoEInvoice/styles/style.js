@@ -23,6 +23,34 @@ const styles = StyleSheet.create({
     },
     iconSearch:{
         color:'#dca008'
-    }
+    },
+    textListNameCompany:{
+        fontSize:12,
+        fontWeight:'bold'
+    },
+    textListVat:{
+        fontSize:11,
+        fontWeight:'bold'
+    },
+    textListBillNumber:{
+        fontSize:11,
+        color:'red',
+        fontWeight:'bold'
+    },
+    textListBillDate:{
+        fontSize:11,
+        color:'blue',
+        fontWeight:'bold'
+    },
+    textCurrencyType:{
+        fontSize:11,
+        color:'blue',
+        fontWeight:'bold'
+    }, 
+    textPayMent:{
+        fontSize:11,
+        color:'blue',
+        fontWeight:'bold'
+    }  
 });
 export default styles;
