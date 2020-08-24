@@ -53,3 +53,9 @@ export const getBillCount = () => {
         }
     }
 }
+export const searchAll = (getAllData,keySearch) => {
+   
+    return async dispatch => {
+        console.log(getAllData);
+    }
+}
