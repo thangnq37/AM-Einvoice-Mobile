@@ -49,21 +49,20 @@ export const clearLogoutTimer = () => {
     }
 };
 
-const setLogoutTimer = expirationTime => {
-    return dispatch => {
+const setLogoutTimer = (expirationTime) => {
+    return async dispatch => {
         console.log("setLogoutTimer");
-        expirationTime = expirationTime * 1000;
+        const expirationTimer = new Date(new Date().getTime() + parseInt(expirationTime) * 1000);
         _timer = setTimeout(() => {
             dispatch(logout());
-        }, expirationTime);
-    };
+        }, expirationTime*1000);
+    }
 };
-
 export const saveDataToStorage = async (companyInfo, accessToken, expirationDate) => {
     try {
         console.log("saveDataToStorage");
-        const jsonValue = JSON.stringify({ companyInfo: companyInfo, accessToken: accessToken });
-        await AsyncStorage.setItem('userData', jsonValue);
+        const expirationTimer = new Date(new Date().getTime() + parseInt(expirationDate) * 1000);
+        await AsyncStorage.setItem('userData', JSON.stringify({ companyInfo: companyInfo, accessToken: accessToken, expirationTimer: expirationTimer.toISOString() }));
     } catch (error) {
         throw new Error("Something's wrong with AsyncStorage in action!");
     }

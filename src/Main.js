@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { View, ActivityIndicator } from 'react-native';
 import { connect } from 'react-redux';
 import {
@@ -6,7 +6,6 @@ import {
     DefaultTheme as NavigationDefaultTheme,
     DarkTheme as NavigationDarkTheme,
 } from '@react-navigation/native';
-import AsyncStorage from '@react-native-community/async-storage';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import {
     DefaultTheme as PaperDefaultTheme,
@@ -20,25 +19,33 @@ import DrawerContent from './screens/ScreenIncludes/DrawerContent';
 // import ScreenHome from './screens/ScreenHome/ScreenHome';
 import ScreenProfile from './screens/ScreenProfile/ScreenProfile';
 import ScreenSetting from './screens/ScreenSetting/ScreenSetting';
+import FormOfInvoices from "./screens/ScreenFormOfInvoices/ScreenFormOfInvoices";
+import AsyncStorage from '@react-native-community/async-storage';
+
+import { logout } from "./redux/actions/userAction";
 // END
 const Drawer = createDrawerNavigator();
 const Main = (props) => {
-    // const [userInfo, setUserInfo] = useState(null);
-    // useEffect(() => {
-    //     async function getData() {
-    //         const data = await AsyncStorage.getItem('userData');
-    //         if (data) {
-    //             setUserInfo(data);
-    //         }
-    //     }
-    //     getData();
-    // }, [userInfo]);
+    React.useEffect(() => {
+        //Check if token is still useable
+        const authenticate = async () => {
+            const asyncData = await AsyncStorage.getItem("userData");
+            const transformedData = JSON.parse(asyncData);
+            const { expirationTimer } = transformedData;
+            const date = new Date().getTime();
+            if (expirationTimer <= parseInt(date)) {
+                props.logoutAction();
+            }
+        }
+        authenticate();
+    }, []);
     return (
         <NavigationContainer>
             {props.userToken ? (
                 <Drawer.Navigator
                     drawerContent={(props) => <DrawerContent {...props} />}>
                     <Drawer.Screen name="HomeDrawer" component={ScreenMainTab} />
+                    <Drawer.Screen name="FormOfInvoicesScreen" component={FormOfInvoices} />
                     <Drawer.Screen name="ScreenSetting" component={ScreenSetting} />
                     <Drawer.Screen name="ScreenProfile" component={ScreenProfile} />
                 </Drawer.Navigator>
@@ -53,4 +60,9 @@ function mapStateToProps(state) {
         userToken: state.user.accessToken
     }
 }
-export default connect(mapStateToProps, null)(Main);
+function mapDispatchToProps(dispatch) {
+    return {
+        logoutAction: () => dispatch(logout())
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Main);
