@@ -42,7 +42,6 @@ export const getBillCount = () => {
         };
         try {
             const result = await axios.get(api.root + api.BillInfoEinvoice.getBillCount,config);
-            console.log(result);
             if(result.data.numberStatus==1){
                 dispatch({ type: billInfoEInvoiceType.GET_BILL_COUNT , billCount:result.data.result.textBillCount});
             }else{

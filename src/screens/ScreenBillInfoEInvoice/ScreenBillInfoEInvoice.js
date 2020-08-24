@@ -1,4 +1,5 @@
 import React ,{useState,useRef} from 'react';
+import ContentLoader,  {Instagram,BulletList, Facebook } from 'react-content-loader/native'
 import { StyleSheet, StatusBar,useWindowDimensions ,FlatList } from 'react-native';
 import { Icon,Container,Header,Body,Button,Title,Left,Right,Footer,FooterTab,Input,Item,Text,Content,Badge} from 'native-base';
 import { useNavigation } from '@react-navigation/native';
@@ -28,17 +29,19 @@ const ScreenBillInfoEInvoice = (props) => {
     }
     _onRefresh = () =>{
         props.getBillCount();
+        props.getAll('20200101','20201231','ALL');
+        
     }
     _showInputSearch = () =>{
         setShowInputSeach(!showInputSeach);
     }
+    
     React.useEffect(()=>{
         props.getBillCount();
         props.getAll('20200101','20201231','ALL');
     },[]);  
-    console.log(props.getAllData);
+    console.log(props.loading);
     return (
-       
         <Container>
             {showInputSeach ? (
             <Header searchBar  style={styles.header}>
@@ -69,24 +72,36 @@ const ScreenBillInfoEInvoice = (props) => {
                     </Item>
                 </Header>
             )}
-           <Content >
+            {props.loading?
+            <Content style={{padding:30}}>
+                   <Facebook  />
+                   <Facebook />
+                   <Facebook />
+                   <Facebook />
+                   <Facebook />
+                   <Facebook />
+                   <Facebook />
+                   <Facebook />
+            </Content>: 
+            <Content >
                 <FlatList
-                   keyExtractor={item => item.BILL_CD}
-                   data={props.getAllData}
-                   renderItem={({ item }) => (
-                    <ListBillItem 
-                        CUSTOMER_NM={item.CUSTOMER_NM}
-                        FORM_SYMBOL={item.FORM_SYMBOL}
-                        BILL_SYMBOL={item.BILL_SYMBOL}
-                        BILL_YMD={item.BILL_YMD}
-                        BILL_NO={item.BILL_NO}
-                        CURRENCY_TYPE={item.CURRENCY_TYPE}
-                        COMPANY_TAX_CD={item.COMPANY_TAX_CD}
-                        PAYMENT_AMOUNT_AND_FC={item.PAYMENT_AMOUNT_AND_FC}                    
-                    />  
-                   )}
-                />
+                    keyExtractor={item => item.BILL_CD}
+                    data={props.getAllData}
+                    renderItem={({ item }) => (
+                        <ListBillItem 
+                            CUSTOMER_NM={item.CUSTOMER_NM}
+                            FORM_SYMBOL={item.FORM_SYMBOL}
+                            BILL_SYMBOL={item.BILL_SYMBOL}
+                            BILL_YMD={item.BILL_YMD}
+                            BILL_NO={item.BILL_NO}
+                            CURRENCY_TYPE={item.CURRENCY_TYPE}
+                            COMPANY_TAX_CD={item.COMPANY_TAX_CD}
+                            PAYMENT_AMOUNT_AND_FC={item.PAYMENT_AMOUNT_AND_FC}                    
+                        />  
+                    )}
+            />
             </Content>
+            }
             <Footer >
                 <FooterTab style={styles.footer}>
                     <Button  onPress={() =>navigation.goBack()}  vertical>
@@ -102,8 +117,8 @@ const ScreenBillInfoEInvoice = (props) => {
                     <Icon style={styles.icon} type="MaterialIcons" name="add-box" />
                     <Text style={styles.textIconFooter}>Thêm mới</Text>
                     </Button>
-                    <Button vertical>
-                    <Icon style={styles.colorIconRefresh} onPress={()=>_onRefresh()} type="FontAwesome" name="refresh" />
+                    <Button vertical onPress={()=>_onRefresh()}>
+                    <Icon style={styles.colorIconRefresh}  type="FontAwesome" name="refresh" />
                     <Text style={styles.textIconFooter}>Làm mới</Text>
                     </Button>
                     </FooterTab>
