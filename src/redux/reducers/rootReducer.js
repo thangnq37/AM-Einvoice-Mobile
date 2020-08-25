@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 import userReducer from './userReducer';
 import billInfoEInvoiceReducer from './billInfoEInvoiceReducer';
-import formofInvoice from "./formOfInvoicesReducer";
+import eInvoiceTemplateInputReducer from "./eInvoiceTemplateInputReducer";
 const rootReducer = combineReducers({
     user: userReducer,
     billInfoEInvoiceReducer: billInfoEInvoiceReducer,
-    formOfInvoice: formofInvoice
+    eInvoiceTemplateInput: eInvoiceTemplateInputReducer
 });
 export default rootReducer;

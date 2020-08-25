@@ -83,8 +83,8 @@ const DrawerContent = (props) => {
                                     size={size}
                                 />
                             )}
-                            label="Mau Hoa Don"
-                            onPress={() => { props.navigation.navigate('FormOfInvoicesScreen') }}
+                            label="Mẫu Hóa Đơn"
+                            onPress={() => { props.navigation.navigate('ScreenEInvoiceTemplateInput') }}
                         />
                         <DrawerItem
                             icon={({ color, size }) => (
