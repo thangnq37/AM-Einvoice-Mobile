@@ -1,6 +1,11 @@
-import React, { useState } from 'react';
-import { useWindowDimensions } from 'react-native';
-import Modal, { ModalContent, ModalTitle, SlideAnimation, ModalFooter, ModalButton, modalStyle } from 'react-native-modals';
+/** 
+ * Auth : Đinh Văn Lành 
+ * ID : 073
+ * Email : 073@amnote.com.vn
+*/
+import React ,{useState} from 'react';
+import {useWindowDimensions} from 'react-native';
+import Modal, { ModalContent,ModalTitle,SlideAnimation,ModalFooter,ModalButton,modalStyle} from 'react-native-modals';
 import DatePicker from 'react-native-datepicker';
 import styles from '../styles/style';
 export default function ModalBoxSearch({ navigation }) {

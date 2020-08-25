@@ -1,24 +1,21 @@
-import axios from "axios";
+/** 
+ * Auth : Đinh Văn Lành 
+ * ID : 073
+ * Email : 073@amnote.com.vn
+*/
+import axiosClient from "../../axios/axiosClient";
 import AsyncStorage from '@react-native-community/async-storage';
 import { billInfoEInvoiceType } from "../types/billInfoEInvoiceType";
 import api from '../../api/api';
 export const getAll = (DateBegin, DateEnd, DCWayCode) => {
     return async dispatch => {
         dispatch({ type: billInfoEInvoiceType.GET_ALL,getAllData:null ,loading:true});
-        const storageData = await AsyncStorage.getItem("userData");
-        const accessToken = JSON.parse(storageData);
-        const config = {
-            headers: {
-                Authorization: `Bearer ${accessToken.accessToken}`,
-                'Content-Type': 'application/json'
-            },
-            params:{ DateBegin, DateEnd, DCWayCode, Lag: "VIET" }
-        };
-     
+        const params ={DateBegin,DateEnd,DCWayCode,'Lag':'VIET'}
         try {
-            const result = await axios.get(api.root + api.BillInfoEinvoice.getAll,config);
-            if(result.data.numberStatus==1){
-                dispatch({ type: billInfoEInvoiceType.GET_ALL ,getAllData:result.data.result.BILL,loading:false});
+            const result = await axiosClient.get( api.BillInfoEinvoice.getAll,{params});
+
+            if(result.numberStatus==1){
+                dispatch({ type: billInfoEInvoiceType.GET_ALL ,getAllData:result.result.BILL,loading:false});
             }else{
                 console.log(result);
             }
@@ -29,21 +26,11 @@ export const getAll = (DateBegin, DateEnd, DCWayCode) => {
 }
 export const getBillCount = () => {
     return async dispatch => {
-        const storageData = await AsyncStorage.getItem("userData");
-        const accessToken = JSON.parse(storageData);
-        const config = {
-            headers: {
-                'Authorization': `Bearer ${accessToken.accessToken}`,
-                'Content-Type': 'application/json'
-            },
-            params:{
-                Lag: "VIET"
-            }
-        };
+        const params ={'Lag':'VIET'}
         try {
-            const result = await axios.get(api.root + api.BillInfoEinvoice.getBillCount,config);
-            if(result.data.numberStatus==1){
-                dispatch({ type: billInfoEInvoiceType.GET_BILL_COUNT , billCount:result.data.result.textBillCount});
+            const result = await axiosClient.get(api.BillInfoEinvoice.getBillCount,{params});
+            if(result.numberStatus==1){
+                dispatch({ type: billInfoEInvoiceType.GET_BILL_COUNT , billCount:result.result.textBillCount});
             }else{
                 console.log(result);
             }

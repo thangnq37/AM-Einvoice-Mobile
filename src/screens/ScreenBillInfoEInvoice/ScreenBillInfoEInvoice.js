@@ -1,7 +1,31 @@
+/** 
+ * Auth : Đinh Văn Lành 
+ * ID : 073
+ * Email : 073@amnote.com.vn
+*/
 import React ,{useState,useRef} from 'react';
 import ContentLoader,  {Instagram,BulletList, Facebook } from 'react-content-loader/native'
-import { StyleSheet, StatusBar,useWindowDimensions ,FlatList } from 'react-native';
-import { Icon,Container,Header,Body,Button,Title,Left,Right,Footer,FooterTab,Input,Item,Text,Content,Badge} from 'native-base';
+import { StyleSheet,TouchableOpacity, StatusBar,useWindowDimensions ,FlatList } from 'react-native';
+import { 
+    Icon,
+    Container,
+    Header,
+    Body,
+    Button,
+    Title,
+    Left,
+    Right,
+    Footer,
+    FooterTab,
+    Input,
+    Item,
+    Text,
+    Content,
+    Badge,
+    SwipeRow,
+    View
+} from 'native-base';
+import { SwipeListView } from 'react-native-swipe-list-view';
 import { useNavigation } from '@react-navigation/native';
 import ModalSearch from './includes/ModalSearch';
 import ListBillItem from './includes/ListBillItem';
@@ -82,23 +106,36 @@ const ScreenBillInfoEInvoice = (props) => {
                    <Facebook />
                    <Facebook />
             </Content>: 
-            <Content >
-                <FlatList
-                    keyExtractor={item => item.BILL_CD}
+            <Content>
+                <SwipeListView
                     data={props.getAllData}
-                    renderItem={({ item }) => (
+                    renderItem={ (data, rowMap) => (
                         <ListBillItem 
-                            CUSTOMER_NM={item.CUSTOMER_NM}
-                            FORM_SYMBOL={item.FORM_SYMBOL}
-                            BILL_SYMBOL={item.BILL_SYMBOL}
-                            BILL_YMD={item.BILL_YMD}
-                            BILL_NO={item.BILL_NO}
-                            CURRENCY_TYPE={item.CURRENCY_TYPE}
-                            COMPANY_TAX_CD={item.COMPANY_TAX_CD}
-                            PAYMENT_AMOUNT_AND_FC={item.PAYMENT_AMOUNT_AND_FC}                    
-                        />  
+                                     CUSTOMER_NM={data.item.CUSTOMER_NM}
+                                     FORM_SYMBOL={data.item.FORM_SYMBOL}
+                                     BILL_SYMBOL={data.item.BILL_SYMBOL}
+                                     BILL_YMD={data.item.BILL_YMD}
+                                     BILL_NO={data.item.BILL_NO}
+                                     CURRENCY_TYPE={data.item.CURRENCY_TYPE}
+                                     COMPANY_TAX_CD={data.item.COMPANY_TAX_CD}
+                                     PAYMENT_AMOUNT_AND_FC={data.item.PAYMENT_AMOUNT_AND_FC}                    
+                                 />  
                     )}
-            />
+                    renderHiddenItem={ (data, rowMap) => (
+                        <View style={styles.rowBack}>
+                            <TouchableOpacity style={[styles.backLeftBtn, styles.backLeftBtnLeft]}>
+                                <Text style={styles.backTextWhite}>Ký</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={[styles.backRightBtn, styles.backRightBtnRight]}>
+                                <Text style={styles.backTextWhite}>Xóa</Text>
+                            </TouchableOpacity>
+                            
+                        </View>
+                        
+                    )}
+                    leftOpenValue={75}
+                    rightOpenValue={-75}
+                />
             </Content>
             }
             <Footer >
