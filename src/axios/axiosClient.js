@@ -1,3 +1,8 @@
+/** 
+ * Auth : Đinh Văn Lành 
+ * ID : 073
+ * Email : 073@amnote.com.vn
+*/
 import axios from 'axios';
 import queryString from 'query-string';
 import AsyncStorage from '@react-native-community/async-storage';

@@ -1,3 +1,8 @@
+/** 
+ * Auth : Đinh Văn Lành 
+ * ID : 073
+ * Email : 073@amnote.com.vn
+*/
 import {StyleSheet} from "react-native"
 const styles = StyleSheet.create({
     ListItem:{

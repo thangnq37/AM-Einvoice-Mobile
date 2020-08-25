@@ -1,3 +1,8 @@
+/** 
+ * Auth : Đinh Văn Lành 
+ * ID : 073
+ * Email : 073@amnote.com.vn
+*/
 import React ,{useState} from 'react';
 import { Body,Left,Right,Thumbnail,Button,Icon,ListItem,List,Text} from 'native-base';
 import styles from '../styles/style';

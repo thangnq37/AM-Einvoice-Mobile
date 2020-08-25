@@ -1,3 +1,8 @@
+/** 
+ * Auth : Đinh Văn Lành 
+ * ID : 073
+ * Email : 073@amnote.com.vn
+*/
 import axiosClient from "../../axios/axiosClient";
 import AsyncStorage from '@react-native-community/async-storage';
 import { billInfoEInvoiceType } from "../types/billInfoEInvoiceType";
