@@ -1,5 +1,8 @@
 import {StyleSheet} from "react-native"
 const styles = StyleSheet.create({
+    ListItem:{
+        backgroundColor:"#ffffff"
+    },
     header:{
         backgroundColor:'#28333b'
     },
@@ -55,6 +58,52 @@ const styles = StyleSheet.create({
         fontSize:11,
         color:'blue',
         fontWeight:'bold'
-    }  
+    },
+    backTextWhite: {
+        color: '#FFF',
+    },
+    rowFront: {
+        alignItems: 'center',
+        backgroundColor: '#CCC',
+        borderBottomColor: 'black',
+        borderBottomWidth: 1,
+        justifyContent: 'center',
+        height: 50,
+    },
+    rowBack: {
+        alignItems: 'center',
+        // backgroundColor: 'red',
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingLeft: 15,
+    },
+    ////////////// RIGHT //////////////
+    backRightBtn: {
+        alignItems: 'center',
+        bottom: 0,
+        justifyContent: 'center',
+        position: 'absolute',
+        top: 0,
+        width: 75,
+    },
+
+    backRightBtnRight: {
+        backgroundColor: 'red',
+        right: 0,
+    },
+    ////////////// LEFT //////////////
+    backLeftBtn:{
+        alignItems: 'center',
+        bottom: 0,
+        justifyContent: 'center',
+        position: 'absolute',
+        top: 0,
+        width: 75,
+    },
+    backLeftBtnLeft: {
+        backgroundColor: 'green',
+        left: 0,
+    },
 });
 export default styles;
