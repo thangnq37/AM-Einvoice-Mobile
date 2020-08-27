@@ -84,6 +84,7 @@ const ScreenBillInfoEInvoice = (props) => {
         setResultSearch(true);
         _searchAll(props.getAllData,'');
         navigation.goBack();
+
     }
     React.useEffect(()=>{
         props.getBillCount();
