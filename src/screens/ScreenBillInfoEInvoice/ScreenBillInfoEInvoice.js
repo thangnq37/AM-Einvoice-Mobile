@@ -8,6 +8,8 @@ import ContentLoader,  {Instagram,BulletList, Facebook } from 'react-content-loa
 import { StyleSheet,TouchableOpacity, StatusBar,useWindowDimensions ,FlatList } from 'react-native';
 import SearchInput, { createFilter } from 'react-native-search-filter';
 import { 
+    Card,
+    CardItem,
     Icon,
     Container,
     Header,
@@ -152,7 +154,16 @@ const ScreenBillInfoEInvoice = (props) => {
                     )}
                     leftOpenValue={0}
                     rightOpenValue={0}
-                />:<Text>Không tìm thấy </Text>
+                />:
+                <Card>
+                    <CardItem>
+                    <Body>
+                        <Text>
+                         Không tìm thấy dữ liệu với từ khóa : {textSearch}
+                        </Text>
+                    </Body>
+                    </CardItem>
+                </Card>
                 }
             </Content>
             }
