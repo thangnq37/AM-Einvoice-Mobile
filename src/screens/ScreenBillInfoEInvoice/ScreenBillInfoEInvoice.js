@@ -6,8 +6,6 @@
 import React ,{useState,useRef} from 'react';
 import ContentLoader,  {Instagram,BulletList, Facebook } from 'react-content-loader/native'
 import { StyleSheet,TouchableOpacity, StatusBar,useWindowDimensions ,FlatList } from 'react-native';
-
-
 import { 
     Icon,
     Container,
@@ -36,7 +34,6 @@ import styles from './styles/style';
 import { connect } from "react-redux";
 import {getBillCount,getAll,searchAll} from './../../redux/actions/billInfoEInvoiceAction';
 const ScreenBillInfoEInvoice = (props) => {
-    
     const navigation = useNavigation();
     const width = useWindowDimensions().width;
     const [modalShowCountBill,setModalShowCountBill] = useState(false);

@@ -25,7 +25,7 @@ export default (state = INITIAL_STATE, action) => {
                 billCount: action.billCount,
                
             };
-        case billInfoEInvoiceType.GET_BILL_COUNT:
+        case billInfoEInvoiceType.SEARCH_ALL:
                 return {
                 ...state,
                 searchAllData: action.searchAllData,
