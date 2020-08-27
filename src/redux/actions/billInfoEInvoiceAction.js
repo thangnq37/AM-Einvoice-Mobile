@@ -41,9 +41,8 @@ export const getBillCount = () => {
     }
 }
 export const searchAll = (data,textSearch)=>{
-    return async dispatch => {
     const KEYS_TO_FILTERS = ['CUSTOMER_NM', 'COMPANY_TAX_CD','FORM_SYMBOL','CURRENCY_TYPE','BILL_YMD','BILL_NO','BILL_SYMBOL','PAYMENT_AMOUNT_AND_FC'];
-    const result =  data.filter(createFilter(textSearch, KEYS_TO_FILTERS))
-    dispatch({ type: billInfoEInvoiceType.SEARCH_ALL ,getAllData:result,loading:false});
-    }
+    const result =   data.filter(createFilter(textSearch, KEYS_TO_FILTERS));
+    console.log(result);
+    return result;
 }

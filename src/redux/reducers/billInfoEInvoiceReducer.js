@@ -8,7 +8,6 @@ const INITIAL_STATE = {
     getAllData: null,
     billCount: null,
     loading:true,
-    searchAllData:null
 };
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
@@ -23,13 +22,6 @@ export default (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 billCount: action.billCount,
-               
-            };
-        case billInfoEInvoiceType.SEARCH_ALL:
-                return {
-                ...state,
-                searchAllData: action.searchAllData,
-                   
             };
         default:
             return state;

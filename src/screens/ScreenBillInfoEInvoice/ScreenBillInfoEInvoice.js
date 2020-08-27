@@ -6,6 +6,7 @@
 import React ,{useState,useRef} from 'react';
 import ContentLoader,  {Instagram,BulletList, Facebook } from 'react-content-loader/native'
 import { StyleSheet,TouchableOpacity, StatusBar,useWindowDimensions ,FlatList } from 'react-native';
+import SearchInput, { createFilter } from 'react-native-search-filter';
 import { 
     Icon,
     Container,
@@ -32,18 +33,28 @@ import ListBillItem from './includes/ListBillItem';
 import Modal, { ModalContent ,SlideAnimation,ModalTitle} from 'react-native-modals';
 import styles from './styles/style';
 import { connect } from "react-redux";
-import {getBillCount,getAll,searchAll} from './../../redux/actions/billInfoEInvoiceAction';
+import {getBillCount,getAll} from './../../redux/actions/billInfoEInvoiceAction';
 const ScreenBillInfoEInvoice = (props) => {
     const navigation = useNavigation();
     const width = useWindowDimensions().width;
     const [modalShowCountBill,setModalShowCountBill] = useState(false);
     const [showInputSeach,setShowInputSeach] = useState(true);
+    const [resultSearch,setResultSearch] = useState(true);
     const [textSearch,setTextSearch] = useState('');
+    const [filterSearch,setFilterSearch] = useState(null);
     const [bodySearch,setDateBegin] = useState({
         DateBegin:'20200101',
         DateEnd:'20201231',
         DCWayCode:'ALL'
     });
+    _searchAll = (data,textSearch)=>{
+        const KEYS_TO_FILTERS = ['CUSTOMER_NM', 'COMPANY_TAX_CD','FORM_SYMBOL','CURRENCY_TYPE','BILL_YMD','BILL_NO','BILL_SYMBOL','PAYMENT_AMOUNT_AND_FC'];
+        if(data!=null){
+            const result =   data.filter(createFilter(textSearch, KEYS_TO_FILTERS));
+            setResultSearch(result.length>0?true:false);
+            setFilterSearch(result);
+        }
+    }
     _showBillCount=()=>{
         setModalShowCountBill(!modalShowCountBill);
     }
@@ -53,17 +64,22 @@ const ScreenBillInfoEInvoice = (props) => {
     _onRefresh = () =>{
         props.getBillCount();
         props.getAll(bodySearch);
+        _searchAll(props.getAllData,textSearch);
     }
     _showInputSearch = () =>{
         setShowInputSeach(!showInputSeach);
-      
+        if(showInputSeach==false){
+            setTextSearch('');
+            _searchAll(props.getAllData,'')
+        }
     }
     _onChangeTextSearch = (text) =>{
         setTextSearch(text);
-        props.searchAll(props.getAllData, textSearch);
+       _searchAll(props.getAllData,text);
     }
     React.useEffect(()=>{
-        _onRefresh();
+        props.getBillCount();
+        props.getAll(bodySearch);
     },[]);  
     return (
         <Container>
@@ -78,7 +94,6 @@ const ScreenBillInfoEInvoice = (props) => {
                     <Title>QUAN LÝ HÓA ĐƠN</Title>
                 </Body>
                 <Right>
-                    
                     <Button transparent  onPress={()=>_showInputSearch()} >
                         <Icon style={styles.iconSearch} type="FontAwesome"   name="search" />
                     </Button>
@@ -108,8 +123,9 @@ const ScreenBillInfoEInvoice = (props) => {
                    <Facebook />
             </Content>: 
             <Content>
+                {resultSearch?
                 <SwipeListView
-                    data={props.searchAllData==null?props.getAllData:props.searchAllData}
+                    data={filterSearch==null?props.getAllData:filterSearch}
                     renderItem={ (data, rowMap) => (
                         <ListBillItem 
                                      CUSTOMER_NM={data.item.CUSTOMER_NM}
@@ -136,7 +152,8 @@ const ScreenBillInfoEInvoice = (props) => {
                     )}
                     leftOpenValue={0}
                     rightOpenValue={0}
-                />
+                />:<Text>Không tìm thấy </Text>
+                }
             </Content>
             }
             <Footer >
@@ -182,16 +199,15 @@ const ScreenBillInfoEInvoice = (props) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         getBillCount: ()=> dispatch(getBillCount()),
-        getAll:(params)=>dispatch(getAll(params)),
-        searchAll:(data,textSearch)=>dispatch(searchAll(data,textSearch)),
+        getAll:(params)=>dispatch(getAll(params))
     }
 }
 function mapStateToProps(state) {
     return {
         getAllData: state.billInfoEInvoiceReducer.getAllData,
         billCount: state.billInfoEInvoiceReducer.billCount,
-        loading: state.billInfoEInvoiceReducer.loading,
-        searchAllData: state.billInfoEInvoiceReducer.searchAllData,
-    };
+        loading: state.billInfoEInvoiceReducer.loading
+    }
+        
 }
 export default connect(mapStateToProps, mapDispatchToProps)(ScreenBillInfoEInvoice);
