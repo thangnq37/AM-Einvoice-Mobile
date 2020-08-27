@@ -79,6 +79,12 @@ const ScreenBillInfoEInvoice = (props) => {
         setTextSearch(text);
        _searchAll(props.getAllData,text);
     }
+    _goBackHome=()=>{
+        setShowInputSeach(true);
+        setResultSearch(true);
+        _searchAll(props.getAllData,'');
+        navigation.goBack();
+    }
     React.useEffect(()=>{
         props.getBillCount();
         props.getAll(bodySearch);
@@ -169,7 +175,7 @@ const ScreenBillInfoEInvoice = (props) => {
             }
             <Footer >
                 <FooterTab style={styles.footer}>
-                    <Button  onPress={() =>navigation.goBack()}  vertical>
+                    <Button  onPress={() =>_goBackHome()}  vertical>
                     <Icon style={styles.icon}  type="Ionicons" name="ios-arrow-back" />
                     <Text style={styles.textIconFooter}>Quay lại</Text>
                     </Button>
