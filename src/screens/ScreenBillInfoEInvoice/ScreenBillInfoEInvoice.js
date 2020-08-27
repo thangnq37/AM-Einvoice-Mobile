@@ -109,7 +109,7 @@ const ScreenBillInfoEInvoice = (props) => {
             </Content>: 
             <Content>
                 <SwipeListView
-                    data={props.searchAllData==null?props.getAllData:props.searchAllDat}
+                    data={props.searchAllData==null?props.getAllData:props.searchAllData}
                     renderItem={ (data, rowMap) => (
                         <ListBillItem 
                                      CUSTOMER_NM={data.item.CUSTOMER_NM}
