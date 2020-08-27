@@ -6,6 +6,8 @@
 import React ,{useState,useRef} from 'react';
 import ContentLoader,  {Instagram,BulletList, Facebook } from 'react-content-loader/native'
 import { StyleSheet,TouchableOpacity, StatusBar,useWindowDimensions ,FlatList } from 'react-native';
+
+
 import { 
     Icon,
     Container,
@@ -34,35 +36,37 @@ import styles from './styles/style';
 import { connect } from "react-redux";
 import {getBillCount,getAll,searchAll} from './../../redux/actions/billInfoEInvoiceAction';
 const ScreenBillInfoEInvoice = (props) => {
+    
     const navigation = useNavigation();
     const width = useWindowDimensions().width;
     const [modalShowCountBill,setModalShowCountBill] = useState(false);
     const [showInputSeach,setShowInputSeach] = useState(true);
-    const childRef = useRef();
+    const [textSearch,setTextSearch] = useState('');
+    const [bodySearch,setDateBegin] = useState({
+        DateBegin:'20200101',
+        DateEnd:'20201231',
+        DCWayCode:'ALL'
+    });
     _showBillCount=()=>{
         setModalShowCountBill(!modalShowCountBill);
     }
     _showModalSearch= () => {
-        if(childRef.current) {
-            alert();
-            childRef.current._toggleModal();
-        }else{
-            alert();
-        }
+        alert();
     }
     _onRefresh = () =>{
         props.getBillCount();
-        props.getAll('20200101','20201231','ALL');
+        props.getAll(bodySearch);
     }
     _showInputSearch = () =>{
         setShowInputSeach(!showInputSeach);
+      
     }
-    _onChangeTextSearch = (keySearch) =>{
-        props.searchAll(props.getAllData,keySearch);
+    _onChangeTextSearch = (text) =>{
+        setTextSearch(text);
+        props.searchAll(props.getAllData, textSearch);
     }
     React.useEffect(()=>{
-        props.getBillCount();
-        props.getAll('20200101','20201231','ALL');
+        _onRefresh();
     },[]);  
     return (
         <Container>
@@ -90,7 +94,7 @@ const ScreenBillInfoEInvoice = (props) => {
                 <Header style={styles.header} searchBar rounded>
                     <Item>
                         <Icon type="FontAwesome"   name="search" />
-                        <Input onChangeText={(keySearch) => {_onChangeTextSearch(keySearch) }}  placeholder="Tìm kiếm" />
+                        <Input onChangeText={(text) => {_onChangeTextSearch(text) }}  placeholder="Tìm kiếm" />
                         <Icon style={styles.ionClose} type="FontAwesome" onPress={()=>_showInputSearch()}  name="close" />
                     </Item>
                 </Header>
@@ -108,7 +112,7 @@ const ScreenBillInfoEInvoice = (props) => {
             </Content>: 
             <Content>
                 <SwipeListView
-                    data={props.getAllData}
+                    data={props.searchAllData==null?props.getAllData:props.searchAllDat}
                     renderItem={ (data, rowMap) => (
                         <ListBillItem 
                                      CUSTOMER_NM={data.item.CUSTOMER_NM}
@@ -133,8 +137,8 @@ const ScreenBillInfoEInvoice = (props) => {
                         </View>
                         
                     )}
-                    leftOpenValue={75}
-                    rightOpenValue={-75}
+                    leftOpenValue={0}
+                    rightOpenValue={0}
                 />
             </Content>
             }
@@ -159,7 +163,7 @@ const ScreenBillInfoEInvoice = (props) => {
                     </Button>
                     </FooterTab>
             </Footer>
-            <ModalSearch ref={childRef} ></ModalSearch>
+            {/* <ModalSearch ref={childRef} ></ModalSearch> */}
             <Modal
                 width={width-30}
                 visible={modalShowCountBill}
@@ -181,8 +185,8 @@ const ScreenBillInfoEInvoice = (props) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         getBillCount: ()=> dispatch(getBillCount()),
-        getAll:(dateBegin, dateEnd, DCWayCode)=>dispatch(getAll(dateBegin, dateEnd, DCWayCode)),
-        searchAll:(getAllData,keySearch)=>searchAll(getAllData,keySearch)
+        getAll:(params)=>dispatch(getAll(params)),
+        searchAll:(data,textSearch)=>dispatch(searchAll(data,textSearch)),
     }
 }
 function mapStateToProps(state) {
@@ -190,6 +194,7 @@ function mapStateToProps(state) {
         getAllData: state.billInfoEInvoiceReducer.getAllData,
         billCount: state.billInfoEInvoiceReducer.billCount,
         loading: state.billInfoEInvoiceReducer.loading,
+        searchAllData: state.billInfoEInvoiceReducer.searchAllData,
     };
-  }
+}
 export default connect(mapStateToProps, mapDispatchToProps)(ScreenBillInfoEInvoice);

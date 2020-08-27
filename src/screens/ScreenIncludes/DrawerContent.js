@@ -55,7 +55,7 @@ const DrawerContent = (props) => {
                         <DrawerItem
                             icon={({ color, size }) => (
                                 <Icon
-                                    name="account-outline"
+                                    name="home-circle-outline"
                                     color={color}
                                     size={size}
                                 />
@@ -66,7 +66,7 @@ const DrawerContent = (props) => {
                         <DrawerItem
                             icon={({ color, size }) => (
                                 <Icon
-                                    name="account-outline"
+                                    name="file-cog-outline"
                                     color={color}
                                     size={size}
                                 />

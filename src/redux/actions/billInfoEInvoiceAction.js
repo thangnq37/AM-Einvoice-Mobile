@@ -6,14 +6,14 @@
 import axiosClient from "../../axios/axiosClient";
 import AsyncStorage from '@react-native-community/async-storage';
 import { billInfoEInvoiceType } from "../types/billInfoEInvoiceType";
+import SearchInput, { createFilter } from 'react-native-search-filter';
 import api from '../../api/api';
-export const getAll = (DateBegin, DateEnd, DCWayCode) => {
+export const getAll = (params) => {
     return async dispatch => {
         dispatch({ type: billInfoEInvoiceType.GET_ALL,getAllData:null ,loading:true});
-        const params ={DateBegin,DateEnd,DCWayCode,'Lag':'VIET'}
+        params.Lag="VIET";
         try {
             const result = await axiosClient.get( api.BillInfoEinvoice.getAll,{params});
-
             if(result.numberStatus==1){
                 dispatch({ type: billInfoEInvoiceType.GET_ALL ,getAllData:result.result.BILL,loading:false});
             }else{
@@ -40,9 +40,10 @@ export const getBillCount = () => {
         }
     }
 }
-export const searchAll = (getAllData,keySearch) => {
-   
+export const searchAll = (data,textSearch)=>{
     return async dispatch => {
-        console.log(getAllData);
+    const KEYS_TO_FILTERS = ['CUSTOMER_NM', 'COMPANY_TAX_CD','FORM_SYMBOL','CURRENCY_TYPE','BILL_YMD','BILL_NO','BILL_SYMBOL','PAYMENT_AMOUNT_AND_FC'];
+    const result =  data.filter(createFilter(textSearch, KEYS_TO_FILTERS))
+    dispatch({ type: billInfoEInvoiceType.SEARCH_ALL ,getAllData:result,loading:false});
     }
 }
