@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         position: 'absolute',
         top: 0,
-        width: 75,
+        width: 100,
     },
 
     backRightBtnRight: {
@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         position: 'absolute',
         top: 0,
-        width: 75,
+        width: 100,
     },
     backLeftBtnLeft: {
         backgroundColor: 'green',

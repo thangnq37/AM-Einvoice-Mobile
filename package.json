@@ -31,6 +31,7 @@
     "react-native-reanimated": "^1.13.0",
     "react-native-safe-area-context": "^3.1.6",
     "react-native-screens": "^2.10.1",
+    "react-native-search-filter": "^0.1.5",
     "react-native-svg": "^12.1.0",
     "react-native-swipe-list-view": "^3.2.3",
     "react-native-ui-xg": "0.0.6",

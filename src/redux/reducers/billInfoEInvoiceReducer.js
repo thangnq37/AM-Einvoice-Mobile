@@ -7,7 +7,7 @@ import { billInfoEInvoiceType } from "../types/billInfoEInvoiceType";
 const INITIAL_STATE = {
     getAllData: null,
     billCount: null,
-    loading:true
+    loading:true,
 };
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
@@ -22,7 +22,6 @@ export default (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 billCount: action.billCount,
-               
             };
         default:
             return state;

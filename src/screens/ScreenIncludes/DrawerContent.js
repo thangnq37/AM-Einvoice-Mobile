@@ -35,7 +35,6 @@ const DrawerContent = (props) => {
                 <Caption style={styles.caption}>073@amnote.com.vn</Caption>
               </View>
             </View>
-
             <View style={styles.row}>
               <View style={styles.section}>
                 <Paragraph style={[styles.paragraph, styles.caption]}>
@@ -51,11 +50,10 @@ const DrawerContent = (props) => {
               </View>
             </View>
           </View>
-
           <Drawer.Section style={styles.drawerSection}>
             <DrawerItem
               icon={({color, size}) => (
-                <Icon name="account-outline" color={color} size={size} />
+                <Icon  name="home-circle-outline" color={color} size={size} />
               )}
               label="Trang Chủ"
               onPress={() => {
@@ -73,7 +71,7 @@ const DrawerContent = (props) => {
             />
             <DrawerItem
               icon={({color, size}) => (
-                <Icon name="account-outline" color={color} size={size} />
+                <Icon  name="file-cog-outline" color={color} size={size} />
               )}
               label="Quản Lý Hóa Đơn"
               onPress={() => {
