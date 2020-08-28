@@ -28,14 +28,32 @@ const ScreenAddUpdate = (props) => {
   const [choose, setChoose] = useState(data.BILL_KIND_CD);
   const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
+  const [date, setDate] = useState(new Date(data.USE_YMD));
+  const onChange = (event, selectedDate) => {
+    const currentDate = selectedDate || date;
+    setShow(Platform.OS === 'ios');
+    setDate(currentDate);
+    setData({...data, 'USE_YMD': convertDateToDBDate(currentDate)});
+  };
+  const plusDate=(date)=>{
+    date.setDate(date.getDate()+1);
+    return date;
+  }
   const showMode = (currentMode) => {
     setShow(true);
     setMode(currentMode);
   };
-
   const showDatepicker = () => {
     showMode('date');
   };
+  const convertDateToDBDate=(date)=>{
+    let d = new Date(date);
+    return ( d.getUTCFullYear()+ "-"+
+    (parseInt(d.getUTCMonth()) + 1).toString().padStart(2, '0') +
+    '-' +d.getDate().toString().padStart(2, '0')+" 00:00:00"
+    );
+  }
+   // Not used
   const converDateToDMY = (date) => {
     let d = new Date(date);
     return (
@@ -53,6 +71,7 @@ const ScreenAddUpdate = (props) => {
     let day = date.substring(6, 8);
     return day + '/' + month + '/' + year;
   };
+  // end Not used
   const formatDate = (date) => {
     if (date == null) return new Date();
     let arrDay = date.substring(0, 10).split('-');
@@ -64,13 +83,9 @@ const ScreenAddUpdate = (props) => {
   };
   useEffect(() => {
     setData(props.route.params);
-    console.log(data);
+    setDate(new Date(props.route.params.USE_YMD));
   }, [props.route.params]);
   const onInputChange = (value, colName) => {
-    // if (colName + '' == 'USE_YMD') {
-    //   setData({...data, [colName]: formatDateToInt(value)});
-    //   return;
-    // }
     setData({...data, [colName]: value});
   };
   const onValueChange = (value) => {
@@ -168,10 +183,10 @@ const ScreenAddUpdate = (props) => {
           {show && (
             <DateTimePicker
               testID="dateTimePicker"
-              value={data.USE_YMD}
+              value={plusDate(date)}
               mode={mode}
               display="default"
-              // onChange={onChange}
+              onChange={onChange}
             />
           )}
           <Item stackedLabel>
