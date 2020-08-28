@@ -11,7 +11,7 @@ import styles from '../styles/style';
 export default function ModalBoxSearch ({ navigation }) {
     const width = useWindowDimensions().width;
     const lang = 'vi';
-    const [modalOpen,setModalOpen] = useState(false);
+    const [modalOpen,setModalOpen] = useState(true);
     const [dateBegin,setDateBegin] = useState('2020-01-01');
     const [dateEnd,setDateEnd] = useState('2020-01-30');
     const _toggleModal=()=>{
