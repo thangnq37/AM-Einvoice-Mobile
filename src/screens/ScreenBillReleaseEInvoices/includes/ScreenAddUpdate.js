@@ -32,11 +32,16 @@ const ScreenAddUpdate = (props) => {
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
     setShow(Platform.OS === 'ios');
+    if(event.type=="dismissed") minusDate(currentDate);
     setDate(currentDate);
     setData({...data, 'USE_YMD': convertDateToDBDate(currentDate)});
   };
   const plusDate=(date)=>{
     date.setDate(date.getDate()+1);
+    return date;
+  }
+  const minusDate=(date)=>{
+    date.setDate(date.getDate()-1);
     return date;
   }
   const showMode = (currentMode) => {
@@ -187,6 +192,7 @@ const ScreenAddUpdate = (props) => {
               mode={mode}
               display="default"
               onChange={onChange}
+              shouldCloseOnSelect={true}
             />
           )}
           <Item stackedLabel>
