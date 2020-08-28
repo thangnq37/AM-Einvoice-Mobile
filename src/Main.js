@@ -22,6 +22,7 @@ import ScreenSetting from './screens/ScreenSetting/ScreenSetting';
 import ScreenBillInfoEInvoice from './screens/ScreenBillInfoEInvoice/ScreenBillInfoEInvoice';
 import FormOfInvoices from './screens/ScreenFormOfInvoices/ScreenFormOfInvoices';
 import ReleaseEInvoices from './screens/ScreenBillReleaseEInvoices/ScreenBillReleaseEInvoices';
+import ScreenAddUpdate from './screens/ScreenBillReleaseEInvoices/includes/ScreenAddUpdate';
 import AsyncStorage from '@react-native-community/async-storage';
 
 import {logout} from './redux/actions/userAction';
@@ -47,10 +48,16 @@ const Main = (props) => {
         <Drawer.Navigator
           drawerContent={(props) => <DrawerContent {...props} />}>
           <Drawer.Screen name="HomeDrawer" component={ScreenMainTab} />
+          {/* 069 QUOCTHAI BILL RELEASE SCREEN*/}
           <Drawer.Screen
             name="ReleaseEInvoicesScreen"
             component={ReleaseEInvoices}
           />
+          <Drawer.Screen
+            name="AddUpdateReleaseEInvoicesScreen"
+            component={ScreenAddUpdate}
+          />
+          {/* 069 */}
           <Drawer.Screen
             name="ScreenBillInfoEInvoice"
             component={ScreenBillInfoEInvoice}
