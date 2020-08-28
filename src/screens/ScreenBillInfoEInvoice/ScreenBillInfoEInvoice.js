@@ -31,12 +31,15 @@ import {
 import { SwipeListView } from 'react-native-swipe-list-view';
 import { useNavigation } from '@react-navigation/native';
 import ModalSearch from './includes/ModalSearch';
+import ModalSort from './includes/ModalSort';
 import ListBillItem from './includes/ListBillItem';
 import Modal, { ModalContent ,SlideAnimation,ModalTitle} from 'react-native-modals';
 import styles from './styles/style';
 import { connect } from "react-redux";
 import {getBillCount,getAll} from './../../redux/actions/billInfoEInvoiceAction';
 const ScreenBillInfoEInvoice = (props) => {
+    const myRefSort = useRef();
+    const myRefSearch = useRef();
     const navigation = useNavigation();
     const width = useWindowDimensions().width;
     const [modalShowCountBill,setModalShowCountBill] = useState(false);
@@ -59,9 +62,6 @@ const ScreenBillInfoEInvoice = (props) => {
     }
     _showBillCount=()=>{
         setModalShowCountBill(!modalShowCountBill);
-    }
-    _showModalSearch= () => {
-        alert();
     }
     _onRefresh = () =>{
         props.getBillCount();
@@ -106,7 +106,11 @@ const ScreenBillInfoEInvoice = (props) => {
                     <Button transparent  onPress={()=>_showInputSearch()} >
                         <Icon style={styles.iconSearch} type="FontAwesome"   name="search" />
                     </Button>
-                    <Button transparent onPress={()=>_showModalSearch()}>
+                    <Button transparent onPress={()=>myRefSort.current._toggleModalSort()}>
+                        <Icon style={styles.colorIconEllipsis}  type="MaterialCommunityIcons" name='sort'  />
+                    </Button>
+                    
+                    <Button transparent onPress={()=>myRefSearch.current._toggleModalSearch()}>
                         <Icon style={styles.colorIconEllipsis}  type="FontAwesome" name='ellipsis-v'  />
                     </Button>
                 </Right>
@@ -195,7 +199,8 @@ const ScreenBillInfoEInvoice = (props) => {
                     </Button>
                     </FooterTab>
             </Footer>
-            {/* <ModalSearch ref={childRef} ></ModalSearch> */}
+            <ModalSearch ref={myRefSearch} />
+            <ModalSort ref={myRefSort}/>
             <Modal
                 width={width-30}
                 visible={modalShowCountBill}
