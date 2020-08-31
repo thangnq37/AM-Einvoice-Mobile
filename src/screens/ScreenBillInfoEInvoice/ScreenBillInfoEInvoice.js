@@ -54,6 +54,7 @@ const ScreenBillInfoEInvoice = (props) => {
     const width = useWindowDimensions().width;
     const [modalShowCountBill,setModalShowCountBill] = useState(false);
     const [showInputSeach,setShowInputSeach] = useState(true);
+    const [textSearch,setTextSearch] = useState('');
     // Show from input search
     _showInputSearch = () =>{
         setShowInputSeach(!showInputSeach);
@@ -74,6 +75,7 @@ const ScreenBillInfoEInvoice = (props) => {
     }
     // on change text search input
     _onChangeSeach = (text) =>{
+        setTextSearch(text);
         props.searchData(props.billDataDefault,text);
     }
     _goBackHome=()=>{
@@ -128,7 +130,7 @@ const ScreenBillInfoEInvoice = (props) => {
                    <Facebook />
             </Content>: 
             <Content>
-                
+                {props.iSearch==false?
                 <SwipeListView
                     data={props.billData==null?props.billDataDefault:props.billData}
                     renderItem={ (data, rowMap) => (
@@ -159,6 +161,11 @@ const ScreenBillInfoEInvoice = (props) => {
                     leftOpenValue={75}
                     rightOpenValue={-75}
                 />
+                :
+                <Button block danger>
+                    <Text>Không tìm thấy dữ liệu với từ khóa : {textSearch}</Text>
+                </Button>
+                }
      
             </Content>
             }
