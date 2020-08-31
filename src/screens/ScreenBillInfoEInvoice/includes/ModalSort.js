@@ -6,22 +6,22 @@
 import React ,{useState} from 'react';
 import {useWindowDimensions} from 'react-native';
 import Modal, { ModalContent,ModalTitle,SlideAnimation,ModalFooter,ModalButton,modalStyle} from 'react-native-modals';
-import {Text,Form,Item,Picker,Icon} from "native-base";
+import {Text,Form,Item,Picker,Icon, Right, Left} from "native-base";
 import styles from '../styles/style';
 const { forwardRef, useRef, useImperativeHandle } = React;
 const ModalSort = forwardRef((props, ref) => {
     const width = useWindowDimensions().width;
     const [modalOpen,setModalOpen] = useState(false);
-    const [selected2Name,setSelected2Name] = useState(undefined);
-    const [selected2Sort,setSelected2Sort] = useState(undefined);
+    const [selected2Key,setselected2Key] = useState('BILL_YMD');
+    const [selected2Order,setSelected2Order] = useState('asc');
     const _toggleModalSort=()=>{
         setModalOpen(!modalOpen);
     }
-    const _onValueChange2Name=(value)=>{
-      setSelected2Name(value);
+    const _onSetselected2Key=(value)=>{
+      setselected2Key(value);
     }
-    const _onValueChange2Sort=(value)=>{
-      setSelected2Sort(value);
+    const _onSelected2Order=(value)=>{
+      setSelected2Order(value);
     }
     useImperativeHandle(ref, () => ({
         _toggleModalSort(){
@@ -49,29 +49,34 @@ const ModalSort = forwardRef((props, ref) => {
                       ></ModalButton>
                       <ModalButton
                         text="Sắp Xếp"
-                        onPress={() => {}}
+                        onPress={(event) => {props.onPress(selected2Key,selected2Order),_toggleModalSort()}}
                       />
                     </ModalFooter>
                   }
                 >
                 <ModalContent>
                 <Form>
+                  
                   <Item picker>
                     <Picker
                       mode="dropdown"
                       iosIcon={<Icon name="arrow-down" />}
                       style={{ width: undefined }}
-                      placeholder="Select your SIM"
+                      placeholder="Chọn trường"
                       placeholderStyle={{ color: "#bfc6ea" }}
                       placeholderIconColor="#007aff"
-                      selectedValue={selected2Name}
-                      onValueChange={()=>_onValueChange2Name()}
+                      selectedValue={selected2Key}
+                      onValueChange={(e)=>_onSetselected2Key(e)}
                     >
-                      <Picker.Item label="Mẫu Số" value="key0" />
-                      <Picker.Item label="Khách Hàng" value="key1" />
-                      <Picker.Item label="Mã Số Thế" value="key2" />
-                      <Picker.Item label="Thanh Toán" value="key3" />
-                      <Picker.Item label="Tiền Tệ" value="key4" />
+                      <Picker.Item label="Ngày" value="BILL_YMD" />
+                      <Picker.Item label="Khách Hàng" value="CUSTOMER_NM" />
+                      <Picker.Item label="Mã số thuế" value="COMPANY_TAX_CD" />
+                      
+                      <Picker.Item label="Ký hiệu" value="BILL_SYMBOL" />
+                      <Picker.Item label="Ký hiệu hóa đơn" value="FORM_SYMBOL" />
+                      <Picker.Item label="Tiền tệ" value="CURRENCY_TYPE" />
+                      <Picker.Item label="Thuế" value="VAT" />
+                      <Picker.Item label="Thanh toán" value="PAYMENT_AMOUNT_AND_FC" />
                     </Picker>
                   </Item>
                   <Item picker>
@@ -79,14 +84,14 @@ const ModalSort = forwardRef((props, ref) => {
                       mode="dropdown"
                       iosIcon={<Icon name="arrow-down" />}
                       style={{ width: undefined }}
-                      placeholder="Select your SIM"
+                      placeholder="Sắp xếp"
                       placeholderStyle={{ color: "#bfc6ea" }}
                       placeholderIconColor="#007aff"
-                      selectedValue={_onValueChange2Sort}
-                      onValueChange={()=>_onValueChange2Sort()}
+                      selectedValue={selected2Order}
+                      onValueChange={(e)=>_onSelected2Order(e)}
                     >
-                      <Picker.Item label="Tăng" value="ASC" />
-                      <Picker.Item label="Giảm" value="DESC" />
+                      <Picker.Item label="Tăng dần" value="asc" />
+                      <Picker.Item label="Giảm dần" value="desc" />
                      
                     </Picker>
                   </Item>
