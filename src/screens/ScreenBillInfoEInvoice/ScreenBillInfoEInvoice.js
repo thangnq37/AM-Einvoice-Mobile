@@ -156,8 +156,8 @@ const ScreenBillInfoEInvoice = (props) => {
                         </View>
                         
                     )}
-                    leftOpenValue={0}
-                    rightOpenValue={0}
+                    leftOpenValue={75}
+                    rightOpenValue={-75}
                 />
      
             </Content>
