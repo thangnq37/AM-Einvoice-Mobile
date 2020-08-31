@@ -213,7 +213,8 @@ function mapStateToProps(state) {
         billDataDefault: state.billInfoEInvoiceReducer.billDataDefault,
         billData: state.billInfoEInvoiceReducer.billData,
         billCount: state.billInfoEInvoiceReducer.billCount,
-        loading: state.billInfoEInvoiceReducer.loading
+        loading: state.billInfoEInvoiceReducer.loading,
+        iSearch:state.billInfoEInvoiceReducer.iSearch,
     }    
 }
 export default connect(mapStateToProps, mapDispatchToProps)(ScreenBillInfoEInvoice);

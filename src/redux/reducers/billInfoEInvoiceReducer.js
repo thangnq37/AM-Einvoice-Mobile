@@ -9,6 +9,7 @@ const INITIAL_STATE = {
     billData: null,
     billCount: null,
     loading:true,
+    iSearch:false,
 };
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
@@ -18,11 +19,13 @@ export default (state = INITIAL_STATE, action) => {
                 billDataDefault: action.billDataDefault,
                 billData: action.billData,
                 loading: action.loading,
+                iSearch:action.iSearch,
             };
         case billInfoEInvoiceType.SEARCH_DATA:
             return{
                 ...state,
                 billData: action.billData,
+                iSearch:action.iSearch,
             }
         case billInfoEInvoiceType.SORT_DATA:
             return{
