@@ -111,17 +111,17 @@ const ScreenBillInfoEInvoice = (props) => {
                     </Button>
                     
                     <Button transparent onPress={()=>myRefSearch.current._toggleModalSearch()}>
-                        <Icon style={styles.colorIconEllipsis}  type="FontAwesome" name='ellipsis-v'  />
+                        <Icon style={styles.colorIconEllipsis}  type="FontAwesome" name='gears'  />
                     </Button>
                 </Right>
             </Header >
             ):(
-                <Header style={styles.header} searchBar rounded>
-                    <Item>
-                        <Icon type="FontAwesome"   name="search" />
-                        <Input onChangeText={(text) => {_onChangeTextSearch(text) }}  placeholder="Tìm kiếm" />
-                        <Icon style={styles.ionClose} type="FontAwesome" onPress={()=>_showInputSearch()}  name="close" />
-                    </Item>
+                <Header  searchBar rounded>
+                     <Item>
+                         <Icon style={styles.ionClose} type="FontAwesome" onPress={()=>_showInputSearch()}  name="close" />
+                         <Input onChangeText={(text) => {_onChangeTextSearch(text) }}  placeholder="Tìm kiếm" />
+                         <Icon type="FontAwesome"   name="search" />
+                     </Item>
                 </Header>
             )}
             {props.loading?
@@ -189,10 +189,10 @@ const ScreenBillInfoEInvoice = (props) => {
                     <Icon style={styles.icon} type="FontAwesome"   name="file-text" />
                     <Text style={styles.textIconFooter}>Hóa đơn</Text>
                     </Button>
-                    <Button vertical>
+                    {/* <Button vertical>
                     <Icon style={styles.icon} type="MaterialIcons" name="add-box" />
                     <Text style={styles.textIconFooter}>Thêm mới</Text>
-                    </Button>
+                    </Button> */}
                     <Button vertical onPress={()=>_onRefresh()}>
                     <Icon style={styles.colorIconRefresh}  type="FontAwesome" name="refresh" />
                     <Text style={styles.textIconFooter}>Làm mới</Text>

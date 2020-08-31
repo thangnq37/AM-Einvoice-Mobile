@@ -16,7 +16,7 @@ export default function ListBillItem (props) {
               <Body>
                 <Text style={styles.textListNameCompany}>{props.CUSTOMER_NM} </Text>
                 <Text style={styles.textListVat}>{props.COMPANY_TAX_CD}</Text>
-                <Text style={styles.textListVat}>{props.FORM_SYMBOL}</Text>
+                <Text style={styles.textListVat}>{props.FORM_SYMBOL} -- {props.BILL_SYMBOL}</Text>
                 <Text style={styles.textCurrencyType}>{props.CURRENCY_TYPE}</Text>
               </Body>
               <Right>
