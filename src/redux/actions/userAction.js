@@ -11,17 +11,9 @@ export const login = (username, password, companyID) => {
         const body = { username, password, companyID, Lag: "VIET" };
         try {
             const result = await axios.post(api.root + api.login, JSON.stringify(body), config);
-            // console.log(result);
-            // axios.post(api.root + api.login,JSON.stringify(body),config)
-            //   .then(function (response) {
-            //     console.log(response);
-            //   })
-            //   .catch(function (error) {
-            //     console.log(error);
-            //   }); 
             const data = result.data;
+            console.log(data);
             if(data.numberStatus==1){
-               
                 dispatch(authenticate(data));
                 dispatch(saveDataToStorage(data));
             }else{
@@ -34,8 +26,8 @@ export const login = (username, password, companyID) => {
                 });
             }
         } catch (error) {
-            dispatch({ type: userTypes.AUTHENTICATE,loading:false});
-            throw new Error("An Error has occurred!!");
+            // dispatch({ type: userTypes.AUTHENTICATE,loading:false});
+            throw new Error("An Error has occurred!");
         }
     }
 }
