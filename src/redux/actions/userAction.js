@@ -10,23 +10,21 @@ export const login = (username, password, companyID) => {
         const config = { headers: {'Content-Type': 'application/json'}};
         const body = { username, password, companyID, Lag: "VIET" };
         try {
-            const result = await axios.post(api.root + api.login, JSON.stringify(body), config);
-            const data = result.data;
-            console.log(data);
-            if(data.numberStatus==1){
-                dispatch(authenticate(data));
-                dispatch(saveDataToStorage(data));
-            }else{
-                dispatch({
-                    type:userTypes.AUTHENTICATE,
-                    companyInfo: null, 
-                    accessToken: null,
-                    loading:false,
-                    messages:data.messages
-                });
-            }
+            axios.post(api.root + api.login, JSON.stringify(body),config)
+            .then(function (response) {
+              dispatch(authenticate(response.data));
+              dispatch(saveDataToStorage(response.data));
+            })
+            .catch(function (error) {
+              dispatch({
+                          type:userTypes.AUTHENTICATE,
+                          companyInfo: null, 
+                          accessToken: null,
+                          loading:false,
+                          messages:error.response.data.messages
+              });
+            });
         } catch (error) {
-            // dispatch({ type: userTypes.AUTHENTICATE,loading:false});
             throw new Error("An Error has occurred!");
         }
     }
