@@ -5,6 +5,7 @@
 */
 import {StyleSheet} from "react-native"
 const styles = StyleSheet.create({
+    
     ListItem:{
         backgroundColor:"#ffffff"
     },

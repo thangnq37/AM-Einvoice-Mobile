@@ -5,7 +5,7 @@
 */
 import React ,{useState,useRef} from 'react';
 import ContentLoader,  {Instagram,BulletList, Facebook } from 'react-content-loader/native'
-import { StyleSheet,TouchableOpacity, StatusBar,useWindowDimensions ,FlatList } from 'react-native';
+import { Dimensions, StyleSheet,TouchableOpacity, StatusBar,useWindowDimensions ,FlatList } from 'react-native';
 import SearchInput, { createFilter } from 'react-native-search-filter';
 import { 
     Card,
@@ -43,6 +43,8 @@ import {
     sortData
 } from './../../redux/actions/billInfoEInvoiceAction';
 const ScreenBillInfoEInvoice = (props) => {
+    const dim = useWindowDimensions();
+    console.log(dim);
     const [bodySearch,setDateBegin] = useState({
         DateBegin:'20200101',
         DateEnd:'20201231',

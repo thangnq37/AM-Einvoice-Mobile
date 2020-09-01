@@ -5,15 +5,22 @@
 */
 import React ,{useState} from 'react';
 import {useWindowDimensions} from 'react-native';
+import DateTimePicker from '@react-native-community/datetimepicker';
 import Modal, { ModalContent,ModalTitle,SlideAnimation,ModalFooter,ModalButton,modalStyle} from 'react-native-modals';
-import {Text} from "native-base"
+import {Content,View, CardItem,Item,ListItem,Button,Left,List,Text,Right,Body,Title ,Card,Label,Form,DatePicker} from "native-base"
 import styles from '../styles/style';
 const { forwardRef, useRef, useImperativeHandle } = React;
 const ModalSearch = forwardRef((props, ref) => {
         const width = useWindowDimensions().width;
         const [modalOpen,setModalOpen] = useState(false);
-        const [DateBegin,setDateBegin] = useState('20200101'); 
-        const [DateEnd,setDateEnd] = useState('20201231');
+        const [DateBegin,setDateBegin] = useState(new Date()); 
+        const [DateEnd,setDateEnd] = useState(new Date());
+        const _onChangeDateBegin = (value)=>{
+              setDateBegin(value);
+        }
+        const _onChangeDateEnd = (value)=>{
+          setDateEnd(value);
+    }
         const _toggleModalSearch=()=>{
             setModalOpen(!modalOpen);
         }
@@ -24,7 +31,7 @@ const ModalSearch = forwardRef((props, ref) => {
          }));
     return (
         <Modal
-                width={width-30}
+                width={width-100}
                 visible={modalOpen}
                 onTouchOutside={() => {
                     _toggleModalSearch();
@@ -49,7 +56,13 @@ const ModalSearch = forwardRef((props, ref) => {
                   }
                 >
                 <ModalContent>
-                <Text>Hello</Text>
+                <DateTimePicker
+              testID="dateTimePicker"
+              
+              display="default"
+              // onChange={onChange}
+            />
+               
                 </ModalContent>
             </Modal>
     )
