@@ -68,6 +68,16 @@ const ScreenBillInfoEInvoice = (props) => {
     _sortData = (key,order) => {
         props.sortData(props.billData==null?props.billDataDefault:props.billData,key,order);
     }
+    _onSearchModel =(DateBegin,DateEnd)=>{
+        const bodySearch={
+            DateBegin,
+            DateEnd,
+            DCWayCode:'ALL'
+        }
+        console.log(bodySearch);
+        props.getBillCount();
+        props.getBillData(bodySearch);
+    }
     // On Refresh
     _onRefresh = () =>{
         props.getBillCount();
@@ -158,8 +168,8 @@ const ScreenBillInfoEInvoice = (props) => {
                         </View>
                         
                     )}
-                    leftOpenValue={75}
-                    rightOpenValue={-75}
+                    leftOpenValue={150}
+                    rightOpenValue={-150}
                 />
                 :
                 <Button block danger>
@@ -187,7 +197,7 @@ const ScreenBillInfoEInvoice = (props) => {
                     </Button>
                     </FooterTab>
             </Footer>
-            <ModalSearch ref={myRefSearch} />
+            <ModalSearch  onPress={(DateBegin,DateEnd)=>_onSearchModel(DateBegin,DateEnd)} ref={myRefSearch} />
             <ModalSort onPress={(key,order)=>_sortData(key,order)} ref={myRefSort}/>
             <Modal
                 width={width-30}

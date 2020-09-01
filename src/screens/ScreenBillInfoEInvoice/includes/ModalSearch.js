@@ -12,6 +12,8 @@ const { forwardRef, useRef, useImperativeHandle } = React;
 const ModalSearch = forwardRef((props, ref) => {
         const width = useWindowDimensions().width;
         const [modalOpen,setModalOpen] = useState(false);
+        const [DateBegin,setDateBegin] = useState('20200101'); 
+        const [DateEnd,setDateEnd] = useState('20201231');
         const _toggleModalSearch=()=>{
             setModalOpen(!modalOpen);
         }
@@ -41,7 +43,7 @@ const ModalSearch = forwardRef((props, ref) => {
                       />
                       <ModalButton
                         text="Tìm kiếm"
-                        onPress={() => {}}
+                        onPress={(event) => {props.onPress(DateBegin,DateEnd),_toggleModalSearch()}}
                       />
                     </ModalFooter>
                   }
