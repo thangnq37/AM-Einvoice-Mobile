@@ -54,7 +54,7 @@ const ScreenSetting = ({navigation}) => {
               <Text>Ngôn ngữ</Text>
             </Body>
             <Right >
-            <Text></Text>
+            <Text>Tiếng việt</Text>
               <Icon active name="arrow-forward" />
             </Right>
               
