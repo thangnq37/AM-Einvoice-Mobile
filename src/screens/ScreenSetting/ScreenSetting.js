@@ -1,8 +1,13 @@
-import React from 'react';
+import React,{useState} from 'react';
 
 import { useTheme } from '@react-navigation/native';
-import { Container, Header, Content, Button, ListItem, Text, Icon,List, Left, Body, Right, Switch } from 'native-base';
+import { Container, Header, Content, Button, ListItem, Text, Icon,Item,List, Left, Body, Right,Form, Switch,Picker  } from 'native-base';
 const ScreenSetting = ({navigation}) => {
+   const [valueLang,setValueLang]= useState('VIET');
+   const _onChangeValueLang=(value)=>{
+        alert(value);
+        setValueLang(value);
+   }
     return (
       <Container>
        
@@ -27,8 +32,8 @@ const ScreenSetting = ({navigation}) => {
           </ListItem>
           <ListItem icon>
             <Left>
-              <Button style={{ backgroundColor: "#007AFF" }}>
-                <Icon active name="wifi" />
+              <Button style={{ backgroundColor: "black" }}>
+                <Icon type="EvilIcons" active name="user" />
               </Button>
             </Left>
             <Body>
@@ -42,32 +47,36 @@ const ScreenSetting = ({navigation}) => {
           <ListItem icon>
             <Left>
               <Button style={{ backgroundColor: "#007AFF" }}>
-                <Icon active name="bluetooth" />
+                <Icon type="FontAwesome" active name="language" />
               </Button>
             </Left>
             <Body>
               <Text>Ngôn ngữ</Text>
             </Body>
-            <Right>
-              <Text></Text>
+            <Right >
+            <Text></Text>
               <Icon active name="arrow-forward" />
             </Right>
+              
+           
+       
+           
           </ListItem>
           <ListItem itemDivider>
               <Text>Thông tin</Text>
           </ListItem> 
           <ListItem icon>
             <Left>
-              <Button style={{ backgroundColor: "#FF9501" }}>
-                <Icon active name="airplane" />
+              <Button style={{ backgroundColor: "green" }}>
+                <Icon type="Octicons" active name="versions" />
               </Button>
             </Left>
             <Body>
               <Text>Phiên bản</Text>
             </Body>
             <Right>
-              <Text>0.0.1</Text>
-              <Icon active name="arrow-forward" />
+              <Text>version 1.0.1</Text>
+              
             </Right>
           </ListItem>
         </List>
