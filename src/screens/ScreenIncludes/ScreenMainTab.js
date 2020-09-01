@@ -38,7 +38,7 @@ const ScreenMainTab = () => (
                 ),
             }}
         />
-        <Tab.Screen
+        {/* <Tab.Screen
             name="Profiles"
             component={ProfileStackScreen}
             options={{
@@ -48,7 +48,7 @@ const ScreenMainTab = () => (
                     <Icon name="ios-person-circle-outline" color={color} size={26} />
                 ),
             }}
-        />
+        /> */}
         <Tab.Screen
             name="Settings"
             component={SettingsStackScreen}
