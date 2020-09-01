@@ -21,7 +21,7 @@ export const login = (username, password, companyID) => {
             //   }); 
             const data = result.data;
             if(data.numberStatus==1){
-                dispatch({ type: userTypes.AUTHENTICATE,loading:false});
+               
                 dispatch(authenticate(data));
                 dispatch(saveDataToStorage(data));
             }else{
@@ -34,6 +34,7 @@ export const login = (username, password, companyID) => {
                 });
             }
         } catch (error) {
+            dispatch({ type: userTypes.AUTHENTICATE,loading:false});
             throw new Error("An Error has occurred!!");
         }
     }
