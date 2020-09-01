@@ -1,8 +1,10 @@
 import { userTypes } from "../types/userType";
 
 const INITIAL_STATE = {
-    userInfo: null,
+    companyInfo: null,
     accessToken: null,
+    loading:false,
+    messages:null,
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -10,8 +12,10 @@ export default (state = INITIAL_STATE, action) => {
         case userTypes.AUTHENTICATE:
             return {
                 ...state,
-                userInfo: action.userInfo,
-                accessToken: action.accessToken
+                companyInfo: action.companyInfo,
+                accessToken: action.accessToken,
+                loading:action.loading,
+                messages:action.messages
             };
         case userTypes.LOGOUT:
             return INITIAL_STATE;

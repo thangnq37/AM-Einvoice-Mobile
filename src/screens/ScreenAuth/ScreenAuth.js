@@ -5,7 +5,7 @@ import {
     TouchableWithoutFeedback,
     Keyboard,
     View,
-    Text,
+    
     TouchableOpacity,
     Image,
     TextInput,
@@ -15,6 +15,7 @@ import {
     Alert,
     ActivityIndicator
 } from 'react-native';
+import { Container, Header, Content,Button, Spinner,Text } from 'native-base';
 import { connect } from "react-redux";
 import * as Animatable from 'react-native-animatable';
 import { login } from "../../redux//actions/userAction";
@@ -153,9 +154,10 @@ const ScreenAuth = (props, { navigation }) => {
                                     <Text style={styles.errorMsg}>Mật khẩu không được rỗng.</Text>
                                 </Animatable.View>
                             }
-                            <TouchableOpacity style={styles.button} onPress={() => { loginHandle(data.companyID, data.username, data.password) }}>
-                                <Text style={styles.buttonText}>Login  </Text>
-                            </TouchableOpacity>
+                            <Button onPress={() => { loginHandle(data.companyID, data.username, data.password) }} block dark>
+                                    {props.loading?<Spinner color='red' />:<></>}
+                                    <Text> Đăng nhập </Text>
+                             </Button>
                         </View>
                         <View style={styles.footer}></View>
                     </View>
@@ -169,7 +171,12 @@ const mapDispatchToProps = (dispatch) => {
         loginAction: (username, password, companyID) => dispatch(login(username, password, companyID))
     }
 }
-export default connect(null, mapDispatchToProps)(ScreenAuth);
+function mapStateToProps(state) {
+    return {
+        loading: state.user.loading,
+    }    
+}
+export default connect(mapStateToProps, mapDispatchToProps)(ScreenAuth);
 const styles = StyleSheet.create({
     Container: {
         flexGrow: 1,
