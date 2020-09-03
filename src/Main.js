@@ -23,7 +23,6 @@ import ScreenBillInfoEInvoice from './screens/ScreenBillInfoEInvoice/ScreenBillI
 import ScreenEInvoiceTemplateInput from "./screens/ScreenEInvoiceTemplateInput/ScreenEInvoiceTemplateInput";
 import DetailEInvoiceTemplateInput from "./screens/ScreenEInvoiceTemplateInput/includes/DetailEInvoiceTemplateInput";
 
-import FormOfInvoices from './screens/ScreenFormOfInvoices/ScreenFormOfInvoices';
 import ReleaseEInvoices from './screens/ScreenBillReleaseEInvoices/ScreenBillReleaseEInvoices';
 import ScreenAddUpdate from './screens/ScreenBillReleaseEInvoices/includes/ScreenAddUpdate';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -64,10 +63,6 @@ const Main = (props) => {
                     <Drawer.Screen
                         name="ScreenBillInfoEInvoice"
                         component={ScreenBillInfoEInvoice}
-                    />
-                    <Drawer.Screen
-                        name="FormOfInvoicesScreen"
-                        component={FormOfInvoices}
                     />
                     {/* L-F */}
                     <Drawer.Screen name="ScreenEInvoiceTemplateInput" component={ScreenEInvoiceTemplateInput} />
