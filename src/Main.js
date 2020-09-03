@@ -24,7 +24,9 @@ import ScreenEInvoiceTemplateInput from "./screens/ScreenEInvoiceTemplateInput/S
 import DetailEInvoiceTemplateInput from "./screens/ScreenEInvoiceTemplateInput/includes/DetailEInvoiceTemplateInput";
 
 import ReleaseEInvoices from './screens/ScreenBillReleaseEInvoices/ScreenBillReleaseEInvoices';
-import ScreenAddUpdate from './screens/ScreenBillReleaseEInvoices/includes/ScreenAddUpdate';
+import ScreenUpdate from './screens/ScreenBillReleaseEInvoices/includes/ScreenUpdate';
+import ScreenAdd from './screens/ScreenBillReleaseEInvoices/includes/ScreenAdd';
+// End Import L-A
 import AsyncStorage from '@react-native-community/async-storage';
 
 import { logout } from './redux/actions/userAction';
