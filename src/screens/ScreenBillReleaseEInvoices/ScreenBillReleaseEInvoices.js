@@ -23,36 +23,52 @@ import {SwipeListView} from 'react-native-swipe-list-view';
 
 import {useNavigation} from '@react-navigation/native';
 import {connect} from 'react-redux';
-import {getAll_BillReleaseEInvoices} from '../../redux/actions/billReleaseEInvoicesAction';
+import {getAll_BillReleaseEInvoices,getBillKind_BillReleaseEInvoices} from '../../redux/actions/billReleaseEInvoicesAction';
 import ContentLoader, {
   Instagram,
   BulletList,
   Facebook,
 } from 'react-content-loader/native';
 import ListBillReleaseItem from './includes/ListBillReleaseItem';
-import ScreenAddUpdate from './includes/ScreenAddUpdate';
+import ScreenUpdate from './includes/ScreenUpdate';
+import ScreenAdd from './includes/ScreenAdd';
+
 import styles from './styles/style';
 const ScreenBillReleaseEInvoices = (props) => {
   const navigation = useNavigation();
   const initData = {
     Lag: 'VIET',
-    IsWindowsMode: '0',
+    IsWindowsMode: '1',
   };
   useEffect(() => {
-    props.getAll_BillReleaseEInvoices(initData.Lag, initData.IsWindowsMode);
+    async function Thai(){
+      await     props.getAll_BillReleaseEInvoices(initData.Lag, initData.IsWindowsMode);
+      await props.getBillKind_BillReleaseEInvoices(initData.Lag);
+    }
+    Thai();
+    // props.getAll_BillReleaseEInvoices(initData.Lag, initData.IsWindowsMode);
+    // props.getBillKind_BillReleaseEInvoices(initData.Lag);
   }, []);
+  
   return (
     <Container>
       <Header>
         <Left>
           <Button transparent>
-            <Icon name="menu" />
+            <Icon type="AntDesign" name="left" onPress={() => navigation.goBack()}/>
           </Button>
         </Left>
         <Body>
-          <Title>Header</Title>
+          <Title>Phát hành hóa đơn</Title>
         </Body>
-        <Right />
+        <Right> 
+          <Button transparent onPress={() => {
+                    props.navigation.navigate(
+                      'AddReleaseEInvoicesScreen',{type:'add'});
+                  }}>
+            <Icon type="AntDesign" name="pluscircle" />
+          </Button>
+        </Right>
       </Header>
       {props.loading ? (
         <Content style={{padding: 25}}>
@@ -66,11 +82,9 @@ const ScreenBillReleaseEInvoices = (props) => {
           <Facebook />
         </Content>
       ) : (
+        <>
+        {console.log(props.getBillKind)}
         <Content>
-          {/* {props.getAllData.result.map((row) => (
-            
-          ))} */}
-          {console.log(props.getAllData.result)}
           <SwipeListView
             data={props.getAllData.result}
             renderItem={(data, rowMap) => (
@@ -95,7 +109,7 @@ const ScreenBillReleaseEInvoices = (props) => {
                   style={[styles.backLeftBtn, styles.backLeftBtnLeft]}
                   onPress={() => {
                     props.navigation.navigate(
-                      'AddUpdateReleaseEInvoicesScreen',
+                      'UpdateReleaseEInvoicesScreen',
                       data.item
                     );
                   }}>
@@ -114,6 +128,7 @@ const ScreenBillReleaseEInvoices = (props) => {
             rightOpenValue={-75}
           />
         </Content>
+        </>
       )}
       <Footer>
         <FooterTab>
@@ -129,12 +144,15 @@ const mapStateToProps = (state) => {
   return {
     getAllData: state.billReleaseEInvoicesReducer.dataAll,
     loading: state.billReleaseEInvoicesReducer.loading,
+    getBillKind:state.billReleaseEInvoicesReducer.dataBillKind,
   };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
     getAll_BillReleaseEInvoices: (Lag, IsWindowsMode) =>
       dispatch(getAll_BillReleaseEInvoices(Lag, IsWindowsMode)),
+    getBillKind_BillReleaseEInvoices: (Lag) =>
+      dispatch(getBillKind_BillReleaseEInvoices(Lag)),
   };
 };
 export default connect(

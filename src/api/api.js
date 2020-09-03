@@ -3,6 +3,10 @@ const api = {
     login: 'login',
     billReleaseEIvoices:{
         getAll:'billReleaseEinvoice/getAll',
+        getBillKind:'billReleaseEinvoice/getBillKind',
+        insert:'billReleaseEinvoice/insert',
+        update:'billReleaseEinvoice/update',
+        delete:'billReleaseEinvoice/delete',
     },
     BillInfoEinvoice: {
         getAll: 'BillInfoEinvoice/getAll',

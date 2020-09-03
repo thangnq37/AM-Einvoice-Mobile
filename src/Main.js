@@ -21,8 +21,11 @@ import ScreenProfile from './screens/ScreenProfile/ScreenProfile';
 import ScreenSetting from './screens/ScreenSetting/ScreenSetting';
 import ScreenBillInfoEInvoice from './screens/ScreenBillInfoEInvoice/ScreenBillInfoEInvoice';
 import FormOfInvoices from './screens/ScreenFormOfInvoices/ScreenFormOfInvoices';
+// Import L-A
 import ReleaseEInvoices from './screens/ScreenBillReleaseEInvoices/ScreenBillReleaseEInvoices';
-import ScreenAddUpdate from './screens/ScreenBillReleaseEInvoices/includes/ScreenAddUpdate';
+import ScreenUpdate from './screens/ScreenBillReleaseEInvoices/includes/ScreenUpdate';
+import ScreenAdd from './screens/ScreenBillReleaseEInvoices/includes/ScreenAdd';
+// End Import L-A
 import AsyncStorage from '@react-native-community/async-storage';
 
 import {logout} from './redux/actions/userAction';
@@ -54,8 +57,12 @@ const Main = (props) => {
             component={ReleaseEInvoices}
           />
           <Drawer.Screen
-            name="AddUpdateReleaseEInvoicesScreen"
-            component={ScreenAddUpdate}
+            name="UpdateReleaseEInvoicesScreen"
+            component={ScreenUpdate}
+          />
+          <Drawer.Screen
+            name="AddReleaseEInvoicesScreen"
+            component={ScreenAdd}
           />
           {/* 069 */}
           <Drawer.Screen

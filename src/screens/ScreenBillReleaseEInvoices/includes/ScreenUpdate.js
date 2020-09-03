@@ -22,20 +22,30 @@ import {
 } from 'native-base';
 import {useNavigation} from '@react-navigation/native';
 
-const ScreenAddUpdate = (props) => {
+const ScreenUpdate = (props) => {
   const navigation = useNavigation();
   const [data, setData] = useState(props.route.params);
   const [choose, setChoose] = useState(data.BILL_KIND_CD);
   const [mode, setMode] = useState('date');
+  const [date, setDate] = useState(data.USE_YMD);
   const [show, setShow] = useState(false);
-  const [date, setDate] = useState(new Date(data.USE_YMD));
+
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
     setShow(Platform.OS === 'ios');
-    if(event.type=="dismissed") minusDate(currentDate);
+    // if(event.type=="dismissed") minusDate(currentDate);
     setDate(currentDate);
     setData({...data, 'USE_YMD': convertDateToDBDate(currentDate)});
   };
+  const initDay=()=>{
+    let date=data.USE_YMD;
+    let arrDay = date.toString().substring(0, 10).split('-');
+    return new Date(parseInt(arrDay[0]),parseInt(arrDay[1])-1,parseInt(arrDay[2]));
+  }
+  const returnDate=(date)=>{
+    date.setDate(date.getDate());
+    return date;
+  }
   const plusDate=(date)=>{
     date.setDate(date.getDate()+1);
     return date;
@@ -53,8 +63,8 @@ const ScreenAddUpdate = (props) => {
   };
   const convertDateToDBDate=(date)=>{
     let d = new Date(date);
-    return ( d.getUTCFullYear()+ "-"+
-    (parseInt(d.getUTCMonth()) + 1).toString().padStart(2, '0') +
+    return ( d.getFullYear()+ "-"+
+    (parseInt(d.getMonth()) + 1).toString().padStart(2, '0') +
     '-' +d.getDate().toString().padStart(2, '0')+" 00:00:00"
     );
   }
@@ -107,13 +117,13 @@ const ScreenAddUpdate = (props) => {
       <Header>
         <Left>
           <Button transparent onPress={() => navigation.goBack()}>
-            <Icon type="AntDesign" name="arrowleft" />
+            <Icon type="AntDesign" name="left" />
           </Button>
         </Left>
         <Body>
-          <Title>Sửa thông tin hóa đơn</Title>
+          <Title>Sửa phát hành hóa đơn</Title>
         </Body>
-        {/* <Right /> */}
+        
       </Header>
       <Content padder>
         <Form>
@@ -166,12 +176,14 @@ const ScreenAddUpdate = (props) => {
             <Label>Số lượng</Label>
             <Input
               value={String(data.FROM_NUM)}
+              placeholder="Từ"
               onChangeText={(e) => {
                 onInputChange(e, 'FROM_NUM');
               }}
             />
             <Input
               value={String(data.TO_NUM)}
+              placeholder="Đến"
               onChangeText={(e) => {
                 onInputChange(e, 'TO_NUM');
               }}
@@ -182,17 +194,16 @@ const ScreenAddUpdate = (props) => {
             <Input
               value={formatDate(data.USE_YMD)}
               placeholder="DD/MM/YYYY"
-              onFocus={showDatepicker}
+              onTouchStart={showDatepicker}
             />
           </Item>
           {show && (
             <DateTimePicker
               testID="dateTimePicker"
-              value={plusDate(date)}
+              value={plusDate(initDay(date))}
               mode={mode}
               display="default"
               onChange={onChange}
-              shouldCloseOnSelect={true}
             />
           )}
           <Item stackedLabel>
@@ -214,7 +225,7 @@ const ScreenAddUpdate = (props) => {
             justifyContent: 'center',
             position: 'absolute',
             top: 0,
-            backgroundColor: 'green',
+            backgroundColor: '#00b386',
             width: '100%',
           }}
           onPress={() => {
@@ -228,4 +239,4 @@ const ScreenAddUpdate = (props) => {
     </Container>
   );
 };
-export default ScreenAddUpdate;
+export default ScreenUpdate;
