@@ -21,6 +21,8 @@ import ScreenProfile from './screens/ScreenProfile/ScreenProfile';
 import ScreenSetting from './screens/ScreenSetting/ScreenSetting';
 import ScreenBillInfoEInvoice from './screens/ScreenBillInfoEInvoice/ScreenBillInfoEInvoice';
 import ScreenEInvoiceTemplateInput from "./screens/ScreenEInvoiceTemplateInput/ScreenEInvoiceTemplateInput";
+import DetailEInvoiceTemplateInput from "./screens/ScreenEInvoiceTemplateInput/includes/DetailEInvoiceTemplateInput";
+
 import AsyncStorage from '@react-native-community/async-storage';
 
 import { logout } from "./redux/actions/userAction";
@@ -47,7 +49,10 @@ const Main = (props) => {
                     drawerContent={(props) => <DrawerContent {...props} />}>
                     <Drawer.Screen name="HomeDrawer" component={ScreenMainTab} />
                     <Drawer.Screen name="ScreenBillInfoEInvoice" component={ScreenBillInfoEInvoice} />
+                    {/* L-F */}
                     <Drawer.Screen name="ScreenEInvoiceTemplateInput" component={ScreenEInvoiceTemplateInput} />
+                    <Drawer.Screen name="DetailEInvoiceTemplateInput" component={DetailEInvoiceTemplateInput} />
+                    {/* L-F */}
                     <Drawer.Screen name="ScreenSetting" component={ScreenSetting} />
                     <Drawer.Screen name="ScreenProfile" component={ScreenProfile} />
                 </Drawer.Navigator>

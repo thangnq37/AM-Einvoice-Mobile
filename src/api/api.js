@@ -6,8 +6,12 @@ const api = {
         getBillInfo: 'BillInfoEinvoice/getBillInfo',
         getBillCount: 'BillInfoEinvoice/getBillCount',
     },
-    formOfInvoices: "EinvoiceTemplateInput",
-
+    EInvoiceTemplateInput: {
+        getAll: "EinvoiceTemplateInput/getAll",
+        getByID: "EinvoiceTemplateInput/getByID",
+        getComboBox: "EinvoiceTemplateInput/getCombobox",
+        getReportTemplate: "EinvoiceTemplateInput/getReportTemplate",
+    }
 };
 export default api;
 
