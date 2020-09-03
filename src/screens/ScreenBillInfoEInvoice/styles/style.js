@@ -5,6 +5,7 @@
 */
 import {StyleSheet} from "react-native"
 const styles = StyleSheet.create({
+    
     ListItem:{
         backgroundColor:"#ffffff"
     },
@@ -90,7 +91,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         position: 'absolute',
         top: 0,
-        width: 75,
+        width: 150,
     },
 
     backRightBtnRight: {
@@ -104,7 +105,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         position: 'absolute',
         top: 0,
-        width: 75,
+        width: 150,
     },
     backLeftBtnLeft: {
         backgroundColor: 'green',

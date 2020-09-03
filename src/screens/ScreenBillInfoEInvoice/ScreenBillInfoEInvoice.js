@@ -5,8 +5,11 @@
 */
 import React ,{useState,useRef} from 'react';
 import ContentLoader,  {Instagram,BulletList, Facebook } from 'react-content-loader/native'
-import { StyleSheet,TouchableOpacity, StatusBar,useWindowDimensions ,FlatList } from 'react-native';
+import { Dimensions, StyleSheet,TouchableOpacity, StatusBar,useWindowDimensions ,FlatList } from 'react-native';
+import SearchInput, { createFilter } from 'react-native-search-filter';
 import { 
+    Card,
+    CardItem,
     Icon,
     Container,
     Header,
@@ -28,42 +31,71 @@ import {
 import { SwipeListView } from 'react-native-swipe-list-view';
 import { useNavigation } from '@react-navigation/native';
 import ModalSearch from './includes/ModalSearch';
+import ModalSort from './includes/ModalSort';
 import ListBillItem from './includes/ListBillItem';
 import Modal, { ModalContent ,SlideAnimation,ModalTitle} from 'react-native-modals';
 import styles from './styles/style';
 import { connect } from "react-redux";
-import {getBillCount,getAll,searchAll} from './../../redux/actions/billInfoEInvoiceAction';
+import {
+    getBillCount,
+    getBillData,
+    searchData,
+    sortData
+} from './../../redux/actions/billInfoEInvoiceAction';
 const ScreenBillInfoEInvoice = (props) => {
+    const dim = useWindowDimensions();
+    console.log(dim);
+    const [bodySearch,setDateBegin] = useState({
+        DateBegin:'20200101',
+        DateEnd:'20201231',
+        DCWayCode:'ALL'
+    });
+    const myRefSort = useRef();
+    const myRefSearch = useRef();
     const navigation = useNavigation();
     const width = useWindowDimensions().width;
     const [modalShowCountBill,setModalShowCountBill] = useState(false);
     const [showInputSeach,setShowInputSeach] = useState(true);
-    const childRef = useRef();
+    const [textSearch,setTextSearch] = useState('');
+    // Show from input search
+    _showInputSearch = () =>{
+        setShowInputSeach(!showInputSeach);
+        props.searchData(props.billDataDefault,'');
+    }
+    //  Show modal bill count 
     _showBillCount=()=>{
         setModalShowCountBill(!modalShowCountBill);
     }
-    _showModalSearch= () => {
-        if(childRef.current) {
-            alert();
-            childRef.current._toggleModal();
-        }else{
-            alert();
-        }
+    // Sort data
+    _sortData = (key,order) => {
+        props.sortData(props.billData==null?props.billDataDefault:props.billData,key,order);
     }
+    _onSearchModel =(DateBegin,DateEnd)=>{
+        const bodySearch={
+            DateBegin,
+            DateEnd,
+            DCWayCode:'ALL'
+        }
+        console.log(bodySearch);
+        props.getBillCount();
+        props.getBillData(bodySearch);
+    }
+    // On Refresh
     _onRefresh = () =>{
         props.getBillCount();
-        props.getAll('20200101','20201231','ALL');
+        props.getBillData(bodySearch);
     }
-    _showInputSearch = () =>{
-        setShowInputSeach(!showInputSeach);
+    // on change text search input
+    _onChangeSeach = (text) =>{
+        setTextSearch(text);
+        props.searchData(props.billDataDefault,text);
     }
-    _onChangeTextSearch = (keySearch) =>{
-        props.searchAll(props.getAllData,keySearch);
+    _goBackHome=()=>{
+        navigation.goBack();
     }
     React.useEffect(()=>{
-        props.getBillCount();
-        props.getAll('20200101','20201231','ALL');
-    },[]);  
+        _onRefresh();
+    },[]);
     return (
         <Container>
             {showInputSeach ? (
@@ -77,22 +109,25 @@ const ScreenBillInfoEInvoice = (props) => {
                     <Title>QUAN LÝ HÓA ĐƠN</Title>
                 </Body>
                 <Right>
-                    
                     <Button transparent  onPress={()=>_showInputSearch()} >
                         <Icon style={styles.iconSearch} type="FontAwesome"   name="search" />
                     </Button>
-                    <Button transparent onPress={()=>_showModalSearch()}>
-                        <Icon style={styles.colorIconEllipsis}  type="FontAwesome" name='ellipsis-v'  />
+                    <Button transparent onPress={()=>myRefSort.current._toggleModalSort()}>
+                        <Icon style={styles.colorIconEllipsis}  type="MaterialCommunityIcons" name='sort'  />
+                    </Button>
+                    
+                    <Button transparent onPress={()=>myRefSearch.current._toggleModalSearch()}>
+                        <Icon style={styles.colorIconEllipsis}  type="FontAwesome" name='gears'  />
                     </Button>
                 </Right>
             </Header >
             ):(
-                <Header style={styles.header} searchBar rounded>
-                    <Item>
-                        <Icon type="FontAwesome"   name="search" />
-                        <Input onChangeText={(keySearch) => {_onChangeTextSearch(keySearch) }}  placeholder="Tìm kiếm" />
-                        <Icon style={styles.ionClose} type="FontAwesome" onPress={()=>_showInputSearch()}  name="close" />
-                    </Item>
+                <Header  searchBar rounded>
+                     <Item>
+                         <Icon style={styles.ionClose} type="FontAwesome" onPress={()=>_showInputSearch()}  name="close" />
+                         <Input onChangeText={(text) => {_onChangeSeach(text) }}  placeholder="Tìm kiếm" />
+                         <Icon type="FontAwesome"   name="search" />
+                     </Item>
                 </Header>
             )}
             {props.loading?
@@ -107,8 +142,9 @@ const ScreenBillInfoEInvoice = (props) => {
                    <Facebook />
             </Content>: 
             <Content>
+                {props.iSearch==false?
                 <SwipeListView
-                    data={props.getAllData}
+                    data={props.billData==null?props.billDataDefault:props.billData}
                     renderItem={ (data, rowMap) => (
                         <ListBillItem 
                                      CUSTOMER_NM={data.item.CUSTOMER_NM}
@@ -116,6 +152,7 @@ const ScreenBillInfoEInvoice = (props) => {
                                      BILL_SYMBOL={data.item.BILL_SYMBOL}
                                      BILL_YMD={data.item.BILL_YMD}
                                      BILL_NO={data.item.BILL_NO}
+                                     VAT = {data.item.VAT}
                                      CURRENCY_TYPE={data.item.CURRENCY_TYPE}
                                      COMPANY_TAX_CD={data.item.COMPANY_TAX_CD}
                                      PAYMENT_AMOUNT_AND_FC={data.item.PAYMENT_AMOUNT_AND_FC}                    
@@ -133,14 +170,20 @@ const ScreenBillInfoEInvoice = (props) => {
                         </View>
                         
                     )}
-                    leftOpenValue={75}
-                    rightOpenValue={-75}
+                    leftOpenValue={150}
+                    rightOpenValue={-150}
                 />
+                :
+                <Button block danger>
+                    <Text>Không tìm thấy dữ liệu với từ khóa : {textSearch}</Text>
+                </Button>
+                }
+     
             </Content>
             }
             <Footer >
                 <FooterTab style={styles.footer}>
-                    <Button  onPress={() =>navigation.goBack()}  vertical>
+                    <Button  onPress={() =>_goBackHome()}  vertical>
                     <Icon style={styles.icon}  type="Ionicons" name="ios-arrow-back" />
                     <Text style={styles.textIconFooter}>Quay lại</Text>
                     </Button>
@@ -149,17 +192,15 @@ const ScreenBillInfoEInvoice = (props) => {
                     <Icon style={styles.icon} type="FontAwesome"   name="file-text" />
                     <Text style={styles.textIconFooter}>Hóa đơn</Text>
                     </Button>
-                    <Button vertical>
-                    <Icon style={styles.icon} type="MaterialIcons" name="add-box" />
-                    <Text style={styles.textIconFooter}>Thêm mới</Text>
-                    </Button>
+
                     <Button vertical onPress={()=>_onRefresh()}>
                     <Icon style={styles.colorIconRefresh}  type="FontAwesome" name="refresh" />
                     <Text style={styles.textIconFooter}>Làm mới</Text>
                     </Button>
                     </FooterTab>
             </Footer>
-            <ModalSearch ref={childRef} ></ModalSearch>
+            <ModalSearch  onPress={(DateBegin,DateEnd)=>_onSearchModel(DateBegin,DateEnd)} ref={myRefSearch} />
+            <ModalSort onPress={(key,order)=>_sortData(key,order)} ref={myRefSort}/>
             <Modal
                 width={width-30}
                 visible={modalShowCountBill}
@@ -181,15 +222,18 @@ const ScreenBillInfoEInvoice = (props) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         getBillCount: ()=> dispatch(getBillCount()),
-        getAll:(dateBegin, dateEnd, DCWayCode)=>dispatch(getAll(dateBegin, dateEnd, DCWayCode)),
-        searchAll:(getAllData,keySearch)=>searchAll(getAllData,keySearch)
+        getBillData:(params)=>dispatch(getBillData(params)),
+        sortData:(data,key,order)=>dispatch(sortData(data,key,order)),
+        searchData:(data,query)=>dispatch(searchData(data,query)),
     }
 }
 function mapStateToProps(state) {
     return {
-        getAllData: state.billInfoEInvoiceReducer.getAllData,
+        billDataDefault: state.billInfoEInvoiceReducer.billDataDefault,
+        billData: state.billInfoEInvoiceReducer.billData,
         billCount: state.billInfoEInvoiceReducer.billCount,
         loading: state.billInfoEInvoiceReducer.loading,
-    };
-  }
+        iSearch:state.billInfoEInvoiceReducer.iSearch,
+    }    
+}
 export default connect(mapStateToProps, mapDispatchToProps)(ScreenBillInfoEInvoice);

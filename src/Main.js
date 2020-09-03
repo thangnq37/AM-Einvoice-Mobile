@@ -23,23 +23,26 @@ import ScreenBillInfoEInvoice from './screens/ScreenBillInfoEInvoice/ScreenBillI
 import ScreenEInvoiceTemplateInput from "./screens/ScreenEInvoiceTemplateInput/ScreenEInvoiceTemplateInput";
 import DetailEInvoiceTemplateInput from "./screens/ScreenEInvoiceTemplateInput/includes/DetailEInvoiceTemplateInput";
 
+import FormOfInvoices from './screens/ScreenFormOfInvoices/ScreenFormOfInvoices';
+import ReleaseEInvoices from './screens/ScreenBillReleaseEInvoices/ScreenBillReleaseEInvoices';
+import ScreenAddUpdate from './screens/ScreenBillReleaseEInvoices/includes/ScreenAddUpdate';
 import AsyncStorage from '@react-native-community/async-storage';
 
-import { logout } from "./redux/actions/userAction";
+import { logout } from './redux/actions/userAction';
 // END
 const Drawer = createDrawerNavigator();
 const Main = (props) => {
     React.useEffect(() => {
         //Check if token is still useable
         const authenticate = async () => {
-            const asyncData = await AsyncStorage.getItem("userData");
+            const asyncData = await AsyncStorage.getItem('userData');
             const transformedData = JSON.parse(asyncData);
             const { expirationTimer } = transformedData;
             const date = new Date().getTime();
             if (expirationTimer <= parseInt(date)) {
                 props.logoutAction();
             }
-        }
+        };
         authenticate();
     }, []);
     return (
@@ -48,7 +51,24 @@ const Main = (props) => {
                 <Drawer.Navigator
                     drawerContent={(props) => <DrawerContent {...props} />}>
                     <Drawer.Screen name="HomeDrawer" component={ScreenMainTab} />
-                    <Drawer.Screen name="ScreenBillInfoEInvoice" component={ScreenBillInfoEInvoice} />
+                    {/* 069 QUOCTHAI BILL RELEASE SCREEN*/}
+                    <Drawer.Screen
+                        name="ReleaseEInvoicesScreen"
+                        component={ReleaseEInvoices}
+                    />
+                    <Drawer.Screen
+                        name="AddUpdateReleaseEInvoicesScreen"
+                        component={ScreenAddUpdate}
+                    />
+                    {/* 069 */}
+                    <Drawer.Screen
+                        name="ScreenBillInfoEInvoice"
+                        component={ScreenBillInfoEInvoice}
+                    />
+                    <Drawer.Screen
+                        name="FormOfInvoicesScreen"
+                        component={FormOfInvoices}
+                    />
                     {/* L-F */}
                     <Drawer.Screen name="ScreenEInvoiceTemplateInput" component={ScreenEInvoiceTemplateInput} />
                     <Drawer.Screen name="DetailEInvoiceTemplateInput" component={DetailEInvoiceTemplateInput} />
@@ -64,12 +84,12 @@ const Main = (props) => {
 };
 function mapStateToProps(state) {
     return {
-        userToken: state.user.accessToken
-    }
+        userToken: state.user.accessToken,
+    };
 }
 function mapDispatchToProps(dispatch) {
     return {
-        logoutAction: () => dispatch(logout())
-    }
+        logoutAction: () => dispatch(logout()),
+    };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Main);

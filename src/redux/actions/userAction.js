@@ -3,52 +3,56 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { userTypes } from "../types/userType";
 
 import api from '../../api/api';
-
 let _timer;
-
 export const login = (username, password, companyID) => {
     return async dispatch => {
-        const config = {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        };
+        dispatch({ type: userTypes.AUTHENTICATE,loading:true});
+        const config = { headers: {'Content-Type': 'application/json'}};
         const body = { username, password, companyID, Lag: "VIET" };
         try {
-            const result = await axios.post(api.root + api.login, JSON.stringify(body), config);
-            console.log(result);
-            dispatch(authenticate(result.data.companyInfo, result.data.access_token, result.data.expires_in));
-            dispatch(saveDataToStorage(result.data.companyInfo, result.data.access_token, result.data.expires_in));
+            axios.post(api.root + api.login, JSON.stringify(body),config)
+            .then(function (response) {
+              dispatch(authenticate(response.data));
+              dispatch(saveDataToStorage(response.data));
+            })
+            .catch(function (error) {
+              dispatch({
+                          type:userTypes.AUTHENTICATE,
+                          companyInfo: null, 
+                          accessToken: null,
+                          loading:false,
+                          messages:error.response.data.messages
+              });
+            });
         } catch (error) {
             throw new Error("An Error has occurred!");
         }
     }
 }
-export const authenticate = (userInfo, accessToken, expirationTime) => {
+export const authenticate = (data) => {
     return async dispatch => {
-        console.log("authenticate");
-        dispatch(setLogoutTimer(expirationTime));
-        dispatch({ type: userTypes.AUTHENTICATE, userInfo: userInfo, accessToken: accessToken });
+        dispatch(setLogoutTimer(data.expires_in));
+        dispatch({ 
+            type: userTypes.AUTHENTICATE, 
+            companyInfo: data.companyInfo, 
+            accessToken: data.access_token,
+            loading:false,
+            messages:data.messages
+        });
     }
 };
-export const authenticateAction = (userInfo, accessToken) => {
-    return { type: userTypes.AUTHENTICATE, userInfo: userInfo, accessToken: accessToken };
-}
 export const logout = () => {
     return async dispatch => {
-        console.log("logout");
         clearLogoutTimer();
         await AsyncStorage.removeItem('userData');
-        dispatch({ type: userTypes.LOGOUT });
+        dispatch({ type: userTypes.LOGOUT, loading:false });
     }
 };
-
 export const clearLogoutTimer = () => {
     if (_timer) {
         clearTimeout(_timer);
     }
 };
-
 const setLogoutTimer = (expirationTime) => {
     return async dispatch => {
         console.log("setLogoutTimer");
@@ -58,13 +62,14 @@ const setLogoutTimer = (expirationTime) => {
         }, expirationTime*1000);
     }
 };
-export const saveDataToStorage = async (companyInfo, accessToken, expirationDate) => {
+export const saveDataToStorage = async (data) => {
     try {
-        console.log("saveDataToStorage");
-        const expirationTimer = new Date(new Date().getTime() + parseInt(expirationDate) * 1000);
-        await AsyncStorage.setItem('userData', JSON.stringify({ companyInfo: companyInfo, accessToken: accessToken, expirationTimer: expirationTimer.toISOString() }));
+        const expirationTimer = new Date(new Date().getTime() + parseInt(data.expires_in) * 1000);
+        await AsyncStorage.setItem('userData', JSON.stringify({ 
+            companyInfo: data.companyInfo, 
+            accessToken: data.access_token, 
+            expirationTimer: expirationTimer.toISOString() }));
     } catch (error) {
         throw new Error("Something's wrong with AsyncStorage in action!");
     }
-
 };

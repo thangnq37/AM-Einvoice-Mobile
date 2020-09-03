@@ -3,26 +3,38 @@
  * ID : 073
  * Email : 073@amnote.com.vn
 */
-import React ,{useState} from 'react';
-import {useWindowDimensions} from 'react-native';
-import Modal, { ModalContent,ModalTitle,SlideAnimation,ModalFooter,ModalButton,modalStyle} from 'react-native-modals';
-import DatePicker from 'react-native-datepicker';
+import React, { useState } from 'react';
+import { useWindowDimensions } from 'react-native';
+import DateTimePicker from '@react-native-community/datetimepicker';
+import Modal, { ModalContent, ModalTitle, SlideAnimation, ModalFooter, ModalButton, modalStyle } from 'react-native-modals';
+import { Content, View, CardItem, Item, ListItem, Button, Left, List, Text, Right, Body, Title, Card, Label, Form, DatePicker } from "native-base"
 import styles from '../styles/style';
-export default function ModalBoxSearch({ navigation }) {
+const { forwardRef, useRef, useImperativeHandle } = React;
+const ModalSearch = forwardRef((props, ref) => {
     const width = useWindowDimensions().width;
-    const lang = 'vi';
     const [modalOpen, setModalOpen] = useState(false);
-    const [dateBegin, setDateBegin] = useState('2020-01-01');
-    const [dateEnd, setDateEnd] = useState('2020-01-30');
-    const _toggleModal = () => {
+    const [DateBegin, setDateBegin] = useState(new Date());
+    const [DateEnd, setDateEnd] = useState(new Date());
+    const _onChangeDateBegin = (value) => {
+        setDateBegin(value);
+    }
+    const _onChangeDateEnd = (value) => {
+        setDateEnd(value);
+    }
+    const _toggleModalSearch = () => {
         setModalOpen(!modalOpen);
     }
+    useImperativeHandle(ref, () => ({
+        _toggleModalSearch() {
+            setModalOpen(!modalOpen);
+        }
+    }));
     return (
         <Modal
-            width={width - 30}
+            width={width - 100}
             visible={modalOpen}
             onTouchOutside={() => {
-                _toggleModal();
+                _toggleModalSearch();
             }}
             modalTitle={<ModalTitle hasTitleBar={true} title="Tìm kiếm" />}
             modalAnimation={new SlideAnimation({
@@ -34,74 +46,25 @@ export default function ModalBoxSearch({ navigation }) {
                     <ModalButton
                         style={{ rolor: 'red' }}
                         text="Hủy"
-                        onPress={() => { _toggleModal() }}
+                        onPress={() => { _toggleModalSearch() }}
                     />
                     <ModalButton
                         text="Tìm kiếm"
-                        onPress={() => { }}
+                        onPress={(event) => { props.onPress(DateBegin, DateEnd), _toggleModalSearch() }}
                     />
                 </ModalFooter>
             }
         >
             <ModalContent>
-                <DatePicker
-                    style={{
-                        justifyContent: "center",
-                        alignItems: "center",
-                        width: width - 75,
-                        marginVertical: 3,
-                        paddingVertical: 3
+                <DateTimePicker
+                    testID="dateTimePicker"
 
-                    }}
-                    date={dateBegin}
-                    mode="date"
-                    placeholder="Chọn ngày"
-                    format="DD-MM-YYYY"
-                    confirmBtnText="Xác nhận"
-                    cancelBtnText="Hủy"
-                    customStyles={{
-                        dateIcon: {
-                            position: 'absolute',
-                            left: 0,
-                            top: 4,
-                            marginLeft: 0
-                        },
-                        dateInput: {
-                            marginLeft: 36
-                        }
-                    }}
-                // onDateChange={(date) => {this.setState({date: date})}} 
+                    display="default"
+                // onChange={onChange}
                 />
-                <DatePicker
-                    style={{
-                        width: width - 75,
-                        justifyContent: "center",
-                        alignItems: "center",
-                        marginVertical: 3,
-                        paddingVertical: 3
 
-                    }}
-                    date={dateEnd}
-                    mode="date"
-                    placeholder="Chọn ngày"
-                    format="DD-MM-YYYY"
-                    confirmBtnText="Xác nhận"
-                    cancelBtnText="Hủy"
-                    customStyles={{
-                        dateIcon: {
-                            position: 'absolute',
-                            left: 0,
-                            top: 4,
-                            marginLeft: 0
-                        },
-                        dateInput: {
-                            marginLeft: 36,
-                            // marginVertical : 36
-                        }
-                    }}
-                // onDateChange={(date) => {this.setState({date: date})}} 
-                />
             </ModalContent>
         </Modal>
     )
-}
+});
+export default ModalSearch;

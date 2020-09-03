@@ -5,24 +5,37 @@
 */
 import { billInfoEInvoiceType } from "../types/billInfoEInvoiceType";
 const INITIAL_STATE = {
-    getAllData: null,
+    billDataDefault:null,
+    billData: null,
     billCount: null,
-    loading:true
+    loading:true,
+    iSearch:false,
 };
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case billInfoEInvoiceType.GET_ALL:
             return {
                 ...state,
-                getAllData: action.getAllData,
+                billDataDefault: action.billDataDefault,
+                billData: action.billData,
                 loading: action.loading,
-               
+                iSearch:action.iSearch,
             };
+        case billInfoEInvoiceType.SEARCH_DATA:
+            return{
+                ...state,
+                billData: action.billData,
+                iSearch:action.iSearch,
+            }
+        case billInfoEInvoiceType.SORT_DATA:
+            return{
+                ...state,
+                billData: action.billData,
+            }
         case billInfoEInvoiceType.GET_BILL_COUNT:
             return {
                 ...state,
                 billCount: action.billCount,
-               
             };
         default:
             return state;

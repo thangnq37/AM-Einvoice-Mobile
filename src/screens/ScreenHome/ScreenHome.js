@@ -1,24 +1,17 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet, StatusBar } from 'react-native';
-import { useTheme } from '@react-navigation/native';
+import { Container, Header } from 'native-base';
+import { Col, Row, Grid } from 'react-native-easy-grid';
 
 const ScreenHome = ({ navigation }) => {
     return (
-        <View style={styles.container}>
-            <StatusBar barStyle="light-content" />
-            <Text style={{ color: "red" }}>Home Screen</Text>
-            <Button
-                title="HELLO HOME"
-                onPress={() => alert('HOME')}
-            />
-        </View>
+        <Container>
+        <Header />
+        <Grid>
+          <Col style={{ backgroundColor: '#635DB7', height: 200 }}></Col>
+          <Col style={{ backgroundColor: '#00CE9F', height: 200 }}></Col>
+        </Grid>
+      </Container>
     );
 };
 export default ScreenHome;
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-});
+

@@ -5,7 +5,7 @@ import {
     TouchableWithoutFeedback,
     Keyboard,
     View,
-    Text,
+    
     TouchableOpacity,
     Image,
     TextInput,
@@ -15,18 +15,10 @@ import {
     Alert,
     ActivityIndicator
 } from 'react-native';
+import { Container, Header, Content,Button, Spinner,Text } from 'native-base';
 import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
 import * as Animatable from 'react-native-animatable';
-import LinearGradient from 'react-native-linear-gradient';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import Feather from 'react-native-vector-icons/Feather';
-import { useTheme } from 'react-native-paper';
 import { login } from "../../redux//actions/userAction";
-import Users from '../../model/users';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
-import { userTypes } from '../../redux/types/userType';
-
 const ScreenAuth = (props, { navigation }) => {
     const [error, setError] = useState("");
     const [data, setData] = React.useState({
@@ -80,16 +72,7 @@ const ScreenAuth = (props, { navigation }) => {
             });
         }
     }
-    // useEffect(() => {
-    //     if (error) {
-    //         // Alert.alert("An error occurred!", error, [{ text: "OK" }]);
-    //     }
-    // }, [error]);
-    // Function login 
     const loginHandle = async (companyID, username, password) => {
-        const foundUser = Users.filter(item => {
-            return companyID == item.companyID && username == item.username && password == item.password;
-        });
         if (companyID.length == 0) {
             setData({
                 ...data,
@@ -111,12 +94,6 @@ const ScreenAuth = (props, { navigation }) => {
             });
             return;
         }
-        if (foundUser.length == 0) {
-            // Alert.alert('Thông báo', 'Thông tin đăng nhập không đúng !', [
-            //     { text: 'Đóng' }
-            // ]);
-            return;
-        }
         setError(null);
         try {
             await props.loginAction(username, password, companyID);
@@ -125,7 +102,6 @@ const ScreenAuth = (props, { navigation }) => {
         }
     }
     return (
-
         <SafeAreaView style={styles.Container}>
             <KeyboardAvoidingView style={styles.Container}>
                 <TouchableWithoutFeedback style={styles.Container} onPress={Keyboard.dismiss}>
@@ -178,9 +154,10 @@ const ScreenAuth = (props, { navigation }) => {
                                     <Text style={styles.errorMsg}>Mật khẩu không được rỗng.</Text>
                                 </Animatable.View>
                             }
-                            <TouchableOpacity style={styles.button} onPress={() => { loginHandle(data.companyID, data.username, data.password) }}>
-                                <Text style={styles.buttonText}>Login  </Text>
-                            </TouchableOpacity>
+                            <Button onPress={() => { loginHandle(data.companyID, data.username, data.password) }} block dark>
+                                    {props.loading?<Spinner color='red' />:<></>}
+                                    <Text> Đăng nhập </Text>
+                             </Button>
                         </View>
                         <View style={styles.footer}></View>
                     </View>
@@ -194,8 +171,12 @@ const mapDispatchToProps = (dispatch) => {
         loginAction: (username, password, companyID) => dispatch(login(username, password, companyID))
     }
 }
-export default connect(null, mapDispatchToProps)(ScreenAuth);
-
+function mapStateToProps(state) {
+    return {
+        loading: state.user.loading,
+    }    
+}
+export default connect(mapStateToProps, mapDispatchToProps)(ScreenAuth);
 const styles = StyleSheet.create({
     Container: {
         flexGrow: 1,
