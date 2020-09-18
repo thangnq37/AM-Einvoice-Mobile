@@ -4,13 +4,13 @@ const styles = StyleSheet.create({
         backgroundColor: "#ffffff"
     },
     header: {
-        backgroundColor: '#28333b'
+        backgroundColor: '#607a8d'
     },
     footer: {
-        backgroundColor: '#28333b'
+        backgroundColor: '#607a8d'
     },
     colorIconRefresh: {
-        color: '#dca008'
+        color: '#9eff08'
     },
     colorIconEllipsis: {
         color: '#ffffff'
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     },
 
     backRightBtnRight: {
-        backgroundColor: 'red',
+        backgroundColor: '#640000',
         right: 0,
     },
     ////////////// LEFT //////////////

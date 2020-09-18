@@ -1,10 +1,12 @@
 import { eInvoiceTemplateInputTypes } from "../types/eInvoiceTemplateInputType";
 
 const INITIAL_STATE = {
+    templatesAllDefault: null,
     templatesAll: null,
     templateByID: null,
     reportTemplate: null,
-    loading: true
+    loading: true,
+    isSearch: false,
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -12,7 +14,7 @@ export default (state = INITIAL_STATE, action) => {
         case eInvoiceTemplateInputTypes.GET_ALL_EINVOICE_TEMPLATE:
             return {
                 ...state,
-                templatesAll: action.templatesAll,
+                templatesAllDefault: action.templatesAllDefault,
                 loading: action.loading
             };
         case eInvoiceTemplateInputTypes.GET_BY_ID_EINVOICE_TEMPLATE:
@@ -26,6 +28,11 @@ export default (state = INITIAL_STATE, action) => {
                 ...state,
                 reportTemplate: action.reportTemplate,
                 loading: action.loading
+            };
+        case eInvoiceTemplateInputTypes.DATA_SEARCH:
+            return {
+                ...state,
+                templatesAll: action.templatesAll
             };
         default:
             return state;

@@ -1,71 +1,129 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from "react-redux";
-import { Facebook } from 'react-content-loader/native';
-import { ScrollView, Dimensions } from "react-native";
-import { Content } from 'native-base';
-import { WebView } from "react-native-webview";
-import HTML from "react-native-render-html";
-import { getByID_EInvoiceTemplate } from "../../../redux/actions/eInvoiceTemplateInputAction";
+import { ScrollView, ActivityIndicator } from "react-native";
+import { Container, Input, Card, CardItem, Header, Content, Left, Right, Body, Button, Icon, Title, Label, Item, Textarea, Text } from 'native-base';
+import { useNavigation } from '@react-navigation/native';
+import { updateEInvoiceTemplate } from "../../../redux/actions/eInvoiceTemplateInputAction";
 
 const DetailEInvoiceTemplateInput = (props) => {
-    const [templateID, setTemplateID] = React.useState("");
-    React.useEffect(() => {
-        async function getTemplateByID() {
-            await props.getByID_EInvoiceTemplate(props.route.params.TEMPLATE_CD, props.route.params.FORM_NM, props.route.params.LOGO_NM, props.route.params.BACKGROUND_NM);
-        }
-        getTemplateByID();
-    }, []);
-    const htmlContent = `
-        <!DOCTYPE html>
-            <html>
-                <head>
-                <meta charset="utf-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1">
-                    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-                </head>
-                <body>
-                    <div id="baseDiv">
-                        <iframe srcdoc ="${props.eInvoiceTemplateID}"  height="500" referrerpolicy="unsafe-url" frameborder="0" allow="encrypted-media" allowfullscreen></iframe>
-                    </div>
-                </body>
-            </html>`;
+    const navigation = useNavigation();
+    const [data, setData] = useState({});
+    useEffect(() => {
+        console.log("props in onInputChange", props);
+        setData(props.TEMPLATE_NAME);
+    }, [props.TEMPLATE_NAME]);
+    const onInputChange = (value, colName) => {
+        setData({ ...data, [colName]: value });
+        console.log("data in onInputChange", data);
+    };
+    const onSubmit = () => {
+        console.log("props", props);
+        props.updateEInvoiceTemplate(data, props.TEMPLATE_CD, props.FORM_NM);
+    }
     return (
         <ScrollView style={{ width: "100%", flex: 1 }}>
-            {props.loading ? (
-                <>
-                    <Content style={{ padding: 25 }}>
-                        <Facebook />
-                        <Facebook />
-                        <Facebook />
-                        <Facebook />
-                        <Facebook />
-                        <Facebook />
-                        <Facebook />
-                        <Facebook />
-                    </Content>
-                </>
-            ) :
-                <>
-                    <HTML
-                        html={htmlContent}
-                        staticContentMaxWidth={Dimensions.get("window").width}
-                    />
-                </>
-            }
-        </ScrollView>
+            <Container>
+                <Header>
+                    <Left>
+                        <Button transparent onPress={() => navigation.navigate("ScreenEInvoiceTemplateInput")}>
+                            <Icon type="AntDesign" name="left" />
+                        </Button>
+                    </Left>
+
+                    <Body>
+                        <Title>Thêm phát hành hóa đơn</Title>
+                    </Body>
+                    <Right>
+                        <Button transparent onPress={() => onSubmit()}>
+                            <Icon type="FontAwesome" name="save" />
+                        </Button>
+                    </Right>
+                </Header>
+                <Content padder>
+                    {props.loading ? (<><ActivityIndicator /></>) : (
+                        <>
+                            <Card>
+                                <CardItem header bordered>
+                                    <Text>Thông tin công ty</Text>
+                                </CardItem>
+                                <Item stackedLabel>
+                                    <Label>Mã số thuế</Label>
+                                    <Input value={props.companyInfo.TAX_CD} editable={false} />
+                                </Item>
+                                <Item stackedLabel>
+                                    <Label>Tên công ty</Label>
+                                    <Input value={props.companyInfo.COMPANY_NM} editable={false} />
+                                </Item>
+                                <Item stackedLabel>
+                                    <Label>Địa chỉ</Label>
+                                    <Textarea rowSpan={3} value={props.companyInfo.ADDRESS} editable={false} />
+                                </Item>
+                                <Item stackedLabel>
+                                    <Label>Điện thoại</Label>
+                                    <Input value={props.companyInfo.TEL} editable={false} />
+                                </Item>
+                                <Item stackedLabel>
+                                    <Label>Fax</Label>
+                                    <Input value={props.companyInfo.FAX} editable={false} />
+                                </Item>
+                                <Item stackedLabel>
+                                    <Label>Số tài khoản</Label>
+                                    <Input value={props.companyInfo.ACCOUNT_NUM} editable={false} />
+                                </Item>
+                                <Item stackedLabel>
+                                    <Label>Tên ngân hàng</Label>
+                                    <Textarea rowSpan={3} value={props.companyInfo.BANK_NM} editable={false} />
+                                </Item>
+                            </Card>
+                            <Card>
+                                <CardItem header bordered>
+                                    <Text>Thông tin mẫu</Text>
+                                </CardItem>
+
+                                <Item stackedLabel>
+                                    <Label>Tên mẫu tiếng Việt</Label>
+                                    <Input
+                                        value={data.TEMPLATE_NM_VIET}
+                                        onChangeText={(e) => {
+                                            onInputChange(e, 'TEMPLATE_NM_VIET');
+                                        }}
+                                    />
+                                </Item>
+                                <Item stackedLabel>
+                                    <Label>Tên mẫu tiếng Anh</Label>
+                                    <Input
+                                        value={data.TEMPLATE_NM_ENG}
+                                        onChangeText={(value) => {
+                                            onInputChange(value, 'TEMPLATE_NM_ENG');
+                                        }}
+                                    />
+                                </Item>
+                                <Item stackedLabel>
+                                    <Label>Tên mẫu tiếng Hàn</Label>
+                                    <Input
+                                        value={data.TEMPLATE_NM_KOR}
+                                        onChangeText={(value) => {
+                                            onInputChange(value, 'TEMPLATE_NM_KOR');
+                                        }}
+                                    />
+                                </Item>
+                            </Card>
+                        </>)}
+
+                </Content>
+            </Container>
+        </ScrollView >
     );
 }
-
 const mapStateToProps = (state) => {
     return {
-        eInvoiceTemplateID: state.eInvoiceTemplateInput.templateByID,
+        companyInfo: state.user.companyInfo,
         loading: state.eInvoiceTemplateInput.loading
     }
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-        getByID_EInvoiceTemplate: (templateCD, formName, logoName, backgroundName) => dispatch(getByID_EInvoiceTemplate(templateCD, formName, logoName, backgroundName)),
+        updateEInvoiceTemplate: (data, TEMPLATE_CD, FORM_NM) => dispatch(updateEInvoiceTemplate(data, TEMPLATE_CD, FORM_NM)),
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(DetailEInvoiceTemplateInput);

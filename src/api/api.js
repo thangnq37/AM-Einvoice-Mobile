@@ -17,6 +17,7 @@ const api = {
         getAll: "EinvoiceTemplateInput/getAll",
         getByID: "EinvoiceTemplateInput/getByID",
         getComboBox: "EinvoiceTemplateInput/getCombobox",
+        update:"EinvoiceTemplateInput/update",
         getReportTemplate: "EinvoiceTemplateInput/getReportTemplate",
     }
 };

@@ -21,7 +21,8 @@ import ScreenProfile from './screens/ScreenProfile/ScreenProfile';
 import ScreenSetting from './screens/ScreenSetting/ScreenSetting';
 import ScreenBillInfoEInvoice from './screens/ScreenBillInfoEInvoice/ScreenBillInfoEInvoice';
 import ScreenEInvoiceTemplateInput from "./screens/ScreenEInvoiceTemplateInput/ScreenEInvoiceTemplateInput";
-import DetailEInvoiceTemplateInput from "./screens/ScreenEInvoiceTemplateInput/includes/DetailEInvoiceTemplateInput";
+// import DetailEInvoiceTemplateInput from "./screens/ScreenEInvoiceTemplateInput/includes/DetailEInvoiceTemplateInput";
+import TabEInvoiceTemplateInputDetail from "./screens/ScreenEInvoiceTemplateInput/TabEInvoiceTemplateInputDetail";
 
 import ReleaseEInvoices from './screens/ScreenBillReleaseEInvoices/ScreenBillReleaseEInvoices';
 import ScreenUpdate from './screens/ScreenBillReleaseEInvoices/includes/ScreenUpdate';
@@ -58,8 +59,12 @@ const Main = (props) => {
                         component={ReleaseEInvoices}
                     />
                     <Drawer.Screen
-                        name="AddUpdateReleaseEInvoicesScreen"
-                        component={ScreenAddUpdate}
+                        name="UpdateReleaseEInvoicesScreen"
+                        component={ScreenUpdate}
+                    />
+                    <Drawer.Screen
+                        name="AddReleaseEInvoicesScreen"
+                        component={ScreenAdd}
                     />
                     {/* 069 */}
                     <Drawer.Screen
@@ -68,7 +73,7 @@ const Main = (props) => {
                     />
                     {/* L-F */}
                     <Drawer.Screen name="ScreenEInvoiceTemplateInput" component={ScreenEInvoiceTemplateInput} />
-                    <Drawer.Screen name="DetailEInvoiceTemplateInput" component={DetailEInvoiceTemplateInput} />
+                    <Drawer.Screen name="TabEInvoiceTemplateInputDetail" component={TabEInvoiceTemplateInputDetail} />
                     {/* L-F */}
                     <Drawer.Screen name="ScreenSetting" component={ScreenSetting} />
                     <Drawer.Screen name="ScreenProfile" component={ScreenProfile} />
